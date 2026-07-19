@@ -1,0 +1,431 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  admin
+  teacher
+  parent
+}
+
+enum PhotoStatus {
+  pending
+  approved
+  rejected
+}
+
+enum HomeworkStatus {
+  assigned
+  submitted
+  graded
+}
+
+enum StickerAssignedBy {
+  ai
+  teacher
+  admin
+}
+
+enum AttendanceType {
+  check_in
+  check_out
+  absent
+}
+
+enum MealType {
+  breakfast
+  lunch
+  snack
+}
+
+enum BannerTarget {
+  all
+  teachers
+  parents
+}
+
+enum CalendarEventType {
+  holiday
+  vacation
+  event
+}
+
+enum LiveStreamStatus {
+  active
+  ended
+}
+
+enum NotificationTarget {
+  all
+  teachers
+  parents
+}
+
+model User {
+  id           Int      @id @default(autoincrement())
+  username     String   @unique @db.VarChar(50)
+  passwordHash String   @map("password_hash") @db.VarChar(255)
+  role         UserRole
+  name         String   @db.VarChar(100)
+  phone        String?  @db.VarChar(20)
+  isActive     Boolean  @default(true) @map("is_active")
+  createdAt    DateTime @default(now()) @map("created_at")
+
+  sessions      UserSession[]
+  teacher       Teacher?
+  parent        Parent?
+  notifications Notification[] @relation("NotificationSender")
+  photoApprovals PhotoApproval[]
+
+  @@map("users")
+}
+
+model UserSession {
+  id               Int      @id @default(autoincrement())
+  userId           Int      @map("user_id")
+  refreshTokenHash String   @map("refresh_token_hash") @db.VarChar(255)
+  expiresAt        DateTime @map("expires_at")
+  createdAt        DateTime @default(now()) @map("created_at")
+  isRevoked        Boolean  @default(false) @map("is_revoked")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("user_sessions")
+}
+
+model Student {
+  id        Int       @id @default(autoincrement())
+  name      String    @db.VarChar(100)
+  className String    @map("class_name") @db.VarChar(50)
+  birthDate DateTime? @map("birth_date") @db.Date
+  avatarUrl String?   @map("avatar_url") @db.VarChar(500)
+  isActive  Boolean   @default(true) @map("is_active")
+  createdAt DateTime  @default(now()) @map("created_at")
+
+  parentLinks    ParentStudent[]
+  teacherLinks   TeacherStudent[]
+  photos         Photo[]
+  homeworks      Homework[]
+  studentStickers StudentSticker[]
+  attendance     AttendanceRecord[]
+  meals          MealRecord[]
+
+  @@map("students")
+}
+
+model Teacher {
+  id        Int      @id @default(autoincrement())
+  userId    Int      @unique @map("user_id")
+  isActive  Boolean  @default(true) @map("is_active")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  user         User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  students     TeacherStudent[]
+  photos       Photo[]
+  homeworks    Homework[]
+  attendance   AttendanceRecord[]
+  conversations Conversation[]
+  liveStreams  LiveStream[]
+
+  @@map("teachers")
+}
+
+model Parent {
+  id        Int      @id @default(autoincrement())
+  userId    Int      @unique @map("user_id")
+  isActive  Boolean  @default(true) @map("is_active")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  user          User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  students      ParentStudent[]
+  conversations Conversation[]
+
+  @@map("parents")
+}
+
+model ParentStudent {
+  id        Int      @id @default(autoincrement())
+  parentId  Int      @map("parent_id")
+  studentId Int      @map("student_id")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  parent  Parent  @relation(fields: [parentId], references: [id], onDelete: Cascade)
+  student Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  @@unique([parentId, studentId])
+  @@map("parent_student")
+}
+
+model TeacherStudent {
+  id        Int      @id @default(autoincrement())
+  teacherId Int      @map("teacher_id")
+  studentId Int      @map("student_id")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  teacher Teacher @relation(fields: [teacherId], references: [id], onDelete: Cascade)
+  student Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  @@unique([teacherId, studentId])
+  @@map("teacher_student")
+}
+
+model Photo {
+  id          Int         @id @default(autoincrement())
+  teacherId   Int         @map("teacher_id")
+  studentId   Int         @map("student_id")
+  imageUrl    String      @map("image_url") @db.VarChar(500)
+  caption     String?     @db.VarChar(255)
+  status      PhotoStatus @default(pending)
+  publishedAt DateTime?   @map("published_at")
+  createdAt   DateTime    @default(now()) @map("created_at")
+
+  teacher   Teacher         @relation(fields: [teacherId], references: [id])
+  student   Student         @relation(fields: [studentId], references: [id])
+  approvals PhotoApproval[]
+
+  @@index([studentId, status])
+  @@map("photos")
+}
+
+model PhotoApproval {
+  id         Int      @id @default(autoincrement())
+  photoId    Int      @map("photo_id")
+  adminId    Int      @map("admin_id")
+  action     String   @db.VarChar(20)
+  note       String?  @db.VarChar(255)
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  photo Photo @relation(fields: [photoId], references: [id], onDelete: Cascade)
+  admin User  @relation(fields: [adminId], references: [id])
+
+  @@map("photo_approvals")
+}
+
+model Banner {
+  id        Int          @id @default(autoincrement())
+  title     String       @db.VarChar(200)
+  body      String       @db.Text
+  imageUrl  String?      @map("image_url") @db.VarChar(500)
+  target    BannerTarget @default(all)
+  isActive  Boolean      @default(true) @map("is_active")
+  startsAt  DateTime?    @map("starts_at")
+  endsAt    DateTime?    @map("ends_at")
+  createdAt DateTime     @default(now()) @map("created_at")
+
+  @@map("banners")
+}
+
+model CalendarEvent {
+  id          Int               @id @default(autoincrement())
+  title       String            @db.VarChar(200)
+  description String?           @db.Text
+  eventType   CalendarEventType @map("event_type")
+  startDate   DateTime          @map("start_date") @db.Date
+  endDate     DateTime?         @map("end_date") @db.Date
+  isActive    Boolean           @default(true) @map("is_active")
+  createdAt   DateTime          @default(now()) @map("created_at")
+
+  @@map("calendar_events")
+}
+
+model StickerLevel {
+  id        Int      @id @default(autoincrement())
+  name      String   @db.VarChar(50)
+  color     String   @db.VarChar(7)
+  sortOrder Int      @map("sort_order")
+  isActive  Boolean  @default(true) @map("is_active")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  stickers Sticker[]
+
+  @@map("sticker_levels")
+}
+
+model Sticker {
+  id          Int      @id @default(autoincrement())
+  name        String   @db.VarChar(100)
+  iconUrl     String   @map("icon_url") @db.VarChar(500)
+  levelId     Int      @map("level_id")
+  description String?  @db.Text
+  isActive    Boolean  @default(true) @map("is_active")
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  level           StickerLevel     @relation(fields: [levelId], references: [id])
+  studentStickers StudentSticker[]
+
+  @@map("stickers")
+}
+
+model Homework {
+  id          Int            @id @default(autoincrement())
+  teacherId   Int            @map("teacher_id")
+  studentId   Int            @map("student_id")
+  title       String         @db.VarChar(200)
+  description String         @db.Text
+  dueDate     DateTime?      @map("due_date") @db.Date
+  status      HomeworkStatus @default(assigned)
+  createdAt   DateTime       @default(now()) @map("created_at")
+
+  teacher     Teacher             @relation(fields: [teacherId], references: [id])
+  student     Student             @relation(fields: [studentId], references: [id])
+  submissions HomeworkSubmission[]
+  stickers    StudentSticker[]
+
+  @@map("homeworks")
+}
+
+model HomeworkSubmission {
+  id                Int       @id @default(autoincrement())
+  homeworkId        Int       @map("homework_id")
+  parentConfirmed   Boolean   @default(false) @map("parent_confirmed")
+  parentConfirmedAt DateTime? @map("parent_confirmed_at")
+  teacherGrade      String?   @map("teacher_grade") @db.VarChar(50)
+  teacherNote       String?   @map("teacher_note") @db.Text
+  aiAnalysis        Json?     @map("ai_analysis")
+  gradedAt          DateTime? @map("graded_at")
+
+  homework Homework @relation(fields: [homeworkId], references: [id], onDelete: Cascade)
+
+  @@map("homework_submissions")
+}
+
+model StudentSticker {
+  id         Int               @id @default(autoincrement())
+  studentId  Int               @map("student_id")
+  stickerId  Int               @map("sticker_id")
+  homeworkId Int?              @map("homework_id")
+  assignedBy StickerAssignedBy @map("assigned_by")
+  note       String?           @db.Text
+  createdAt  DateTime          @default(now()) @map("created_at")
+
+  student  Student   @relation(fields: [studentId], references: [id])
+  sticker  Sticker   @relation(fields: [stickerId], references: [id])
+  homework Homework? @relation(fields: [homeworkId], references: [id])
+
+  @@map("student_stickers")
+}
+
+model AttendanceRecord {
+  id        Int            @id @default(autoincrement())
+  studentId Int            @map("student_id")
+  teacherId Int            @map("teacher_id")
+  type      AttendanceType
+  date      DateTime       @db.Date
+  time      DateTime       @db.Time
+  note      String?        @db.VarChar(255)
+  createdAt DateTime       @default(now()) @map("created_at")
+
+  student Student @relation(fields: [studentId], references: [id])
+  teacher Teacher @relation(fields: [teacherId], references: [id])
+
+  @@index([studentId, date])
+  @@map("attendance_records")
+}
+
+model MealRecord {
+  id                  Int       @id @default(autoincrement())
+  studentId           Int       @map("student_id")
+  date                DateTime  @db.Date
+  mealType            MealType  @map("meal_type")
+  teacherConfirmed    Boolean   @default(false) @map("teacher_confirmed")
+  parentConfirmed     Boolean   @default(false) @map("parent_confirmed")
+  teacherConfirmedAt  DateTime? @map("teacher_confirmed_at")
+  parentConfirmedAt   DateTime? @map("parent_confirmed_at")
+
+  student Student @relation(fields: [studentId], references: [id])
+
+  @@unique([studentId, date, mealType])
+  @@map("meal_records")
+}
+
+model LiveStream {
+  id          Int              @id @default(autoincrement())
+  teacherId   Int              @map("teacher_id")
+  title       String           @db.VarChar(200)
+  channelName String           @map("channel_name") @db.VarChar(100)
+  status      LiveStreamStatus @default(active)
+  startedAt   DateTime         @default(now()) @map("started_at")
+  endedAt     DateTime?        @map("ended_at")
+
+  teacher Teacher @relation(fields: [teacherId], references: [id])
+
+  @@map("live_streams")
+}
+
+model Conversation {
+  id        Int      @id @default(autoincrement())
+  teacherId Int      @map("teacher_id")
+  parentId  Int      @map("parent_id")
+  studentId Int      @map("student_id")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  teacher  Teacher   @relation(fields: [teacherId], references: [id])
+  parent   Parent    @relation(fields: [parentId], references: [id])
+  messages Message[]
+
+  @@unique([teacherId, parentId, studentId])
+  @@map("conversations")
+}
+
+model Message {
+  id             Int      @id @default(autoincrement())
+  conversationId Int      @map("conversation_id")
+  senderRole     UserRole @map("sender_role")
+  senderId       Int      @map("sender_id")
+  body           String?  @db.Text
+  isRead         Boolean  @default(false) @map("is_read")
+  createdAt      DateTime @default(now()) @map("created_at")
+
+  conversation Conversation        @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  attachments  MessageAttachment[]
+
+  @@index([conversationId, createdAt])
+  @@map("messages")
+}
+
+model MessageAttachment {
+  id        Int      @id @default(autoincrement())
+  messageId Int      @map("message_id")
+  fileUrl   String   @map("file_url") @db.VarChar(500)
+  fileType  String   @map("file_type") @db.VarChar(50)
+  createdAt DateTime @default(now()) @map("created_at")
+
+  message Message @relation(fields: [messageId], references: [id], onDelete: Cascade)
+
+  @@map("message_attachments")
+}
+
+model Notification {
+  id        Int                @id @default(autoincrement())
+  title     String             @db.VarChar(200)
+  body      String             @db.Text
+  target    NotificationTarget @default(all)
+  senderId  Int?               @map("sender_id")
+  isRead    Boolean            @default(false) @map("is_read")
+  userId    Int?               @map("user_id")
+  createdAt DateTime           @default(now()) @map("created_at")
+
+  sender User? @relation("NotificationSender", fields: [senderId], references: [id])
+
+  @@map("notifications")
+}
+
+model DeviceToken {
+  id        Int      @id @default(autoincrement())
+  userId    Int      @map("user_id")
+  token     String   @db.VarChar(500)
+  platform  String   @db.VarChar(20)
+  isActive  Boolean  @default(true) @map("is_active")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@unique([userId, token])
+  @@map("device_tokens")
+}

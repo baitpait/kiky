@@ -1,0 +1,60 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Build
+dist/
+build/
+*.tsbuildinfo
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Flutter
+mobile/.dart_tool/
+mobile/.flutter-plugins
+mobile/.flutter-plugins-dependencies
+mobile/.packages
+mobile/build/
+mobile/.pub-cache/
+mobile/.pub/
+mobile/**/Generated.xcconfig
+mobile/**/flutter_export_environment.sh
+
+# Prisma
+backend/prisma/migrations/**/migration_lock.toml
+
+# Docker volumes (local)
+data/
+
+# MinIO / uploads (local dev)
+uploads/
+
+# Coverage
+coverage/
+.nyc_output/
+
+# OS
+*.iml
+__MACOSX/
+Thumbs.db
+
+# Local backups
+mysql-backup*/
+backend/uploads/

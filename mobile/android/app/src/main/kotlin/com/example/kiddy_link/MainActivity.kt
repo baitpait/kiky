@@ -1,0 +1,5 @@
+package com.example.kiddy_link
+
+import io.flutter.embedding.android.FlutterActivity
+
+class MainActivity : FlutterActivity()

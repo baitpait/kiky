@@ -1,0 +1,35 @@
+# Kiddy Link — Cursor Rules
+
+## Project
+- Monorepo: mobile/ (Flutter) + backend/ (NestJS)
+- Arabic RTL mobile app only — no web admin panel
+- Single kindergarten — not multi-tenant
+- Code in English, explain to user in Arabic
+
+## Stack
+- Flutter 3.x, NestJS, MySQL 8 + Prisma, Redis, MinIO, Docker Compose
+
+## Strict Rules
+- **No static business content** — all lists/labels/content from API/DB (see `.cursor/rules/dynamic-interactive.mdc`)
+- **No silent buttons** — every control must navigate or call API; no placeholders or empty `onTap`
+- **Fully interactive** — loading, empty, error, and success states on every screen
+- **Mentor mode** — explain every change simply in Arabic, test before next step (see `.cursor/rules/programmer-mentor.mdc`)
+- AI role: **assistant programmer + trainer** for the project owner
+- No self-registration — admin creates all accounts
+- Admin UI inside Flutter app only
+- Stickers from DB (sticker_levels + stickers) — never hardcoded
+- OpenAI called from backend only — never from Flutter
+- Chat: parent ↔ teacher only
+- Photos: teacher uploads to album (admin approval) | parent uploads in chat only
+- Soft delete via is_active / is_deleted — no hard delete for sensitive records
+- Validate inputs: DTOs (backend) + FormKey (Flutter)
+- JWT: Access 15min + Refresh 7 days, bcrypt passwords
+- Commits: Conventional Commits (feat:, fix:, chore:)
+
+## Out of Scope
+Payment, subscriptions, accounting, web panel, SMS, WhatsApp, QR attendance,
+multi-kindergarten, English UI, self-registration, teacher-admin chat
+
+## References
+- DEVELOPER_SPEC.md — full spec
+- BRAND_IDENTITY.md — Flutter theme/colors

@@ -1,0 +1,63 @@
+---
+description: No static content or dead UI — everything dynamic and DB-backed
+alwaysApply: true
+---
+
+# Dynamic & Interactive — Kiddy Link
+
+## Golden rule
+Every user-visible **business data** and every **button/action** must be real: loaded from API/DB and wired to working behavior. No placeholders, no silent controls.
+
+## No static business content
+- Lists, counts, labels, banners, calendar events, stickers, homework, photos, messages, notifications → **from API/DB only**
+- Never hardcode arrays of students, teachers, parents, stickers, levels, or menu data that should live in MySQL
+- Backend: seed/sample data in `prisma/seed.ts` only — runtime reads/writes via Prisma
+- Flutter: fetch via `ApiClient` / repositories; show loading → data → empty/error states
+
+```dart
+// ❌ BAD — hardcoded list
+final items = ['رحلة', 'إجازة', 'اجتماع'];
+
+// ✅ GOOD
+final items = await contentRepository.getCalendarEvents();
+```
+
+## No silent / dead buttons
+- Every `ElevatedButton`, `ListTile`, `IconButton`, menu tile **must** have a working `onPressed` / `onTap`
+- Forbidden: empty callbacks, `null` handlers, tiles with subtitle "API/Swagger only", commented-out navigation
+- If feature is not built yet → **do not show the button**; or implement the screen + API first
+
+```dart
+// ❌ BAD
+_MenuTile(title: 'إدارة المعلمات', onTap: () {}),
+
+// ✅ GOOD — full flow or hidden until ready
+_MenuTile(
+  title: 'إدارة المعلمات',
+  onTap: () => Navigator.push(context, MaterialPageRoute(
+    builder: (_) => const AdminTeachersScreen(),
+  )),
+),
+```
+
+## Interactive UX (required)
+- All forms: validate → API call → success/error feedback (`SnackBar` / inline error)
+- Lists: pull-to-refresh or reload after mutations
+- Loading: `CircularProgressIndicator` while fetching; disable submit while `isLoading`
+- Empty state: clear Arabic message when API returns `[]`
+- Errors: show user-friendly Arabic message, never fail silently
+
+## Backend coupling
+- New Flutter screen → matching NestJS module + Prisma model/migration if needed
+- No mock data in production paths; no `Future.delayed` fake responses
+- CRUD must persist to MySQL and reflect on next GET
+
+## Fixed UI chrome (allowed)
+- Short labels for actions ("تسجيل الدخول", "حفظ", "إلغاء") may live in widgets or a single `app_strings.dart` / l10n file
+- Theme, colors, icons — see `BRAND_IDENTITY.md`
+- Business copy (banner body, event title, sticker name) → **never** hardcoded in UI
+
+## Before finishing any task, verify
+1. No new hardcoded business lists or dummy JSON in Flutter/backend
+2. Every new button navigates or calls API
+3. Data round-trip: UI → API → DB → UI

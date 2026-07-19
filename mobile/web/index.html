@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base href="$FLUTTER_BASE_HREF">
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="description" content="Kiddy Link — Connecting Home & Kindergarten">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Kiddy Link">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+  <link rel="icon" type="image/png" href="favicon.png"/>
+  <title>Kiddy Link</title>
+  <link rel="manifest" href="manifest.json">
+  <style>
+    #loading {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      color: #4A90D9;
+      gap: 12px;
+    }
+    #loading .hint {
+      font-size: 14px;
+      color: #718096;
+      max-width: 320px;
+      text-align: center;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+  <div id="loading">
+    <div>جاري تحميل Kiddy Link...</div>
+    <div class="hint" id="loading-hint">المرة الأولى قد تأخذ 2–5 دقائق. لا تغلق الصفحة.</div>
+  </div>
+  <script>
+    setTimeout(function () {
+      var hint = document.getElementById('loading-hint');
+      if (hint) {
+        hint.textContent = 'ما زال التحميل جارياً... إن استمر أكثر من 10 دقائق، أغلق Chrome وشغّل: scripts\\start-web-fast.ps1';
+      }
+    }, 120000);
+    window.addEventListener('flutter-first-frame', function () {
+      var el = document.getElementById('loading');
+      if (el) el.remove();
+    });
+  </script>
+  <script src="flutter_bootstrap.js" async></script>
+</body>
+</html>
