@@ -50,7 +50,8 @@ export class ChatGateway
 
       if (
         payload.role !== UserRole.teacher &&
-        payload.role !== UserRole.parent
+        payload.role !== UserRole.parent &&
+        payload.role !== UserRole.admin
       ) {
         client.close(4003, 'Chat not allowed for this role');
         return;

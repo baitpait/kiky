@@ -13,9 +13,22 @@ class ChatRepository {
     return asJsonList(await _api.get('/conversations'));
   }
 
+  Future<Map<String, dynamic>> createConversation({
+    required String targetRole,
+    int? studentId,
+    int? teacherId,
+    int? parentId,
+  }) async {
+    return await _api.post('/conversations', body: {
+      'targetRole': targetRole,
+      if (studentId != null) 'studentId': studentId,
+      if (teacherId != null) 'teacherId': teacherId,
+      if (parentId != null) 'parentId': parentId,
+    }) as Map<String, dynamic>;
+  }
+
   Future<Map<String, dynamic>> openConversation(int studentId) async {
-    return await _api.post('/conversations', body: {'studentId': studentId})
-        as Map<String, dynamic>;
+    return createConversation(targetRole: 'teacher', studentId: studentId);
   }
 
   Future<List<Map<String, dynamic>>> getMessages(int conversationId) async {

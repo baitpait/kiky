@@ -391,3 +391,49 @@ All notable changes documented per phase.
 ### Notes
 - English logo text only in logo image (not duplicate Flutter text on login)
 - Role AppBar colors: admin=blue, teacher=green, parent=orange
+
+---
+
+## [Chat All Roles + Notifications Quality] — 2026-07-21 ✅
+
+### Added
+
+**Backend — Chat**
+- `ConversationKind` enum: `teacher_parent`, `admin_teacher`, `admin_parent`
+- Migration `20250720120000_chat_all_roles`
+- Rewritten `chat.service.ts` — all role pairs can chat
+- Chat notifications with `NotificationCategory.chat`
+
+**Backend — Notifications**
+- `NotificationCategory` enum + column on `Notification` model
+- Migration `20250721000000_notification_category` with legacy backfill
+- `push.service.ts`: category on all notify methods + batch `createMany`
+- `PUT /notifications/read-all` endpoint
+- Per-user notification records only (no shared `userId: null`)
+
+**Mobile**
+- `notification_utils.dart` — API category, filters, Arabic time formatting
+- `notifications_screen.dart` — cards, filter chips, date groups, detail sheet, bell polling
+- `notification_bell_refresh.dart`, `labeled_dropdown.dart`, `safe_admin_feedback.dart`
+- Chat UI: FAB for all roles; admin home chat tile
+- Cairo font bundled locally (`assets/fonts/`)
+
+**Scripts**
+- `test-notifications.ps1`, `start-network.ps1`, `clean-cache.ps1`
+- Updated `test-phase4.ps1` for admin chat pairs
+
+**Documentation**
+- `docs/NOTIFICATIONS_AND_CHAT_UPDATE.md` — full reference
+- Updated `PHOTOS_NOTIFICATIONS_FIX.md`, `CHECKPOINT.md`
+
+### Fixed
+- Bell count decreases correctly on `markRead` / `markAllRead`
+- Cross-user `markRead` blocked (403)
+- Replaced deprecated `DropdownButtonFormField.value` with `LabeledDropdown`
+- `mounted` checks after async in admin students screen
+- Flutter analyzer: 39 → 21 info-only issues (0 errors)
+
+### Test results
+- `test-notifications.ps1`: ALL PASSED
+- `test-phase4.ps1`: ALL PASSED
+- `flutter build web --release`: success

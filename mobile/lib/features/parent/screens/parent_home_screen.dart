@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../auth/providers/auth_provider.dart';
 import '../../../core/theme/app_theme.dart';
+import '../../../shared/widgets/labeled_dropdown.dart';
 import '../../../shared/models/student_model.dart';
 import '../../../shared/services/students_repository.dart';
 import '../../admin/widgets/admin_feedback.dart';
@@ -133,10 +134,9 @@ class _ParentHomeScreenState extends State<ParentHomeScreen> {
                     if (_children.length > 1) ...[
                       const SizedBox(height: 12),
                       _SectionTitle('تبديل بين الأطفال'),
-                      DropdownButtonFormField<StudentModel>(
+                      LabeledDropdown<StudentModel>(
+                        label: 'اختر الطفل',
                         value: _selected,
-                        decoration:
-                            const InputDecoration(labelText: 'اختر الطفل'),
                         items: _children
                             .map((c) => DropdownMenuItem(
                                   value: c,
@@ -236,10 +236,10 @@ class _ParentHomeScreenState extends State<ParentHomeScreen> {
                       _MenuTile(
                         icon: Icons.chat,
                         title: 'الدردشة',
-                        subtitle: 'مع معلمة الطفل فقط',
+                        subtitle: 'مع المعلمات والمديرة',
                         color: AppColors.kiddyBlue,
                         onTap: () =>
-                            _open(const ChatListScreen(isParent: true)),
+                            _open(const ChatListScreen()),
                       ),
                     ],
                   ],

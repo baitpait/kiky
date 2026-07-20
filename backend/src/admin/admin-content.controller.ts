@@ -19,7 +19,7 @@ import { PushService } from '../notifications/push.service';
 import { UsersService } from '../users/users.service';
 import { RejectPhotoDto } from '../photos/dto/photos.dto';
 import { SendNotificationDto } from '../notifications/dto/notifications.dto';
-import { NotificationTarget } from '@prisma/client';
+import { NotificationTarget, NotificationCategory } from '@prisma/client';
 
 @ApiTags('Admin — Content')
 @ApiBearerAuth()
@@ -52,6 +52,7 @@ export class AdminContentController {
       parentIds,
       'صورة جديدة',
       `صورة جديدة لـ ${photo.student.name} في ألبوم الروضة`,
+      NotificationCategory.photo,
     );
     return photo;
   }

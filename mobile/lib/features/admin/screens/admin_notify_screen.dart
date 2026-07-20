@@ -1,9 +1,11 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../auth/providers/auth_provider.dart';
-import '../../../core/theme/app_theme.dart';
 import '../../../shared/services/content_repository.dart';
+import '../../../shared/services/notification_bell_refresh.dart';
+import '../../../shared/widgets/labeled_dropdown.dart';
 import '../widgets/admin_feedback.dart';
+import '../widgets/safe_admin_feedback.dart';
 
 class AdminNotifyScreen extends StatefulWidget {
   const AdminNotifyScreen({super.key});
@@ -35,12 +37,13 @@ class _AdminNotifyScreenState extends State<AdminNotifyScreen> {
         'target': _target,
       });
       if (mounted) {
-        showAdminSuccess(context, 'تم إرسال الإشعار');
+        adminSuccess('تم إرسال الإشعار');
+        NotificationBellRefresh.bump();
         _titleCtrl.clear();
         _bodyCtrl.clear();
       }
     } catch (e) {
-      if (mounted) showAdminError(context, e);
+      adminError(e);
     } finally {
       if (mounted) setState(() => _sending = false);
     }
@@ -67,15 +70,17 @@ class _AdminNotifyScreenState extends State<AdminNotifyScreen> {
                 maxLines: 4,
               ),
               const SizedBox(height: 12),
-              DropdownButtonFormField<String>(
+              LabeledDropdown<String>(
+                label: 'الاستهداف',
                 value: _target,
-                decoration: const InputDecoration(labelText: 'الاستهداف'),
                 items: const [
                   DropdownMenuItem(value: 'all', child: Text('الجميع')),
                   DropdownMenuItem(value: 'teachers', child: Text('معلمات')),
                   DropdownMenuItem(value: 'parents', child: Text('أولياء أمور')),
                 ],
-                onChanged: (v) => setState(() => _target = v!),
+                onChanged: (v) {
+                  if (v != null) setState(() => _target = v);
+                },
               ),
               const SizedBox(height: 24),
               ElevatedButton(

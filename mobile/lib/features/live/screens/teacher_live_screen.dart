@@ -68,8 +68,11 @@ class _TeacherLiveScreenState extends State<TeacherLiveScreen> {
 
     setState(() => _loading = true);
     try {
+      if (!mounted) return;
       await _agora.leave();
+      if (!mounted) return;
       await LiveRepository(context.read<AuthProvider>().api).end(streamId);
+      if (!mounted) return;
       setState(() {
         _session = null;
         _broadcasting = false;

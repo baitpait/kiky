@@ -1,12 +1,34 @@
-import { IsString, IsNotEmpty, IsOptional, IsInt } from 'class-validator';
+import { IsString, IsNotEmpty, IsOptional, IsInt, IsIn } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 
 export class CreateConversationDto {
-  @ApiProperty({ description: 'Student ID to open chat about' })
+  @ApiPropertyOptional({ description: 'Student context when needed' })
   @Type(() => Number)
+  @IsOptional()
   @IsInt()
-  studentId!: number;
+  studentId?: number;
+
+  @ApiPropertyOptional({
+    enum: ['teacher', 'parent', 'admin'],
+    description: 'Who to chat with (depends on caller role)',
+  })
+  @IsOptional()
+  @IsString()
+  @IsIn(['teacher', 'parent', 'admin'])
+  targetRole?: string;
+
+  @ApiPropertyOptional({ description: 'Teacher profile id (admin → teacher)' })
+  @Type(() => Number)
+  @IsOptional()
+  @IsInt()
+  teacherId?: number;
+
+  @ApiPropertyOptional({ description: 'Parent profile id (admin/teacher → parent)' })
+  @Type(() => Number)
+  @IsOptional()
+  @IsInt()
+  parentId?: number;
 }
 
 export class SendMessageDto {

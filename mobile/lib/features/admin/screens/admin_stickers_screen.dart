@@ -1,10 +1,12 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../auth/providers/auth_provider.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../../core/utils/json_utils.dart';
 import '../../../shared/services/sticker_repository.dart';
+import '../../../shared/widgets/labeled_dropdown.dart';
 import '../widgets/admin_feedback.dart';
+import '../widgets/safe_admin_feedback.dart';
 
 /// DEVELOPER_SPEC §8.2 #10 — إدارة الملصقات
 class AdminStickersScreen extends StatefulWidget {
@@ -90,7 +92,8 @@ class _AdminStickersScreenState extends State<AdminStickersScreen> {
                     controller: descCtrl,
                     decoration: const InputDecoration(labelText: 'الوصف (اختياري)'),
                   ),
-                  DropdownButtonFormField<int>(
+                  LabeledDropdown<int>(
+                    label: 'المستوى',
                     value: levelId,
                     items: _levels
                         .map((l) => DropdownMenuItem(
@@ -99,7 +102,6 @@ class _AdminStickersScreenState extends State<AdminStickersScreen> {
                             ))
                         .toList(),
                     onChanged: (v) => setS(() => levelId = v!),
-                    decoration: const InputDecoration(labelText: 'المستوى'),
                   ),
                 ],
               ),
@@ -137,7 +139,7 @@ class _AdminStickersScreenState extends State<AdminStickersScreen> {
           levelId: levelId,
           description: description,
         );
-        showAdminSuccess(context, 'تم تحديث الملصق');
+        adminSuccess('تم تحديث الملصق');
       } else {
         await _repo.createSticker(
           name: name,
@@ -145,11 +147,11 @@ class _AdminStickersScreenState extends State<AdminStickersScreen> {
           levelId: levelId,
           description: description,
         );
-        showAdminSuccess(context, 'تم إضافة الملصق');
+        adminSuccess('تم إضافة الملصق');
       }
       await _load();
     } catch (e) {
-      if (mounted) showAdminError(context, e);
+      if (mounted) adminError(e);
     } finally {
       if (mounted) setState(() => _submitting = false);
     }
@@ -180,10 +182,10 @@ class _AdminStickersScreenState extends State<AdminStickersScreen> {
     if (confirm != true || !mounted) return;
     try {
       await _repo.deactivateSticker(asInt(sticker['id']));
-      showAdminSuccess(context, 'تم التعطيل');
+      adminSuccess('تم التعطيل');
       await _load();
     } catch (e) {
-      if (mounted) showAdminError(context, e);
+      if (mounted) adminError(e);
     }
   }
 

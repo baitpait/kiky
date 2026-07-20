@@ -15,6 +15,7 @@ import 'admin_sticker_levels_screen.dart';
 import 'admin_stickers_screen.dart';
 import 'admin_accounts_screen.dart';
 import '../../../shared/widgets/role_badge.dart';
+import '../../chat/screens/chat_list_screen.dart';
 import '../../notifications/screens/notifications_screen.dart';
 
 /// DEVELOPER_SPEC §8.2 #1 + §12 — لوحة تحكم المديرة
@@ -263,6 +264,14 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                       subtitle: '${_count('stickers')} ملصق نشط',
                       color: AppColors.warmOrange,
                       onTap: () => _open(const AdminStickersScreen()),
+                    ),
+                    _SectionTitle('التواصل'),
+                    _MenuTile(
+                      icon: Icons.chat,
+                      title: 'الدردشة',
+                      subtitle: 'مع المعلمات وأولياء الأمور',
+                      color: AppColors.kiddyBlue,
+                      onTap: () => _open(const ChatListScreen()),
                     ),
                     _SectionTitle('الإشعارات'),
                     _MenuTile(

@@ -5,6 +5,7 @@ import '../../../core/theme/app_theme.dart';
 import '../../../core/utils/json_utils.dart';
 import '../../../shared/services/admin_repository.dart';
 import '../widgets/admin_feedback.dart';
+import '../widgets/safe_admin_feedback.dart';
 
 class AdminTeachersScreen extends StatefulWidget {
   const AdminTeachersScreen({super.key});
@@ -135,7 +136,7 @@ class _AdminTeachersScreenState extends State<AdminTeachersScreen> {
           phone: phoneCtrl.text.trim(),
           password: passwordCtrl.text.isEmpty ? null : passwordCtrl.text,
         );
-        showAdminSuccess(context, 'تم تحديث المعلمة');
+        adminSuccess('تم تحديث المعلمة');
       } else {
         await _repo.createTeacher(
           username: usernameCtrl.text.trim(),
@@ -143,11 +144,11 @@ class _AdminTeachersScreenState extends State<AdminTeachersScreen> {
           name: nameCtrl.text.trim(),
           phone: phoneCtrl.text.trim(),
         );
-        showAdminSuccess(context, 'تم إنشاء المعلمة');
+        adminSuccess('تم إنشاء المعلمة');
       }
       await _load();
     } catch (e) {
-      if (mounted) showAdminError(context, e);
+      if (mounted) adminError(e);
     } finally {
       if (mounted) setState(() => _submitting = false);
     }
@@ -180,10 +181,10 @@ class _AdminTeachersScreenState extends State<AdminTeachersScreen> {
     if (confirm != true || !mounted) return;
     try {
       await _repo.deactivateTeacher(asInt(teacher['id']));
-      showAdminSuccess(context, 'تم التعطيل');
+      adminSuccess('تم التعطيل');
       await _load();
     } catch (e) {
-      if (mounted) showAdminError(context, e);
+      if (mounted) adminError(e);
     }
   }
 

@@ -4,6 +4,7 @@ import '../../auth/providers/auth_provider.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../../shared/models/student_model.dart';
 import '../../../shared/services/students_repository.dart';
+import '../../../shared/widgets/labeled_dropdown.dart';
 import '../../../shared/services/homework_repository.dart';
 
 import '../../admin/widgets/admin_feedback.dart';
@@ -109,7 +110,8 @@ class _TeacherHomeworkScreenState extends State<TeacherHomeworkScreen> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                DropdownButtonFormField<StudentModel>(
+                LabeledDropdown<StudentModel>(
+                  label: 'الطالب',
                   value: selected,
                   items: students
                       .map((s) => DropdownMenuItem(
@@ -118,7 +120,6 @@ class _TeacherHomeworkScreenState extends State<TeacherHomeworkScreen> {
                           ))
                       .toList(),
                   onChanged: (v) => selected = v,
-                  decoration: const InputDecoration(labelText: 'الطالب'),
                 ),
                 TextField(
                   controller: titleCtrl,

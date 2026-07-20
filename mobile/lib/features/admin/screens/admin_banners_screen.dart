@@ -1,11 +1,13 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../auth/providers/auth_provider.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../../core/utils/json_utils.dart';
 import '../../../shared/services/content_repository.dart';
 
+import '../../../shared/widgets/labeled_dropdown.dart';
 import '../widgets/admin_feedback.dart';
+import '../widgets/safe_admin_feedback.dart';
 
 class AdminBannersScreen extends StatefulWidget {
   const AdminBannersScreen({super.key});
@@ -74,7 +76,8 @@ class _AdminBannersScreenState extends State<AdminBannersScreen> {
                   decoration: const InputDecoration(labelText: 'النص'),
                   maxLines: 3,
                 ),
-                DropdownButtonFormField<String>(
+                LabeledDropdown<String>(
+                  label: 'الاستهداف',
                   value: target,
                   items: const [
                     DropdownMenuItem(value: 'all', child: Text('الجميع')),
@@ -82,7 +85,6 @@ class _AdminBannersScreenState extends State<AdminBannersScreen> {
                     DropdownMenuItem(value: 'parents', child: Text('أولياء')),
                   ],
                   onChanged: (v) => setS(() => target = v!),
-                  decoration: const InputDecoration(labelText: 'الاستهداف'),
                 ),
               ],
             ),
@@ -115,15 +117,15 @@ class _AdminBannersScreenState extends State<AdminBannersScreen> {
       if (isEdit) {
         await _repo.updateBanner(asInt(existing['id']), payload);
         if (!mounted) return;
-        showAdminSuccess(context, 'تم تحديث البانر');
+        adminSuccess('تم تحديث البانر');
       } else {
         await _repo.createBanner(payload);
         if (!mounted) return;
-        showAdminSuccess(context, 'تم إضافة البانر');
+        adminSuccess('تم إضافة البانر');
       }
       await _load();
     } catch (e) {
-      if (mounted) showAdminError(context, e);
+      if (mounted) adminError(e);
     } finally {
       if (mounted) setState(() => _submitting = false);
     }
@@ -155,10 +157,10 @@ class _AdminBannersScreenState extends State<AdminBannersScreen> {
     if (confirm != true || !mounted) return;
     try {
       await _repo.deleteBanner(asInt(banner['id']));
-      showAdminSuccess(context, 'تم التعطيل');
+      adminSuccess('تم التعطيل');
       await _load();
     } catch (e) {
-      if (mounted) showAdminError(context, e);
+      if (mounted) adminError(e);
     }
   }
 

@@ -1,7 +1,20 @@
 # نقطة التوقف — Kiddy Link
-> **التاريخ:** 19 يوليو 2026 — 8:45 م  
+> **التاريخ:** 21 يوليو 2026  
 > **المسار:** `E:\Eman Project\`  
 > **البيئة:** Windows + XAMPP MySQL (3306) — **بدون Docker**
+
+---
+
+## آخر تحديث (21 يوليو 2026)
+
+| الميزة | الحالة | التوثيق |
+|--------|--------|---------|
+| درdشة كل الأدوار (admin ↔ teacher ↔ parent) | ✅ | `test-phase4.ps1` |
+| إشعارات دقيقة + جرس Web | ✅ | `test-notifications.ps1` |
+| تصنيف `category` من API | ✅ | migration applied |
+| تشغيل LAN للهاتف | ✅ | `start-network.ps1` |
+
+📄 **[NOTIFICATIONS_AND_CHAT_UPDATE.md](./NOTIFICATIONS_AND_CHAT_UPDATE.md)** — توثيق كامل للتحديث
 
 ---
 
@@ -12,7 +25,7 @@
 | **1** | Auth + CRUD + ربط | ✅ | ✅ | — |
 | **2** | صور، حضور، وجبات، بانرات | ✅ | ✅ | `test-phase2.ps1` ✅ |
 | **3** | واجبات، ملصقات، AI | ✅ | ✅ | `test-phase3.ps1` ✅ |
-| **4** | درdشة WebSocket | ✅ | ✅ | `test-phase4.ps1` ✅ |
+| **4** | درdشة WebSocket (**كل الأدوار**) | ✅ | ✅ | `test-phase4.ps1` ✅ |
 | **5** | بث Agora | ✅ | ✅ | `test-phase5.ps1` ✅ |
 | **6** | نشر + فحص إطلاق | ✅ | ✅ | `test-phase6.ps1` ✅ |
 | **Brand** | الهوية البصرية v1.0 | — | ✅ | يدوي |
@@ -49,7 +62,7 @@ E:\Eman Project\scripts\start-web-fast.ps1
 
 > استخدم **localhost** دائماً — لا تخلط مع `127.0.0.1` (مشاكل CORS للصور).
 
-**آخر تشغيل (19 يوليو):** API ✅ Web ✅ (8082) MySQL ✅
+**آخر تشغيل (21 يوليو):** API ✅ Web ✅ (8082) MySQL ✅ — إشعارات + درdشة مختبرة
 
 ---
 

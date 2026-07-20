@@ -1,10 +1,11 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../auth/providers/auth_provider.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../../core/utils/json_utils.dart';
 import '../../../shared/services/admin_repository.dart';
 import '../widgets/admin_feedback.dart';
+import '../widgets/safe_admin_feedback.dart';
 
 class AdminParentsScreen extends StatefulWidget {
   const AdminParentsScreen({super.key});
@@ -135,7 +136,7 @@ class _AdminParentsScreenState extends State<AdminParentsScreen> {
           phone: phoneCtrl.text.trim(),
           password: passwordCtrl.text.isEmpty ? null : passwordCtrl.text,
         );
-        showAdminSuccess(context, 'تم تحديث ولي الأمر');
+        adminSuccess('تم تحديث ولي الأمر');
       } else {
         await _repo.createParent(
           username: usernameCtrl.text.trim(),
@@ -143,11 +144,11 @@ class _AdminParentsScreenState extends State<AdminParentsScreen> {
           name: nameCtrl.text.trim(),
           phone: phoneCtrl.text.trim(),
         );
-        showAdminSuccess(context, 'تم إنشاء ولي الأمر');
+        adminSuccess('تم إنشاء ولي الأمر');
       }
       await _load();
     } catch (e) {
-      if (mounted) showAdminError(context, e);
+      if (mounted) adminError(e);
     } finally {
       if (mounted) setState(() => _submitting = false);
     }
@@ -180,10 +181,10 @@ class _AdminParentsScreenState extends State<AdminParentsScreen> {
     if (confirm != true || !mounted) return;
     try {
       await _repo.deactivateParent(asInt(parent['id']));
-      showAdminSuccess(context, 'تم التعطيل');
+      adminSuccess('تم التعطيل');
       await _load();
     } catch (e) {
-      if (mounted) showAdminError(context, e);
+      if (mounted) adminError(e);
     }
   }
 

@@ -1,10 +1,11 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../auth/providers/auth_provider.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../../core/utils/json_utils.dart';
 import '../../../shared/services/sticker_repository.dart';
 import '../widgets/admin_feedback.dart';
+import '../widgets/safe_admin_feedback.dart';
 
 /// DEVELOPER_SPEC §8.2 #9 — إدارة مستويات الملصقات
 class AdminStickerLevelsScreen extends StatefulWidget {
@@ -115,18 +116,18 @@ class _AdminStickerLevelsScreenState extends State<AdminStickerLevelsScreen> {
           color: color,
           sortOrder: sortOrder,
         );
-        showAdminSuccess(context, 'تم تحديث المستوى');
+        adminSuccess('تم تحديث المستوى');
       } else {
         await _repo.createLevel(
           name: name,
           color: color,
           sortOrder: sortOrder,
         );
-        showAdminSuccess(context, 'تم إضافة المستوى');
+        adminSuccess('تم إضافة المستوى');
       }
       await _load();
     } catch (e) {
-      if (mounted) showAdminError(context, e);
+      if (mounted) adminError(e);
     } finally {
       if (mounted) setState(() => _submitting = false);
     }
@@ -157,10 +158,10 @@ class _AdminStickerLevelsScreenState extends State<AdminStickerLevelsScreen> {
     if (confirm != true || !mounted) return;
     try {
       await _repo.deactivateLevel(asInt(level['id']));
-      showAdminSuccess(context, 'تم التعطيل');
+      adminSuccess('تم التعطيل');
       await _load();
     } catch (e) {
-      if (mounted) showAdminError(context, e);
+      if (mounted) adminError(e);
     }
   }
 

@@ -46,9 +46,13 @@
 
 | الملف | التغيير |
 |-------|---------|
-| `backend/src/notifications/push.service.ts` | `notifyByTarget` → سجل لكل مستخدم |
-| `backend/src/notifications/notifications.service.ts` | `markRead` يحدّث `isRead` دائماً |
-| `mobile/lib/features/notifications/screens/notifications_screen.dart` | API markRead + refresh الجرس |
+| `backend/src/notifications/push.service.ts` | `notifyByTarget` → سجل لكل مستخدم + **`category`** |
+| `backend/src/notifications/notifications.service.ts` | `markRead` يحدّث `isRead` دائماً + **قائمة/عداد لكل مستخدم فقط** (`userId`) |
+| `backend/prisma/migrations/20250721000000_notification_category/` | عمود `category` ENUM + backfill للإشعارات القديمة |
+| `mobile/lib/features/notifications/notification_utils.dart` | تصنيف من API + fallback + فلاتر |
+| `mobile/lib/features/notifications/screens/notifications_screen.dart` | API markRead + refresh الجرس + فلاتر + تجميع |
+
+> **21 يوليو 2026:** التفاصيل الكاملة في [NOTIFICATIONS_AND_CHAT_UPDATE.md](./NOTIFICATIONS_AND_CHAT_UPDATE.md)
 
 ---
 
@@ -66,4 +70,5 @@
 ```powershell
 E:\Eman Project\scripts\test-phase2.ps1
 E:\Eman Project\scripts\test-parent-ui.ps1
+E:\Eman Project\scripts\test-notifications.ps1
 ```

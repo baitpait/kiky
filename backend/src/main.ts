@@ -63,12 +63,15 @@ async function bootstrap() {
   }
 
   const port = process.env.PORT || 3000;
-  await app.listen(port);
+  const host = process.env.HOST || '0.0.0.0';
+  await app.listen(port, host);
   const docsHint =
     process.env.SWAGGER_ENABLED === 'true'
       ? `http://localhost:${port}/api/docs`
       : 'Swagger disabled (set SWAGGER_ENABLED=true to enable)';
-  console.log(`Kiddy Link API running on http://localhost:${port}/api — ${docsHint}`);
+  console.log(
+    `Kiddy Link API running on http://${host}:${port}/api — ${docsHint}`,
+  );
 }
 
 bootstrap();

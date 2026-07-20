@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import '../../auth/providers/auth_provider.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../../shared/models/student_model.dart';
+import '../../../shared/widgets/labeled_dropdown.dart';
 import '../../../shared/services/homework_repository.dart';
 import 'teacher_attendance_screen.dart';
 import '../../homework/screens/teacher_homework_screen.dart';
@@ -73,6 +74,7 @@ class _TeacherStudentProfileScreenState extends State<TeacherStudentProfileScree
     final noteCtrl = TextEditingController(text: record['note']?.toString() ?? '');
     int selectedId = currentId;
 
+    if (!mounted) return;
     final ok = await showDialog<bool>(
       context: context,
       builder: (ctx) => Directionality(
@@ -83,7 +85,8 @@ class _TeacherStudentProfileScreenState extends State<TeacherStudentProfileScree
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                DropdownButtonFormField<int>(
+                LabeledDropdown<int>(
+                  label: 'الملصق',
                   value: selectedId,
                   items: available
                       .map((s) => DropdownMenuItem(
@@ -94,7 +97,6 @@ class _TeacherStudentProfileScreenState extends State<TeacherStudentProfileScree
                   onChanged: (v) {
                     if (v != null) selectedId = v;
                   },
-                  decoration: const InputDecoration(labelText: 'الملصق'),
                 ),
                 TextField(
                   controller: noteCtrl,

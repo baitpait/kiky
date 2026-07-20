@@ -5,9 +5,11 @@ import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 import '../../auth/providers/auth_provider.dart';
+import '../../../core/utils/json_utils.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../../shared/utils/media_url_utils.dart';
 import '../services/chat_repository.dart';
+import '../../../shared/services/notification_bell_refresh.dart';
 
 class ChatRoomScreen extends StatefulWidget {
   const ChatRoomScreen({super.key, required this.conversation});
@@ -33,7 +35,9 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
   @override
   void initState() {
     super.initState();
-    _init();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) _init();
+    });
   }
 
   Future<void> _init() async {
@@ -45,11 +49,15 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
       final messages = await repo.getMessages(_conversationId);
       await repo.markRead(_conversationId);
 
+      if (!mounted) return;
+
       _channel = repo.connectWebSocket();
       if (_channel != null) {
         repo.wsJoin(_channel!, _conversationId);
         _wsSub = _channel!.stream.listen(_onWsMessage);
       }
+
+      if (!mounted) return;
 
       setState(() {
         _messages = messages;
@@ -58,6 +66,7 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
       });
       _scrollToBottom();
     } catch (e) {
+      if (!mounted) return;
       setState(() {
         _loading = false;
         _error = e.toString();
@@ -78,6 +87,10 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
       if (decoded['event'] == 'new_message') {
         final msg = decoded['data'] as Map<String, dynamic>;
         _appendMessage(msg);
+        final senderId = msg['senderId'];
+        if (senderId != null && asInt(senderId) != _myUserId) {
+          NotificationBellRefresh.bump();
+        }
       }
     } catch (_) {}
   }
@@ -120,7 +133,7 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
 
   Future<void> _sendImage() async {
     final file = await ImagePicker().pickImage(source: ImageSource.gallery);
-    if (file == null) return;
+    if (file == null || !mounted) return;
 
     final auth = context.read<AuthProvider>();
     final repo = ChatRepository(auth.api, auth.accessToken);
@@ -204,7 +217,10 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                       itemCount: _messages.length,
                       itemBuilder: (_, i) {
                         final m = _messages[i];
-                        final mine = m['senderId'] == _myUserId;
+                        final sid = m['senderId'];
+                        final mine = _myUserId != null &&
+                            sid != null &&
+                            asInt(sid) == _myUserId;
                         final attachments =
                             m['attachments'] as List<dynamic>? ?? [];
 

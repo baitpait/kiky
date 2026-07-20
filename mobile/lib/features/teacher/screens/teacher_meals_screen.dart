@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import '../../auth/providers/auth_provider.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../../shared/models/student_model.dart';
+import '../../../shared/widgets/labeled_dropdown.dart';
 import '../../../shared/services/students_repository.dart';
 
 class TeacherMealsScreen extends StatefulWidget {
@@ -80,9 +81,9 @@ class _TeacherMealsScreenState extends State<TeacherMealsScreen> {
                 padding: const EdgeInsets.all(16),
                 child: Column(
                   children: [
-                    DropdownButtonFormField<StudentModel>(
+                    LabeledDropdown<StudentModel>(
+                      label: 'الطالب',
                       value: _selected,
-                      decoration: const InputDecoration(labelText: 'الطالب'),
                       items: _students
                           .map((s) => DropdownMenuItem(
                                 value: s,
@@ -92,9 +93,9 @@ class _TeacherMealsScreenState extends State<TeacherMealsScreen> {
                       onChanged: (v) => setState(() => _selected = v),
                     ),
                     const SizedBox(height: 16),
-                    DropdownButtonFormField<String>(
+                    LabeledDropdown<String>(
+                      label: 'الوجبة',
                       value: _mealType,
-                      decoration: const InputDecoration(labelText: 'الوجبة'),
                       items: const [
                         DropdownMenuItem(value: 'breakfast', child: Text('فطور')),
                         DropdownMenuItem(value: 'lunch', child: Text('غداء')),

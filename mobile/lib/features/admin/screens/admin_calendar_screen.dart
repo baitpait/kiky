@@ -1,10 +1,12 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../auth/providers/auth_provider.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../../core/utils/json_utils.dart';
 import '../../../shared/services/content_repository.dart';
+import '../../../shared/widgets/labeled_dropdown.dart';
 import '../widgets/admin_feedback.dart';
+import '../widgets/safe_admin_feedback.dart';
 
 class AdminCalendarScreen extends StatefulWidget {
   const AdminCalendarScreen({super.key});
@@ -84,7 +86,8 @@ class _AdminCalendarScreenState extends State<AdminCalendarScreen> {
                       labelText: 'التاريخ (YYYY-MM-DD)',
                     ),
                   ),
-                  DropdownButtonFormField<String>(
+                  LabeledDropdown<String>(
+                    label: 'النوع',
                     value: type,
                     items: const [
                       DropdownMenuItem(value: 'holiday', child: Text('عطلة')),
@@ -92,7 +95,6 @@ class _AdminCalendarScreenState extends State<AdminCalendarScreen> {
                       DropdownMenuItem(value: 'event', child: Text('فعالية')),
                     ],
                     onChanged: (v) => setS(() => type = v!),
-                    decoration: const InputDecoration(labelText: 'النوع'),
                   ),
                 ],
               ),
@@ -132,15 +134,15 @@ class _AdminCalendarScreenState extends State<AdminCalendarScreen> {
       if (isEdit) {
         await _repo.updateEvent(asInt(existing['id']), payload);
         if (!mounted) return;
-        showAdminSuccess(context, 'تم تحديث الحدث');
+        adminSuccess('تم تحديث الحدث');
       } else {
         await _repo.createEvent(payload);
         if (!mounted) return;
-        showAdminSuccess(context, 'تم إضافة الحدث');
+        adminSuccess('تم إضافة الحدث');
       }
       await _load();
     } catch (e) {
-      if (mounted) showAdminError(context, e);
+      if (mounted) adminError(e);
     } finally {
       if (mounted) setState(() => _submitting = false);
     }
@@ -172,10 +174,10 @@ class _AdminCalendarScreenState extends State<AdminCalendarScreen> {
     if (confirm != true || !mounted) return;
     try {
       await _repo.deleteEvent(asInt(event['id']));
-      showAdminSuccess(context, 'تم الحذف');
+      adminSuccess('تم الحذف');
       await _load();
     } catch (e) {
-      if (mounted) showAdminError(context, e);
+      if (mounted) adminError(e);
     }
   }
 

@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import '../../auth/providers/auth_provider.dart';
 import '../../../core/api/api_client.dart';
 import '../../../core/theme/app_theme.dart';
+import '../../../shared/widgets/labeled_dropdown.dart';
 import '../../../shared/models/student_model.dart';
 
 class ParentMealsScreen extends StatefulWidget {
@@ -96,10 +97,9 @@ class _ParentMealsScreenState extends State<ParentMealsScreen> {
                     padding: const EdgeInsets.all(16),
                     child: Column(
                       children: [
-                        DropdownButtonFormField<String>(
+                        LabeledDropdown<String>(
+                          label: 'تأكيد وجبة اليوم',
                           value: _mealType,
-                          decoration:
-                              const InputDecoration(labelText: 'تأكيد وجبة اليوم'),
                           items: const [
                             DropdownMenuItem(
                                 value: 'breakfast', child: Text('فطور')),

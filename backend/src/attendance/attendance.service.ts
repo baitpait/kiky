@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { UsersService } from '../users/users.service';
+import { NotificationCategory } from '@prisma/client';
 import { PushService } from '../notifications/push.service';
 import { RecordAttendanceDto } from './dto/attendance.dto';
 import { AttendanceType } from '@prisma/client';
@@ -53,7 +54,14 @@ export class AttendanceService {
     };
 
     const msg = messages[dto.type];
-    await this.push.notifyUsers(parentIds, msg.title, msg.body);
+    await this.push.notifyUsers(
+      parentIds,
+      msg.title,
+      msg.body,
+      dto.type === 'absent'
+        ? NotificationCategory.absence
+        : NotificationCategory.attendance,
+    );
 
     return record;
   }

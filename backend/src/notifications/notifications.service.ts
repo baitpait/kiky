@@ -1,5 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { NotificationTarget, UserRole } from '@prisma/client';
+import {
+  Injectable,
+  NotFoundException,
+  ForbiddenException,
+} from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { RegisterDeviceDto } from './dto/notifications.dto';
 
@@ -19,65 +22,42 @@ export class NotificationsService {
     });
   }
 
-  private targetsForRole(role: string): NotificationTarget[] {
-    if (role === UserRole.teacher) {
-      return [NotificationTarget.all, NotificationTarget.teachers];
-    }
-    if (role === UserRole.parent) {
-      return [NotificationTarget.all, NotificationTarget.parents];
-    }
-    return [
-      NotificationTarget.all,
-      NotificationTarget.teachers,
-      NotificationTarget.parents,
-    ];
-  }
-
-  async listForUser(userId: number, role: string) {
-    const targets = this.targetsForRole(role);
-
+  /** Each user sees only their own notification rows (DEVELOPER_SPEC §5.4 + PHOTOS_NOTIFICATIONS_FIX). */
+  async listForUser(userId: number, _role?: string) {
     return this.prisma.notification.findMany({
-      where: {
-        OR: [
-          { userId },
-          { userId: null, target: { in: targets } },
-        ],
-      },
+      where: { userId },
       orderBy: { createdAt: 'desc' },
       take: 50,
     });
   }
 
-  async unreadCount(userId: number, role: string) {
-    const targets = this.targetsForRole(role);
-
+  async unreadCount(userId: number, _role?: string) {
     return this.prisma.notification.count({
-      where: {
-        isRead: false,
-        OR: [
-          { userId },
-          { userId: null, target: { in: targets } },
-        ],
-      },
+      where: { userId, isRead: false },
     });
   }
 
-  async markRead(id: number, userId: number, role: string) {
-    const targets = this.targetsForRole(role);
-    const notification = await this.prisma.notification.findFirst({
-      where: {
-        id,
-        OR: [
-          { userId },
-          { userId: null, target: { in: targets } },
-        ],
-      },
+  async markRead(id: number, userId: number, _role?: string) {
+    const notification = await this.prisma.notification.findUnique({
+      where: { id },
     });
     if (!notification) throw new NotFoundException('Notification not found');
+    if (notification.userId !== userId) {
+      throw new ForbiddenException('Not your notification');
+    }
+    if (notification.isRead) return notification;
 
     return this.prisma.notification.update({
       where: { id },
       data: { isRead: true },
     });
+  }
+
+  async markAllRead(userId: number) {
+    const result = await this.prisma.notification.updateMany({
+      where: { userId, isRead: false },
+      data: { isRead: true },
+    });
+    return { updated: result.count };
   }
 }

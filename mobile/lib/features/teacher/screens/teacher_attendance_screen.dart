@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../auth/providers/auth_provider.dart';
 import '../../../core/theme/app_theme.dart';
+import '../../../shared/widgets/labeled_dropdown.dart';
 import '../../../shared/models/student_model.dart';
 import '../../../shared/services/students_repository.dart';
 
@@ -84,9 +85,9 @@ class _TeacherAttendanceScreenState extends State<TeacherAttendanceScreen> {
                 padding: const EdgeInsets.all(16),
                 child: Column(
                   children: [
-                    DropdownButtonFormField<StudentModel>(
+                    LabeledDropdown<StudentModel>(
+                      label: 'الطالب',
                       value: _selected,
-                      decoration: const InputDecoration(labelText: 'الطالب'),
                       items: _students
                           .map((s) => DropdownMenuItem(
                                 value: s,
@@ -96,15 +97,17 @@ class _TeacherAttendanceScreenState extends State<TeacherAttendanceScreen> {
                       onChanged: (v) => setState(() => _selected = v),
                     ),
                     const SizedBox(height: 16),
-                    DropdownButtonFormField<String>(
+                    LabeledDropdown<String>(
+                      label: 'النوع',
                       value: _type,
-                      decoration: const InputDecoration(labelText: 'النوع'),
                       items: const [
                         DropdownMenuItem(value: 'check_in', child: Text('حضور')),
                         DropdownMenuItem(value: 'check_out', child: Text('انصراف')),
                         DropdownMenuItem(value: 'absent', child: Text('غياب')),
                       ],
-                      onChanged: (v) => setState(() => _type = v!),
+                      onChanged: (v) {
+                        if (v != null) setState(() => _type = v);
+                      },
                     ),
                     const SizedBox(height: 24),
                     ElevatedButton(

@@ -133,6 +133,45 @@ try {
     Pass "Mark conversation read"
 } catch { Fail "Mark read" $_.Exception.Message }
 
+# --- Admin chat (all roles) ---
+try {
+    $adminConvTeacher = Invoke-RestMethod -Uri "$api/conversations" -Method POST -Headers $ah `
+        -ContentType "application/json" `
+        -Body (@{ targetRole = "teacher"; teacherId = $tUser.id } | ConvertTo-Json)
+    if ($adminConvTeacher.id) { Pass "Admin open chat with teacher (id=$($adminConvTeacher.id))" }
+    else { Fail "Admin -> teacher" "no id" }
+} catch { Fail "Admin -> teacher" $_.Exception.Message }
+
+try {
+    $adminConvParent = Invoke-RestMethod -Uri "$api/conversations" -Method POST -Headers $ah `
+        -ContentType "application/json" `
+        -Body (@{ targetRole = "parent"; parentId = $pUser.id; studentId = $studentId } | ConvertTo-Json)
+    if ($adminConvParent.id) { Pass "Admin open chat with parent (id=$($adminConvParent.id))" }
+    else { Fail "Admin -> parent" "no id" }
+} catch { Fail "Admin -> parent" $_.Exception.Message }
+
+try {
+    $adminConvs = Invoke-RestMethod -Uri "$api/conversations" -Headers $ah
+    if ($adminConvs.Count -ge 2) { Pass "Admin list conversations ($($adminConvs.Count))" }
+    else { Fail "Admin list conversations" "expected at least 2" }
+} catch { Fail "Admin list conversations" $_.Exception.Message }
+
+try {
+    $teacherAdminConv = Invoke-RestMethod -Uri "$api/conversations" -Method POST -Headers $th `
+        -ContentType "application/json" `
+        -Body (@{ targetRole = "admin" } | ConvertTo-Json)
+    if ($teacherAdminConv.id) { Pass "Teacher open chat with admin (id=$($teacherAdminConv.id))" }
+    else { Fail "Teacher -> admin" "no id" }
+} catch { Fail "Teacher -> admin" $_.Exception.Message }
+
+try {
+    $parentAdminConv = Invoke-RestMethod -Uri "$api/conversations" -Method POST -Headers $ph `
+        -ContentType "application/json" `
+        -Body (@{ targetRole = "admin"; studentId = $studentId } | ConvertTo-Json)
+    if ($parentAdminConv.id) { Pass "Parent open chat with admin (id=$($parentAdminConv.id))" }
+    else { Fail "Parent -> admin" "no id" }
+} catch { Fail "Parent -> admin" $_.Exception.Message }
+
 try {
     $pngPath = Join-Path $env:TEMP "phase4-chat.png"
     [IO.File]::WriteAllBytes($pngPath, [byte[]](
@@ -154,19 +193,6 @@ try {
         Fail "Chat image attachment" "no attachments in response"
     }
 } catch { Fail "Chat image attachment" $_.Exception.Message }
-
-try {
-    try {
-        Invoke-RestMethod -Uri "$api/conversations" -Headers $ah -ErrorAction Stop | Out-Null
-        Fail "Admin blocked from chat" "admin should be forbidden"
-    } catch {
-        if ($_.Exception.Response.StatusCode.value__ -eq 403) {
-            Pass "Admin blocked from chat (403)"
-        } else {
-            Fail "Admin blocked from chat" $_.Exception.Message
-        }
-    }
-} catch { Fail "Admin blocked from chat" $_.Exception.Message }
 
 if ($convId) {
     try {

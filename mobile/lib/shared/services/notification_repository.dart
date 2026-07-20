@@ -22,4 +22,12 @@ class NotificationRepository {
   Future<void> markRead(int id) async {
     await _api.put('/notifications/$id/read');
   }
+
+  Future<int> markAllRead() async {
+    final result = await _api.put('/notifications/read-all');
+    if (result is Map<String, dynamic>) {
+      return asInt(result['updated']);
+    }
+    return 0;
+  }
 }

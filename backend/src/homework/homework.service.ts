@@ -9,7 +9,7 @@ import { UsersService } from '../users/users.service';
 import { AiService } from '../ai/ai.service';
 import { PushService } from '../notifications/push.service';
 import { CreateHomeworkDto, GradeHomeworkDto } from './dto/homework.dto';
-import { HomeworkStatus, StickerAssignedBy } from '@prisma/client';
+import { HomeworkStatus, StickerAssignedBy, NotificationCategory } from '@prisma/client';
 import { UpdateStudentStickerDto } from '../stickers/dto/stickers.dto';
 
 @Injectable()
@@ -48,6 +48,7 @@ export class HomeworkService {
       parentIds,
       'واجب جديد',
       `واجب جديد لـ ${homework.student.name}: ${dto.title}`,
+      NotificationCategory.homework,
     );
 
     return homework;
@@ -117,6 +118,7 @@ export class HomeworkService {
       teacherIds,
       'تأكيد حل واجب',
       `ولي أمر ${homework.student.name} أكّد حل الواجب: ${homework.title}`,
+      NotificationCategory.homework_confirm,
     );
 
     return updated;
@@ -170,6 +172,7 @@ export class HomeworkService {
       parentIds,
       'ملصق جديد',
       `حصل ${homework.student.name} على ملصق جديد بعد إنجاز الواجب!`,
+      NotificationCategory.sticker,
     );
 
     return {

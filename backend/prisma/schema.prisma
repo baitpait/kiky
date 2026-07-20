@@ -66,6 +66,25 @@ enum NotificationTarget {
   parents
 }
 
+enum NotificationCategory {
+  attendance
+  absence
+  homework
+  homework_confirm
+  meal
+  photo
+  sticker
+  live
+  chat
+  announcement
+}
+
+enum ConversationKind {
+  teacher_parent
+  admin_teacher
+  admin_parent
+}
+
 model User {
   id           Int      @id @default(autoincrement())
   username     String   @unique @db.VarChar(50)
@@ -81,6 +100,7 @@ model User {
   parent        Parent?
   notifications Notification[] @relation("NotificationSender")
   photoApprovals PhotoApproval[]
+  adminConversations Conversation[] @relation("AdminConversations")
 
   @@map("users")
 }
@@ -115,6 +135,7 @@ model Student {
   studentStickers StudentSticker[]
   attendance     AttendanceRecord[]
   meals          MealRecord[]
+  conversations  Conversation[]
 
   @@map("students")
 }
@@ -359,18 +380,23 @@ model LiveStream {
 }
 
 model Conversation {
-  id        Int      @id @default(autoincrement())
-  teacherId Int      @map("teacher_id")
-  parentId  Int      @map("parent_id")
-  studentId Int      @map("student_id")
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
+  id          Int              @id @default(autoincrement())
+  kind        ConversationKind @default(teacher_parent)
+  teacherId   Int?             @map("teacher_id")
+  parentId    Int?             @map("parent_id")
+  adminUserId Int?             @map("admin_user_id")
+  studentId   Int?             @map("student_id")
+  createdAt   DateTime         @default(now()) @map("created_at")
+  updatedAt   DateTime         @updatedAt @map("updated_at")
 
-  teacher  Teacher   @relation(fields: [teacherId], references: [id])
-  parent   Parent    @relation(fields: [parentId], references: [id])
-  messages Message[]
+  teacher   Teacher?  @relation(fields: [teacherId], references: [id])
+  parent    Parent?   @relation(fields: [parentId], references: [id])
+  adminUser User?     @relation("AdminConversations", fields: [adminUserId], references: [id])
+  student   Student?  @relation(fields: [studentId], references: [id])
+  messages  Message[]
 
-  @@unique([teacherId, parentId, studentId])
+  @@index([kind])
+  @@index([adminUserId])
   @@map("conversations")
 }
 
@@ -403,17 +429,19 @@ model MessageAttachment {
 }
 
 model Notification {
-  id        Int                @id @default(autoincrement())
-  title     String             @db.VarChar(200)
-  body      String             @db.Text
-  target    NotificationTarget @default(all)
-  senderId  Int?               @map("sender_id")
-  isRead    Boolean            @default(false) @map("is_read")
-  userId    Int?               @map("user_id")
-  createdAt DateTime           @default(now()) @map("created_at")
+  id        Int                  @id @default(autoincrement())
+  title     String               @db.VarChar(200)
+  body      String               @db.Text
+  category  NotificationCategory @default(announcement)
+  target    NotificationTarget   @default(all)
+  senderId  Int?                 @map("sender_id")
+  isRead    Boolean              @default(false) @map("is_read")
+  userId    Int?                 @map("user_id")
+  createdAt DateTime             @default(now()) @map("created_at")
 
   sender User? @relation("NotificationSender", fields: [senderId], references: [id])
 
+  @@index([userId, category])
   @@map("notifications")
 }
 

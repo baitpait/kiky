@@ -232,9 +232,9 @@ class _TeacherHomeScreenState extends State<TeacherHomeScreen> {
                     _MenuTile(
                       icon: Icons.chat,
                       title: 'الدردشة',
-                      subtitle: 'مع أولياء الأمور فقط',
+                      subtitle: 'مع أولياء الأمور والمديرة',
                       color: AppColors.kiddyBlue,
-                      onTap: () => _open(const ChatListScreen(isParent: false)),
+                      onTap: () => _open(const ChatListScreen()),
                     ),
                   ],
                 ),

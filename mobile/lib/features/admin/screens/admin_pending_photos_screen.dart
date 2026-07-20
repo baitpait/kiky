@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../auth/providers/auth_provider.dart';
 import '../../../core/api/api_client.dart';
@@ -6,6 +6,7 @@ import '../../../core/theme/app_theme.dart';
 import '../../../core/utils/json_utils.dart';
 import '../../../shared/utils/media_url_utils.dart';
 import '../widgets/admin_feedback.dart';
+import '../widgets/safe_admin_feedback.dart';
 
 class AdminPendingPhotosScreen extends StatefulWidget {
   const AdminPendingPhotosScreen({super.key});
@@ -51,10 +52,10 @@ class _AdminPendingPhotosScreenState extends State<AdminPendingPhotosScreen> {
       await context.read<AuthProvider>().api.put('/admin/photos/$id/approve');
       await _load();
       if (mounted) {
-        showAdminSuccess(context, 'تمت الموافقة — أُرسل إشعار لأولياء الأمور');
+        adminSuccess('تمت الموافقة — أُرسل إشعار لأولياء الأمور');
       }
     } catch (e) {
-      if (mounted) showAdminError(context, e);
+      if (mounted) adminError(e);
     }
   }
 
@@ -94,9 +95,9 @@ class _AdminPendingPhotosScreenState extends State<AdminPendingPhotosScreen> {
         body: noteCtrl.text.trim().isEmpty ? {} : {'note': noteCtrl.text.trim()},
       );
       await _load();
-      if (mounted) showAdminSuccess(context, 'تم رفض الصورة');
+      if (mounted) adminSuccess('تم رفض الصورة');
     } catch (e) {
-      if (mounted) showAdminError(context, e);
+      if (mounted) adminError(e);
     }
   }
 

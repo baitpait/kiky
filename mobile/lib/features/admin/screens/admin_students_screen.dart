@@ -1,10 +1,12 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../auth/providers/auth_provider.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../../core/utils/json_utils.dart';
 import '../../../shared/services/admin_repository.dart';
+import '../../../shared/widgets/labeled_dropdown.dart';
 import '../widgets/admin_feedback.dart';
+import '../widgets/safe_admin_feedback.dart';
 
 class AdminStudentsScreen extends StatefulWidget {
   const AdminStudentsScreen({super.key});
@@ -121,18 +123,18 @@ class _AdminStudentsScreenState extends State<AdminStudentsScreen> {
           className: classCtrl.text.trim(),
           birthDate: birth.isEmpty ? null : birth,
         );
-        showAdminSuccess(context, 'تم تحديث الطالب');
+        adminSuccess('تم تحديث الطالب');
       } else {
         await _repo.createStudent(
           name: nameCtrl.text.trim(),
           className: classCtrl.text.trim(),
           birthDate: birth.isEmpty ? null : birth,
         );
-        showAdminSuccess(context, 'تم إنشاء الطالب');
+        adminSuccess('تم إنشاء الطالب');
       }
       await _load();
     } catch (e) {
-      if (mounted) showAdminError(context, e);
+      if (mounted) adminError(e);
     } finally {
       if (mounted) setState(() => _submitting = false);
     }
@@ -143,15 +145,17 @@ class _AdminStudentsScreenState extends State<AdminStudentsScreen> {
     try {
       parents = await _repo.listParentOptions();
     } catch (e) {
-      if (mounted) showAdminError(context, e);
+      if (mounted) adminError(e);
       return;
     }
     if (parents.isEmpty) {
+      if (!mounted) return;
       showAdminError(context, 'أضف ولي أمر أولاً');
       return;
     }
     int? parentId = asInt(parents.first['id']);
 
+    if (!mounted) return;
     final ok = await showDialog<bool>(
       context: context,
       builder: (ctx) => Directionality(
@@ -159,7 +163,8 @@ class _AdminStudentsScreenState extends State<AdminStudentsScreen> {
         child: AlertDialog(
           title: const Text('ربط ولي أمر'),
           content: StatefulBuilder(
-            builder: (ctx, setS) => DropdownButtonFormField<int>(
+            builder: (ctx, setS) => LabeledDropdown<int>(
+              label: 'ولي الأمر',
               value: parentId,
               items: parents.map((p) {
                 final user = p['user'] as Map<String, dynamic>?;
@@ -169,7 +174,6 @@ class _AdminStudentsScreenState extends State<AdminStudentsScreen> {
                 );
               }).toList(),
               onChanged: (v) => setS(() => parentId = v),
-              decoration: const InputDecoration(labelText: 'ولي الأمر'),
             ),
           ),
           actions: [
@@ -189,10 +193,10 @@ class _AdminStudentsScreenState extends State<AdminStudentsScreen> {
     if (ok != true || parentId == null || !mounted) return;
     try {
       await _repo.linkParent(asInt(student['id']), parentId!);
-      showAdminSuccess(context, 'تم الربط');
+      adminSuccess('تم الربط');
       await _load();
     } catch (e) {
-      if (mounted) showAdminError(context, e);
+      if (mounted) adminError(e);
     }
   }
 
@@ -201,15 +205,17 @@ class _AdminStudentsScreenState extends State<AdminStudentsScreen> {
     try {
       teachers = await _repo.listTeacherOptions();
     } catch (e) {
-      if (mounted) showAdminError(context, e);
+      if (mounted) adminError(e);
       return;
     }
     if (teachers.isEmpty) {
+      if (!mounted) return;
       showAdminError(context, 'أضف معلمة أولاً');
       return;
     }
     int? teacherId = asInt(teachers.first['id']);
 
+    if (!mounted) return;
     final ok = await showDialog<bool>(
       context: context,
       builder: (ctx) => Directionality(
@@ -217,7 +223,8 @@ class _AdminStudentsScreenState extends State<AdminStudentsScreen> {
         child: AlertDialog(
           title: const Text('ربط معلمة'),
           content: StatefulBuilder(
-            builder: (ctx, setS) => DropdownButtonFormField<int>(
+            builder: (ctx, setS) => LabeledDropdown<int>(
+              label: 'المعلمة',
               value: teacherId,
               items: teachers.map((t) {
                 final user = t['user'] as Map<String, dynamic>?;
@@ -227,7 +234,6 @@ class _AdminStudentsScreenState extends State<AdminStudentsScreen> {
                 );
               }).toList(),
               onChanged: (v) => setS(() => teacherId = v),
-              decoration: const InputDecoration(labelText: 'المعلمة'),
             ),
           ),
           actions: [
@@ -247,10 +253,10 @@ class _AdminStudentsScreenState extends State<AdminStudentsScreen> {
     if (ok != true || teacherId == null || !mounted) return;
     try {
       await _repo.linkTeacher(asInt(student['id']), teacherId!);
-      showAdminSuccess(context, 'تم الربط');
+      adminSuccess('تم الربط');
       await _load();
     } catch (e) {
-      if (mounted) showAdminError(context, e);
+      if (mounted) adminError(e);
     }
   }
 
@@ -280,10 +286,10 @@ class _AdminStudentsScreenState extends State<AdminStudentsScreen> {
     if (confirm != true || !mounted) return;
     try {
       await _repo.deactivateStudent(asInt(student['id']));
-      showAdminSuccess(context, 'تم التعطيل');
+      adminSuccess('تم التعطيل');
       await _load();
     } catch (e) {
-      if (mounted) showAdminError(context, e);
+      if (mounted) adminError(e);
     }
   }
 

@@ -53,6 +53,15 @@ class _KiddyLinkAppState extends State<KiddyLinkApp> {
               debugShowCheckedModeBanner: false,
               theme: AppTheme.light,
               locale: const Locale('ar'),
+              builder: (context, child) {
+                return Directionality(
+                  textDirection: TextDirection.rtl,
+                  child: DefaultTextStyle(
+                    style: const TextStyle(fontFamily: AppTheme.fontFamily),
+                    child: child ?? const SizedBox.shrink(),
+                  ),
+                );
+              },
               home: const SplashScreen(),
             );
           }
@@ -68,6 +77,18 @@ class _KiddyLinkAppState extends State<KiddyLinkApp> {
               GlobalWidgetsLocalizations.delegate,
               GlobalCupertinoLocalizations.delegate,
             ],
+            builder: (context, child) {
+              return Directionality(
+                textDirection: TextDirection.rtl,
+                child: DefaultTextStyle(
+                  style: const TextStyle(
+                    fontFamily: AppTheme.fontFamily,
+                    color: AppColors.textPrimary,
+                  ),
+                  child: child ?? const SizedBox.shrink(),
+                ),
+              );
+            },
             routerConfig: _router,
           );
         },

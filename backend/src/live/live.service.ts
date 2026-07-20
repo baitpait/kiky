@@ -11,7 +11,7 @@ import { randomUUID } from 'crypto';
 import { PrismaService } from '../prisma/prisma.service';
 import { UsersService } from '../users/users.service';
 import { PushService } from '../notifications/push.service';
-import { LiveStreamStatus } from '@prisma/client';
+import { LiveStreamStatus, NotificationCategory } from '@prisma/client';
 
 @Injectable()
 export class LiveService {
@@ -55,6 +55,7 @@ export class LiveService {
       parentUserIds,
       'بث مباشر',
       `بدأ بث مباشر: ${title} — ${stream.teacher.user.name}`,
+      NotificationCategory.live,
     );
 
     return {

@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'app_colors.dart';
 
 export 'app_colors.dart';
 export 'app_spacing.dart';
 export 'brand_gradients.dart';
 
-/// BRAND_IDENTITY §7 — ThemeData للتطبيق
+/// BRAND_IDENTITY §3 + §7 — Cairo محلي + ThemeData
 class AppTheme {
+  static const fontFamily = 'Cairo';
+
   static ThemeData get light => buildAppTheme();
 
   static ThemeData forRole(String role) => buildAppTheme(
@@ -19,6 +20,7 @@ class AppTheme {
     final base = ThemeData(
       useMaterial3: true,
       brightness: Brightness.light,
+      fontFamily: fontFamily,
       colorScheme: ColorScheme.light(
         primary: accent,
         secondary: AppColors.linkGreen,
@@ -28,24 +30,28 @@ class AppTheme {
       scaffoldBackgroundColor: AppColors.cloudWhite,
     );
 
-    final cairo = GoogleFonts.cairoTextTheme(base.textTheme).apply(
+    final textTheme = base.textTheme.apply(
+      fontFamily: fontFamily,
       bodyColor: AppColors.textPrimary,
       displayColor: AppColors.textPrimary,
     );
 
     return base.copyWith(
-      textTheme: cairo,
-      primaryTextTheme: cairo,
+      textTheme: textTheme,
+      primaryTextTheme: textTheme,
       appBarTheme: AppBarTheme(
         backgroundColor: accent,
         foregroundColor: Colors.white,
         elevation: 0,
         centerTitle: true,
         toolbarHeight: 56,
-        titleTextStyle: cairo.titleLarge?.copyWith(
+        titleTextStyle: textTheme.titleLarge?.copyWith(
+          fontFamily: fontFamily,
           fontWeight: FontWeight.w600,
           color: Colors.white,
         ),
+        iconTheme: const IconThemeData(color: Colors.white),
+        actionsIconTheme: const IconThemeData(color: Colors.white),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
@@ -56,7 +62,8 @@ class AppTheme {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),
-          textStyle: cairo.labelLarge?.copyWith(
+          textStyle: textTheme.labelLarge?.copyWith(
+            fontFamily: fontFamily,
             fontWeight: FontWeight.w600,
             fontSize: 16,
           ),
@@ -70,6 +77,7 @@ class AppTheme {
             borderRadius: BorderRadius.circular(12),
           ),
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+          textStyle: TextStyle(fontFamily: fontFamily, fontWeight: FontWeight.w600),
         ),
       ),
       textButtonTheme: TextButtonThemeData(
@@ -78,11 +86,14 @@ class AppTheme {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),
+          textStyle: const TextStyle(fontFamily: fontFamily, fontWeight: FontWeight.w600),
         ),
       ),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
         fillColor: Colors.white,
+        labelStyle: const TextStyle(fontFamily: fontFamily),
+        hintStyle: const TextStyle(fontFamily: fontFamily),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
           borderSide: const BorderSide(color: AppColors.borderLight),
@@ -109,6 +120,15 @@ class AppTheme {
       snackBarTheme: SnackBarThemeData(
         behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        contentTextStyle: const TextStyle(fontFamily: fontFamily),
+      ),
+      listTileTheme: const ListTileThemeData(
+        titleTextStyle: TextStyle(fontFamily: fontFamily, fontSize: 16),
+        subtitleTextStyle: TextStyle(fontFamily: fontFamily, fontSize: 14),
+      ),
+      bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+        selectedLabelStyle: TextStyle(fontFamily: fontFamily),
+        unselectedLabelStyle: TextStyle(fontFamily: fontFamily),
       ),
       progressIndicatorTheme: const ProgressIndicatorThemeData(
         color: AppColors.kiddyBlue,

@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../../auth/providers/auth_provider.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../../shared/models/student_model.dart';
+import '../../../shared/widgets/labeled_dropdown.dart';
 import '../../../shared/services/students_repository.dart';
 import '../../../shared/utils/image_mime_utils.dart';
 import '../../admin/widgets/admin_feedback.dart';
@@ -69,14 +70,16 @@ class _TeacherUploadPhotoScreenState extends State<TeacherUploadPhotoScreen> {
     }
 
     final file = await ImagePicker().pickImage(source: ImageSource.gallery);
-    if (file == null) return;
+    if (file == null || !mounted) return;
 
     setState(() => _uploading = true);
     try {
       final bytes = await file.readAsBytes();
+      if (!mounted) return;
       final mime = resolveImageMime(file.name, file.mimeType);
       final filename = ensureImageFilename(file.name, mime);
-      await context.read<AuthProvider>().api.uploadMultipart(
+      final api = context.read<AuthProvider>().api;
+      await api.uploadMultipart(
             '/photos',
             fileField: 'image',
             bytes: bytes,
@@ -151,10 +154,9 @@ class _TeacherUploadPhotoScreenState extends State<TeacherUploadPhotoScreen> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
-                            DropdownButtonFormField<StudentModel>(
+                            LabeledDropdown<StudentModel>(
+                              label: 'الطالب',
                               value: _selected,
-                              decoration:
-                                  const InputDecoration(labelText: 'الطالب'),
                               items: _students
                                   .map((s) => DropdownMenuItem(
                                         value: s,

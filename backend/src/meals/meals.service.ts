@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { UsersService } from '../users/users.service';
+import { NotificationCategory } from '@prisma/client';
 import { PushService } from '../notifications/push.service';
 import { MealConfirmDto } from './dto/meals.dto';
 
@@ -52,6 +53,7 @@ export class MealsService {
       parentIds,
       'تأكيد وجبة',
       `المعلمة أكّدت أن ${student.name} تناول ${mealLabels[dto.mealType]}`,
+      NotificationCategory.meal,
     );
 
     return record;
@@ -97,6 +99,7 @@ export class MealsService {
       teacherIds,
       'تأكيد وجبة من ولي الأمر',
       `ولي أمر ${student.name} أكّد تناول ${mealLabels[dto.mealType]} في المنزل`,
+      NotificationCategory.meal,
     );
 
     return record;

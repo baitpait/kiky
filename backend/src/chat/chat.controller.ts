@@ -29,7 +29,7 @@ import { CreateConversationDto, SendMessageDto } from './dto/chat.dto';
 
 @ApiTags('Chat')
 @ApiBearerAuth()
-@Roles(UserRole.teacher, UserRole.parent)
+@Roles(UserRole.admin, UserRole.teacher, UserRole.parent)
 @Controller('conversations')
 export class ChatController {
   constructor(
@@ -47,13 +47,16 @@ export class ChatController {
   }
 
   @Post()
-  @Roles(UserRole.parent)
-  @ApiOperation({ summary: 'Parent opens chat with child teacher' })
+  @ApiOperation({ summary: 'Open chat — admin/teacher/parent with any allowed role' })
   create(
     @CurrentUser() user: JwtPayload,
     @Body() dto: CreateConversationDto,
   ) {
-    return this.chatService.getOrCreateConversation(user.sub, dto.studentId);
+    return this.chatService.createConversation(
+      user.sub,
+      user.role as UserRole,
+      dto,
+    );
   }
 
   @Get(':id/messages')
