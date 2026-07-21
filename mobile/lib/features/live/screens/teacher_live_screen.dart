@@ -19,30 +19,64 @@ class _TeacherLiveScreenState extends State<TeacherLiveScreen> {
   bool _loading = false;
   bool _broadcasting = false;
   bool _demoMode = false;
+  String? _agoraError;
+
+  @override
+  void initState() {
+    super.initState();
+    _agora.onStateChanged = () {
+      if (mounted) setState(() {});
+    };
+  }
 
   @override
   void dispose() {
     _agora.leave();
+    _agora.disposeNotifier();
     _titleController.dispose();
     super.dispose();
   }
 
   Future<void> _start() async {
-    setState(() => _loading = true);
+    setState(() {
+      _loading = true;
+      _agoraError = null;
+    });
     try {
       final repo = LiveRepository(context.read<AuthProvider>().api);
       final result = await repo.start(_titleController.text.trim());
       final agora = result['agora'] as Map<String, dynamic>? ?? {};
       _demoMode = agora['demo'] == true;
 
-      if (!_demoMode) {
-        await _agora.initAndJoin(
-          appId: agora['appId']?.toString() ?? '',
-          token: agora['token']?.toString() ?? '',
-          channelName: agora['channelName']?.toString() ?? '',
-          uid: agora['uid'] as int? ?? 0,
-          isBroadcaster: true,
-        );
+      if (_demoMode) {
+        setState(() {
+          _session = result;
+          _broadcasting = true;
+          _loading = false;
+        });
+        return;
+      }
+
+      final joined = await _agora.initAndJoin(
+        appId: agora['appId']?.toString() ?? '',
+        token: agora['token']?.toString() ?? '',
+        channelName: agora['channelName']?.toString() ?? '',
+        uid: agora['uid'] as int? ?? 0,
+        isBroadcaster: true,
+      );
+
+      if (!joined) {
+        final stream = result['stream'] as Map<String, dynamic>?;
+        final streamId = stream?['id'] as int?;
+        if (streamId != null) {
+          await repo.end(streamId);
+        }
+        setState(() {
+          _loading = false;
+          _agoraError =
+              'تعذّر بدء الكاميرا/الميكروفون. تأكد من السماح للمتصفح بالوصول.';
+        });
+        return;
       }
 
       setState(() {
@@ -54,7 +88,10 @@ class _TeacherLiveScreenState extends State<TeacherLiveScreen> {
       setState(() => _loading = false);
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(e.toString()), backgroundColor: AppColors.coralRed),
+          SnackBar(
+            content: Text(e.toString()),
+            backgroundColor: AppColors.coralRed,
+          ),
         );
       }
     }
@@ -108,6 +145,20 @@ class _TeacherLiveScreenState extends State<TeacherLiveScreen> {
           textAlign: TextAlign.center,
           style: TextStyle(fontSize: 16),
         ),
+        const SizedBox(height: 8),
+        const Text(
+          'يحتاج بث حقيقي: AGORA_APP_ID و AGORA_APP_CERTIFICATE في backend/.env',
+          textAlign: TextAlign.center,
+          style: TextStyle(fontSize: 12, color: AppColors.textSecondary),
+        ),
+        if (_agoraError != null) ...[
+          const SizedBox(height: 12),
+          Text(
+            _agoraError!,
+            textAlign: TextAlign.center,
+            style: const TextStyle(color: AppColors.coralRed),
+          ),
+        ],
         const SizedBox(height: 24),
         TextField(
           controller: _titleController,
@@ -139,7 +190,9 @@ class _TeacherLiveScreenState extends State<TeacherLiveScreen> {
             child: const ListTile(
               leading: Icon(Icons.info_outline),
               title: Text('وضع تجريبي'),
-              subtitle: Text('أضف AGORA_APP_ID في .env لتفعيل البث الحقيقي'),
+              subtitle: Text(
+                'أضف AGORA_APP_ID و AGORA_APP_CERTIFICATE في backend/.env ثم أعد تشغيل API',
+              ),
             ),
           ),
         Expanded(

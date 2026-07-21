@@ -437,3 +437,46 @@ All notable changes documented per phase.
 - `test-notifications.ps1`: ALL PASSED
 - `test-phase4.ps1`: ALL PASSED
 - `flutter build web --release`: success
+
+---
+
+## [Agora Real Live Streaming] — 2026-07-21 (evening) ✅
+
+### Added
+
+**Flutter — Real Agora (Web + Mobile)**
+- `agora_live_helper_impl.dart` — unified RTC helper (replaces web stub)
+- `iris-web-rtc` script in `mobile/web/index.html`
+- Teacher: local camera preview during broadcast
+- Parent: remote video via `ValueListenableBuilder` + `remotePreview()`
+- Android/iOS camera + microphone permissions
+
+**Backend**
+- `broadcasterUid` in Agora API response
+- Join endpoint includes teacher user in stream payload
+
+**Scripts**
+- `ensure-test-accounts.ps1` — reactivate p2–p5 test accounts, end stale streams
+- `setup-agora.ps1` — interactive Agora `.env` setup
+
+**Documentation**
+- `docs/AGORA_SETUP.md` — full Agora setup guide
+- Updated `PHASE5_TEST.md`, `CHECKPOINT.md`, `ACCOUNTS.md`
+
+### Removed
+- `agora_live_helper_stub.dart` (web no longer stubbed)
+- `agora_live_helper_mobile.dart` (merged into impl)
+
+### Fixed
+- `test-phase5.ps1` handles 409 when test accounts exist but deactivated
+- `p5teacher` / inactive account reactivation via MySQL script
+- Agora helper dispose safety (`_disposed` flag)
+
+### Test results
+- `test-phase5.ps1`: ALL PASSED
+- `flutter analyze lib/features/live`: no issues
+- `flutter build web --release`: success
+
+### Notes
+- Real video requires `AGORA_APP_ID` + `AGORA_APP_CERTIFICATE` in `backend/.env`
+- Without credentials: API works in demo mode (`demo-token`)

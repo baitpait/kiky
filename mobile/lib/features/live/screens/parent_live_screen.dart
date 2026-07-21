@@ -18,17 +18,41 @@ class _ParentLiveScreenState extends State<ParentLiveScreen> {
   Map<String, dynamic>? _watching;
   final _agora = AgoraLiveHelper();
   bool _demoMode = false;
+  String? _agoraError;
 
   @override
   void initState() {
     super.initState();
+    _agora.onStateChanged = () {
+      if (mounted) setState(() {});
+    };
     _load();
   }
 
   @override
   void dispose() {
     _agora.leave();
+    _agora.disposeNotifier();
     super.dispose();
+  }
+
+  int? _broadcasterUid(Map<String, dynamic>? watching) {
+    final agora = watching?['agora'] as Map<String, dynamic>?;
+    final fromAgora = agora?['broadcasterUid'];
+    if (fromAgora is int) return fromAgora;
+    if (fromAgora is num) return fromAgora.toInt();
+
+    final stream = watching?['stream'] as Map<String, dynamic>?;
+    final teacher = stream?['teacher'] as Map<String, dynamic>?;
+    if (teacher == null) return null;
+    final userId = teacher['userId'];
+    if (userId is int) return userId;
+    if (userId is num) return userId.toInt();
+    final user = teacher['user'] as Map<String, dynamic>?;
+    final raw = user?['id'];
+    if (raw is int) return raw;
+    if (raw is num) return raw.toInt();
+    return null;
   }
 
   Future<void> _load() async {
@@ -45,21 +69,40 @@ class _ParentLiveScreenState extends State<ParentLiveScreen> {
   }
 
   Future<void> _join(int streamId) async {
-    setState(() => _loading = true);
+    setState(() {
+      _loading = true;
+      _agoraError = null;
+    });
     try {
       final result =
           await LiveRepository(context.read<AuthProvider>().api).join(streamId);
       final agora = result['agora'] as Map<String, dynamic>? ?? {};
       _demoMode = agora['demo'] == true;
 
-      if (!_demoMode) {
-        await _agora.initAndJoin(
-          appId: agora['appId']?.toString() ?? '',
-          token: agora['token']?.toString() ?? '',
-          channelName: agora['channelName']?.toString() ?? '',
-          uid: agora['uid'] as int? ?? 0,
-          isBroadcaster: false,
-        );
+      if (_demoMode) {
+        setState(() {
+          _watching = result;
+          _loading = false;
+        });
+        return;
+      }
+
+      final broadcasterUid = _broadcasterUid(result);
+      final joined = await _agora.initAndJoin(
+        appId: agora['appId']?.toString() ?? '',
+        token: agora['token']?.toString() ?? '',
+        channelName: agora['channelName']?.toString() ?? '',
+        uid: agora['uid'] as int? ?? 0,
+        isBroadcaster: false,
+        expectedRemoteUid: broadcasterUid,
+      );
+
+      if (!joined) {
+        setState(() {
+          _loading = false;
+          _agoraError = 'تعذّر الاتصال بالبث. تحقق من Agora واتصال الإنترنت.';
+        });
+        return;
       }
 
       setState(() {
@@ -78,7 +121,10 @@ class _ParentLiveScreenState extends State<ParentLiveScreen> {
 
   Future<void> _leave() async {
     await _agora.leave();
-    setState(() => _watching = null);
+    setState(() {
+      _watching = null;
+      _agoraError = null;
+    });
     await _load();
   }
 
@@ -148,36 +194,68 @@ class _ParentLiveScreenState extends State<ParentLiveScreen> {
           const ListTile(
             leading: Icon(Icons.info_outline, color: AppColors.warmOrange),
             title: Text('وضع تجريبي — Agora غير مُعد'),
+            subtitle: Text('أضف مفاتيح Agora في backend/.env'),
+          ),
+        if (_agoraError != null)
+          ListTile(
+            leading: const Icon(Icons.error_outline, color: AppColors.coralRed),
+            title: Text(_agoraError!),
           ),
         Expanded(
-          child: Container(
-            margin: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: Colors.black87,
-              borderRadius: BorderRadius.circular(16),
-            ),
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Icon(Icons.live_tv, color: Colors.white, size: 64),
-                  const SizedBox(height: 16),
-                  Text(
-                    stream?['title']?.toString() ?? '',
-                    style: const TextStyle(color: Colors.white, fontSize: 18),
-                  ),
-                  Text(
-                    teacherUser?['name']?.toString() ?? '',
-                    style: const TextStyle(color: Colors.white70),
-                  ),
-                  const SizedBox(height: 12),
-                  const Text(
-                    '🔴 LIVE',
-                    style: TextStyle(color: Colors.redAccent, fontSize: 20),
-                  ),
-                ],
-              ),
-            ),
+          child: ValueListenableBuilder<int?>(
+            valueListenable: _agora.remoteUid,
+            builder: (context, _, __) {
+              final remote = _agora.remotePreview();
+              return Container(
+                margin: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: Colors.black87,
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: remote != null
+                    ? ClipRRect(
+                        borderRadius: BorderRadius.circular(16),
+                        child: remote,
+                      )
+                    : Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            if (!_demoMode && _agora.isJoined)
+                              const Padding(
+                                padding: EdgeInsets.all(24),
+                                child: CircularProgressIndicator(
+                                  color: Colors.white,
+                                ),
+                              )
+                            else
+                              const Icon(Icons.live_tv,
+                                  color: Colors.white, size: 64),
+                            const SizedBox(height: 16),
+                            Text(
+                              stream?['title']?.toString() ?? '',
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                              ),
+                            ),
+                            Text(
+                              teacherUser?['name']?.toString() ?? '',
+                              style: const TextStyle(color: Colors.white70),
+                            ),
+                            const SizedBox(height: 12),
+                            const Text(
+                              '🔴 LIVE',
+                              style: TextStyle(
+                                color: Colors.redAccent,
+                                fontSize: 20,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+              );
+            },
           ),
         ),
         Padding(

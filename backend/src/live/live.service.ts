@@ -49,6 +49,7 @@ export class LiveService {
 
     const token = this.buildToken(channelName, userId, RtcRole.PUBLISHER);
     const appId = this.config.get<string>('AGORA_APP_ID', '');
+    const hasAgora = !!(appId && this.config.get('AGORA_APP_CERTIFICATE'));
 
     const parentUserIds = await this.getParentIdsForTeacher(teacher.id);
     await this.push.notifyUsers(
@@ -65,8 +66,9 @@ export class LiveService {
         channelName,
         token,
         uid: userId,
+        broadcasterUid: userId,
         role: 'publisher',
-        demo: !appId || !this.config.get('AGORA_APP_CERTIFICATE'),
+        demo: !hasAgora,
       },
     };
   }
@@ -117,7 +119,9 @@ export class LiveService {
     const parent = await this.users.getParentByUserId(userId);
     const stream = await this.prisma.liveStream.findFirst({
       where: { id: streamId, status: LiveStreamStatus.active },
-      include: { teacher: true },
+      include: {
+        teacher: { include: { user: { select: { id: true, name: true } } } },
+      },
     });
 
     if (!stream) throw new NotFoundException('Active stream not found');
@@ -135,6 +139,8 @@ export class LiveService {
 
     const token = this.buildToken(stream.channelName, userId, RtcRole.SUBSCRIBER);
     const appId = this.config.get<string>('AGORA_APP_ID', '');
+    const hasAgora = !!(appId && this.config.get('AGORA_APP_CERTIFICATE'));
+    const broadcasterUid = stream.teacher.userId;
 
     return {
       stream,
@@ -143,8 +149,9 @@ export class LiveService {
         channelName: stream.channelName,
         token,
         uid: userId,
+        broadcasterUid,
         role: 'audience',
-        demo: !appId || !this.config.get('AGORA_APP_CERTIFICATE'),
+        demo: !hasAgora,
       },
     };
   }

@@ -7,6 +7,8 @@ $api = "http://localhost:3000/api"
 $pass = "Test@123456"
 $results = @()
 
+. (Join-Path $PSScriptRoot "ensure-test-accounts.ps1")
+
 function Pass($name) {
     $script:results += "[OK] $name"
     Write-Host "[OK] $name" -ForegroundColor Green
@@ -39,17 +41,35 @@ try {
     $teachers = Invoke-RestMethod -Uri "$api/admin/teachers" -Headers $ah
     $tUser = $teachers | Where-Object { $_.user.username -eq "p5teacher" } | Select-Object -First 1
     if (-not $tUser) {
-        $tUser = Invoke-RestMethod -Uri "$api/admin/teachers" -Method POST -Headers $ah `
-            -ContentType "application/json" `
-            -Body (@{ username = "p5teacher"; password = $pass; name = "P5 Teacher" } | ConvertTo-Json)
+        try {
+            $tUser = Invoke-RestMethod -Uri "$api/admin/teachers" -Method POST -Headers $ah `
+                -ContentType "application/json" `
+                -Body (@{ username = "p5teacher"; password = $pass; name = "P5 Teacher" } | ConvertTo-Json)
+        } catch {
+            if ($_.Exception.Response.StatusCode.value__ -eq 409) {
+                & (Join-Path $PSScriptRoot "ensure-test-accounts.ps1")
+                $teachers = Invoke-RestMethod -Uri "$api/admin/teachers" -Headers $ah
+                $tUser = $teachers | Where-Object { $_.user.username -eq "p5teacher" } | Select-Object -First 1
+            }
+            if (-not $tUser) { throw }
+        }
     }
 
     $parents = Invoke-RestMethod -Uri "$api/admin/parents" -Headers $ah
     $pUser = $parents | Where-Object { $_.user.username -eq "p5parent" } | Select-Object -First 1
     if (-not $pUser) {
-        $pUser = Invoke-RestMethod -Uri "$api/admin/parents" -Method POST -Headers $ah `
-            -ContentType "application/json" `
-            -Body (@{ username = "p5parent"; password = $pass; name = "P5 Parent" } | ConvertTo-Json)
+        try {
+            $pUser = Invoke-RestMethod -Uri "$api/admin/parents" -Method POST -Headers $ah `
+                -ContentType "application/json" `
+                -Body (@{ username = "p5parent"; password = $pass; name = "P5 Parent" } | ConvertTo-Json)
+        } catch {
+            if ($_.Exception.Response.StatusCode.value__ -eq 409) {
+                & (Join-Path $PSScriptRoot "ensure-test-accounts.ps1")
+                $parents = Invoke-RestMethod -Uri "$api/admin/parents" -Headers $ah
+                $pUser = $parents | Where-Object { $_.user.username -eq "p5parent" } | Select-Object -First 1
+            }
+            if (-not $pUser) { throw }
+        }
     }
 
     $students = Invoke-RestMethod -Uri "$api/admin/students" -Headers $ah

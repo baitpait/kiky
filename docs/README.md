@@ -4,7 +4,7 @@
 |-------|---------|
 | **[CHECKPOINT.md](./CHECKPOINT.md)** | **نقطة التوقف الحالية — اقرأه أولاً** |
 | **[NOTIFICATIONS_AND_CHAT_UPDATE.md](./NOTIFICATIONS_AND_CHAT_UPDATE.md)** | **دردشة كل الأدوار + إشعارات دقيقة (21 يوليو 2026)** |
-| **[PHOTOS_NOTIFICATIONS_FIX.md](./PHOTOS_NOTIFICATIONS_FIX.md)** | إصلاحات الصور والإشعارات |
+| **[AGORA_SETUP.md](./AGORA_SETUP.md)** | **بث Agora حقيقي — إعداد المفاتيح** |
 | **[BRAND_IMPLEMENTATION.md](./BRAND_IMPLEMENTATION.md)** | **الهوية البصرية v1.0 — التنفيذ** |
 | [PROJECT_SUMMARY.md](./PROJECT_SUMMARY.md) | ملخص المشروع الكامل |
 | [PHASES.md](./PHASES.md) | حالة المراحل (1–6) وما تم إنجازه |

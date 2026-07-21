@@ -5,7 +5,7 @@
 
 ---
 
-## آخر تحديث (21 يوليو 2026)
+## آخر تحديث (21 يوليو 2026 — مساء)
 
 | الميزة | الحالة | التوثيق |
 |--------|--------|---------|
@@ -13,8 +13,20 @@
 | إشعارات دقيقة + جرس Web | ✅ | `test-notifications.ps1` |
 | تصنيف `category` من API | ✅ | migration applied |
 | تشغيل LAN للهاتف | ✅ | `start-network.ps1` |
+| **بث Agora حقيقي (Web + Mobile)** | ✅ | [AGORA_SETUP.md](./AGORA_SETUP.md) |
 
-📄 **[NOTIFICATIONS_AND_CHAT_UPDATE.md](./NOTIFICATIONS_AND_CHAT_UPDATE.md)** — توثيق كامل للتحديث
+📄 **[NOTIFICATIONS_AND_CHAT_UPDATE.md](./NOTIFICATIONS_AND_CHAT_UPDATE.md)** — درdشة + إشعارات  
+📄 **[AGORA_SETUP.md](./AGORA_SETUP.md)** — بث مباشر حقيقي
+
+### حسابات سريعة (ثلاثة)
+
+| الدور | المستخدم | كلمة المرور |
+|-------|----------|-------------|
+| مديرة | `admin` | `Admin@123` |
+| معلمة | `p2teacher` | `Test@123456` |
+| ولي أمر | `p2parent` | `Test@123456` |
+
+> كل الحسابات: [ACCOUNTS.md](./ACCOUNTS.md)
 
 ---
 
@@ -26,11 +38,11 @@
 | **2** | صور، حضور، وجبات، بانرات | ✅ | ✅ | `test-phase2.ps1` ✅ |
 | **3** | واجبات، ملصقات، AI | ✅ | ✅ | `test-phase3.ps1` ✅ |
 | **4** | درdشة WebSocket (**كل الأدوار**) | ✅ | ✅ | `test-phase4.ps1` ✅ |
-| **5** | بث Agora | ✅ | ✅ | `test-phase5.ps1` ✅ |
+| **5** | بث Agora (**حقيقي Web+Mobile**) | ✅ | ✅ | `test-phase5.ps1` ✅ |
 | **6** | نشر + فحص إطلاق | ✅ | ✅ | `test-phase6.ps1` ✅ |
 | **Brand** | الهوية البصرية v1.0 | — | ✅ | يدوي |
 
-**الخلاصة:** المراحل 1–6 **مكتملة ومختبرة محلياً** + الهوية البصرية **مُطبّقة**. المتبقي: نشر VPS + App Store + FCM/Agora حقيقي + استبدال الشعار الرسمي.
+**الخلاصة:** المراحل 1–6 **مكتملة ومختبرة محلياً** + الهوية البصرية **مُطبّقة**. المتبقي: نشر VPS + App Store + FCM حقيقي + **مفاتيح Agora في `.env`** + استبدال الشعار الرسمي.
 
 ---
 
@@ -145,6 +157,8 @@ E:\Eman Project\scripts\test-parent-ui.ps1    # ألبوم + إشعارات + ك
 | `scripts/restart-api.ps1` | إعادة API |
 | `scripts/start-web-fast.ps1` | بناء + Web :8082 |
 | `scripts/health-check.ps1` | فحص المنافذ |
+| `scripts/ensure-test-accounts.ps1` | تفعيل حسابات p2–p5 + إنهاء بثوث عالقة |
+| `scripts/setup-agora.ps1` | إعداد مفاتيح Agora في `.env` |
 | `scripts/spa_server.py` | خادم SPA :8082 |
 
 ---
@@ -174,7 +188,7 @@ E:\Eman Project\scripts\test-parent-ui.ps1    # ألبوم + إشعارات + ك
 |---|---------|----------|
 | 1 | **شعار placeholder** — استبدل `logo.png` بالرسمي | متوسطة |
 | 2 | **FCM stub** — إشعارات DB فقط | منخفضة |
-| 3 | **Agora Web stub** — بث حقيقي على موبايل فقط | متوسطة |
+| 3 | **Agora Web stub** — **مُصلَح** (بث حقيقي مع مفاتيح `.env`) | ✅ |
 | 4 | **MinIO معطّل** — `backend/uploads/` للتطوير | متوسطة |
 | 5 | **وثائق قديمة** — بعضها ذكرت :8081 (مُصلَح) | ✅ |
 
@@ -188,7 +202,8 @@ E:\Eman Project\scripts\test-parent-ui.ps1    # ألبوم + إشعارات + ك
 | [CHECKPOINT.md](./CHECKPOINT.md) | هذا الملف |
 | [BRAND_IMPLEMENTATION.md](./BRAND_IMPLEMENTATION.md) | **الهوية البصرية — التنفيذ** |
 | [ACCOUNTS.md](./ACCOUNTS.md) | حسابات وكلمات سر |
-| [PHOTOS_NOTIFICATIONS_FIX.md](./PHOTOS_NOTIFICATIONS_FIX.md) | إصلاحات الصور والإشعارات |
+| [AGORA_SETUP.md](./AGORA_SETUP.md) | **بث Agora حقيقي** |
+| [NOTIFICATIONS_AND_CHAT_UPDATE.md](./NOTIFICATIONS_AND_CHAT_UPDATE.md) | درdشة + إشعارات |
 | [PHASES.md](./PHASES.md) | المراحل 1–6 |
 | [PROJECT_SUMMARY.md](./PROJECT_SUMMARY.md) | ملخص شامل |
 | [PHASE2_TEST.md](./PHASE2_TEST.md) … [PHASE6_TEST.md](./PHASE6_TEST.md) | اختبارات |
@@ -199,4 +214,4 @@ E:\Eman Project\scripts\test-parent-ui.ps1    # ألبوم + إشعارات + ك
 
 ---
 
-*آخر تحديث: 19 يوليو 2026 — 8:45 م*
+*آخر تحديث: 21 يوليو 2026 — 6:35 م*

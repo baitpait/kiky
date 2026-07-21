@@ -1,6 +1,24 @@
 # حسابات الاختبار — Kiddy Link
 
-> **آخر تحديث:** 17 يوليو 2026
+> **آخر تحديث:** 21 يوليو 2026
+
+---
+
+## الحسابات الثلاثة (الأكثر استخداماً)
+
+**المديرة**  
+اسم المستخدم: admin  
+كلمة المرور: Admin@123  
+
+**المعلمة**  
+اسم المستخدم: p2teacher  
+كلمة المرور: Test@123456  
+
+**ولي الأمر**  
+اسم المستخدم: p2parent  
+كلمة المرور: Test@123456  
+
+**الرابط:** http://localhost:8082/login
 
 ---
 
@@ -22,7 +40,7 @@
 | `p3parent` | ولي أمر | Phase3 Student | واجبات، ملصقات |
 | `p4teacher` | معلمة | Phase4 Student | درdشة |
 | `p4parent` | ولي أمر | Phase4 Student | درdشة |
-| `p5teacher` | معلمة | Phase5 Student | بث مباشر |
+| `p5teacher` | معلمة | Phase5 Student | بث مباشر (Agora) |
 | `p5parent` | ولي أمر | Phase5 Student | مشاهدة بث |
 
 ---
@@ -44,6 +62,12 @@
 | API | http://localhost:3000/api |
 
 > استخدم **localhost** دائماً — لا تخلط مع `127.0.0.1`.
+
+### إذا حساب p5 لا يعمل
+
+```powershell
+E:\Eman Project\scripts\ensure-test-accounts.ps1
+```
 
 ---
 
