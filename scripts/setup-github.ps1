@@ -29,8 +29,17 @@ try {
     gh auth login -h github.com -p https -w
 }
 
-$login = gh api user -q .login
-Write-Host "[OK] GitHub user: $login" -ForegroundColor Green
+$login = $null
+try {
+    $login = gh api user -q .login 2>$null
+} catch {}
+
+if (-not $login) {
+    $login = "nahlahalbostnje"
+    Write-Host "[*] Using GitHub username: $login (login with: gh auth login)" -ForegroundColor Yellow
+} else {
+    Write-Host "[OK] GitHub user: $login" -ForegroundColor Green
+}
 
 $repoName = "kiddy-link"
 if (git remote get-url origin 2>$null) {

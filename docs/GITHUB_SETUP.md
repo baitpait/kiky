@@ -2,9 +2,10 @@
 
 > **21 يوليو 2026**
 
----
+**GitHub username:** `nahlahalbostnje`  
+**Repo URL (after push):** https://github.com/nahlahalbostnje/kiddy-link
 
-## المتطلبات
+---
 
 - حساب GitHub: [github.com/signup](https://github.com/signup)
 - GitHub CLI مُثبّت ✅ (`gh` — تم تثبيته عبر winget)
