@@ -159,6 +159,7 @@ E:\Eman Project\scripts\test-parent-ui.ps1    # ألبوم + إشعارات + ك
 | `scripts/health-check.ps1` | فحص المنافذ |
 | `scripts/ensure-test-accounts.ps1` | تفعيل حسابات p2–p5 + إنهاء بثوث عالقة |
 | `scripts/setup-agora.ps1` | إعداد مفاتيح Agora في `.env` |
+| `scripts/setup-github.ps1` | **إنشاء repo GitHub + push** |
 | `scripts/spa_server.py` | خادم SPA :8082 |
 
 ---
