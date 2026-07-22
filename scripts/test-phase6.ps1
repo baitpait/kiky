@@ -59,13 +59,22 @@ if (Test-Path $envFile) {
         Warn "Secrets" "default JWT secrets - change before production"
     } else { Pass "JWT secrets customized" }
 
-    if ($envText -notmatch 'AGORA_APP_ID=\s*\S+') {
-        Warn "Agora" "no AGORA_APP_ID - live uses demo mode"
-    } else { Pass "Agora configured" }
+    function Test-EnvSet($lines, $key) {
+        $line = $lines | Where-Object { $_ -match "^$key=" } | Select-Object -First 1
+        if (-not $line) { return $false }
+        $val = ($line -replace "^$key=", '').Trim().Trim('"').Trim("'")
+        return -not [string]::IsNullOrWhiteSpace($val)
+    }
 
-    if ($envText -notmatch 'OPENAI_API_KEY=\s*\S+') {
-        Warn "OpenAI" "no key - AI uses fallback picker"
-    } else { Pass "OpenAI configured" }
+    $envLines = Get-Content $envFile
+    if (Test-EnvSet $envLines 'AGORA_APP_ID') { Pass "Agora configured" }
+    else { Warn "Agora" "no AGORA_APP_ID - live uses demo mode" }
+
+    if (Test-EnvSet $envLines 'FCM_PROJECT_ID') { Pass "FCM configured" }
+    else { Warn "FCM" "no FCM_PROJECT_ID - push uses DB stub" }
+
+    if (Test-EnvSet $envLines 'OPENAI_API_KEY') { Pass "OpenAI configured" }
+    else { Warn "OpenAI" "no key - AI uses fallback picker" }
 } else {
     Warn ".env" "backend/.env missing - copy from .env.example"
 }
@@ -104,6 +113,8 @@ $phaseScripts = @(
     "test-phase3.ps1",
     "test-phase4.ps1",
     "test-phase5.ps1",
+    "test-notifications.ps1",
+    "test-fcm.ps1",
     "test-parent-ui.ps1"
 )
 

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
+import '../../../core/push/push_registration_service.dart';
 import '../../../core/api/api_client.dart';
 import '../../../core/storage/token_storage.dart';
 import '../../../shared/models/user_model.dart';
@@ -48,6 +49,7 @@ class AuthProvider extends ChangeNotifier {
         _user = UserModel.fromJson(
           jsonDecode(userJson) as Map<String, dynamic>,
         );
+        await PushRegistrationService(_api).registerIfAvailable();
       }
     } catch (_) {
       await _clearSession();
@@ -70,6 +72,7 @@ class AuthProvider extends ChangeNotifier {
       final tokens = AuthTokens.fromJson(result);
       await _persistSession(tokens);
       _user = tokens.user;
+      await PushRegistrationService(_api).registerIfAvailable();
       _loading = false;
       notifyListeners();
       return true;

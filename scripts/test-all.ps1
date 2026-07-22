@@ -9,6 +9,8 @@ $scripts = @(
     "test-phase3.ps1",
     "test-phase4.ps1",
     "test-phase5.ps1",
+    "test-notifications.ps1",
+    "test-fcm.ps1",
     "test-parent-ui.ps1"
 )
 

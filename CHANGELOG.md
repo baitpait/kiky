@@ -480,3 +480,44 @@ All notable changes documented per phase.
 ### Notes
 - Real video requires `AGORA_APP_ID` + `AGORA_APP_CERTIFICATE` in `backend/.env`
 - Without credentials: API works in demo mode (`demo-token`)
+
+---
+
+## [Pre-Launch Local + FCM/Agora Setup] — 2026-07-22/23 ✅
+
+### Added
+
+**Scripts & BAT files**
+- `pre-launch-local.ps1` — full local pre-VPS verification
+- `COMPLETE-PRE-LAUNCH.bat` — one-click pre-launch check
+- `setup-fcm.ps1`, `setup-fcm-from-json.ps1`, `SETUP-FCM.bat`, `SETUP-FCM-JSON.bat`
+- `setup-agora.ps1` (params + verify), `SETUP-AGORA.bat`
+- `verify-fcm.ps1`, `verify-agora.ps1`, `verify-minio.ps1`
+- `test-fcm.ps1` — device token registration API tests
+
+**Mobile**
+- `PushRegistrationService` stub — ready for Firebase mobile integration
+- `NotificationRepository.registerDevice()` — `POST /api/devices/register`
+
+**Documentation**
+- `docs/PRE_LAUNCH_LOCAL.md` — local readiness before VPS
+- `docs/FCM_SETUP.md` — Firebase / FCM guide
+- `docs/MINIO_SETUP.md` — MinIO vs local uploads
+- `docs/LOGO_SETUP.md` — official logo replacement
+- Updated `CHECKPOINT.md`, `START_TOMORROW.md`, `PROJECT_SUMMARY.md`, `AGORA_SETUP.md`
+
+### Changed
+- `test-all.ps1` — includes notifications + FCM tests
+- `test-phase6.ps1` — FCM check + improved `.env` validation
+- `test-parent-ui.ps1` — accepts `/uploads/` relative photo URLs
+- `test-notifications.ps1`, `test-fcm.ps1` — explicit exit codes
+
+### Session status (23 Jul)
+- Firebase Console project **Kiddy Link** created (Spark plan)
+- Service Account JSON **not yet imported** to `backend/.env`
+- Agora keys **still empty** — demo mode
+- VPS deploy **deferred**
+
+### Test results
+- `pre-launch-local.ps1`: PRE-LAUNCH LOCAL COMPLETE
+- All phase tests + notifications + FCM API + parent UI: PASSED

@@ -1,197 +1,136 @@
 # نقطة التوقف — Kiddy Link
-> **التاريخ:** 21 يوليو 2026  
+> **التاريخ:** 23 يوليو 2026 — **آخر جلسة**  
 > **المسار:** `E:\Eman Project\`  
 > **البيئة:** Windows + XAMPP MySQL (3306) — **بدون Docker**
 
 ---
 
-## آخر تحديث (21 يوليو 2026 — مساء)
+## 🟢 ابدأ بكرة من هنا
+
+📄 **[START_TOMORROW.md](./START_TOMORROW.md)** — تشغيل + الخطوة الجاية
+
+```powershell
+# 1. تشغيل
+E:\Eman Project\START.bat
+
+# 2. فحص شامل
+E:\Eman Project\COMPLETE-PRE-LAUNCH.bat
+
+# 3. Firebase — بعد ما تنزل JSON
+E:\Eman Project\SETUP-FCM-JSON.bat
+```
+
+| الخدمة | URL |
+|--------|-----|
+| **Web** | http://localhost:8082/login |
+| **API** | http://localhost:3000/api |
+| **GitHub** | https://github.com/nahlahalbostnje-ctrl/kiddy-link |
+
+---
+
+## آخر تحديث (22–23 يوليو 2026)
 
 | الميزة | الحالة | التوثيق |
 |--------|--------|---------|
-| درdشة كل الأدوار (admin ↔ teacher ↔ parent) | ✅ | `test-phase4.ps1` |
-| إشعارات دقيقة + جرس Web | ✅ | `test-notifications.ps1` |
-| تصنيف `category` من API | ✅ | migration applied |
-| تشغيل LAN للهاتف | ✅ | `start-network.ps1` |
-| **بث Agora حقيقي (Web + Mobile)** | ✅ | [AGORA_SETUP.md](./AGORA_SETUP.md) |
+| **جاهزية محلية قبل VPS** | ✅ | [PRE_LAUNCH_LOCAL.md](./PRE_LAUNCH_LOCAL.md) |
+| فحص شامل `COMPLETE-PRE-LAUNCH.bat` | ✅ | `pre-launch-local.ps1` |
+| إعداد Agora (سكربتات + verify) | ✅ | [AGORA_SETUP.md](./AGORA_SETUP.md) |
+| إعداد FCM (سكربتات + verify + JSON) | ✅ | [FCM_SETUP.md](./FCM_SETUP.md) |
+| MinIO / local uploads verify | ✅ | [MINIO_SETUP.md](./MINIO_SETUP.md) |
+| API تسجيل أجهزة FCM | ✅ | `test-fcm.ps1` |
+| Flutter PushRegistrationService | ✅ | `mobile/lib/core/push/` |
+| **Firebase Console — مشروع Kiddy Link** | ⏳ | **Service Account JSON لم يُضبط بعد** |
+| **مفاتiح Agora في `.env`** | ⏳ | `SETUP-AGORA.bat` |
+| **نشر VPS** | 📋 | [DEPLOYMENT.md](./DEPLOYMENT.md) — **بكرة أو لاحقاً** |
 
-📄 **[NOTIFICATIONS_AND_CHAT_UPDATE.md](./NOTIFICATIONS_AND_CHAT_UPDATE.md)** — درdشة + إشعارات  
-📄 **[AGORA_SETUP.md](./AGORA_SETUP.md)** — بث مباشر حقيقي
+---
 
-### حسابات سريعة (ثلاثة)
+## أين وصلنا؟
+
+| المرحلة | المحتوى | API | Web | اختبار |
+|---------|---------|-----|-----|--------|
+| **1** | Auth + CRUD + ربط | ✅ | ✅ | — |
+| **2** | صور، حضور، وجبات، بانرات | ✅ | ✅ | `test-phase2.ps1` ✅ |
+| **3** | واجبات، ملصقات، AI | ✅ | ✅ | `test-phase3.ps1` ✅ |
+| **4** | درdشة WebSocket (**كل الأدوار**) | ✅ | ✅ | `test-phase4.ps1` ✅ |
+| **5** | بث Agora (كود حقيقي) | ✅ | ✅ | `test-phase5.ps1` ✅ |
+| **6** | فحص إطلاق محلي | ✅ | ✅ | `test-phase6.ps1` ✅ |
+| **Pre-launch** | جاهزية قبل VPS | ✅ | ✅ | `pre-launch-local.ps1` ✅ |
+| **Brand** | الهوية البصرية v1.0 | — | ✅ | يدوي |
+
+**الخلاصة:** التطوير **1–6 منتهي** + **جاهزية محلية مكتملة**. المتبقي: **مفاتiح Firebase + Agora** ثم **VPS**.
+
+---
+
+## الخطوة الجاية (بكرة)
+
+| # | المهمة | كيف |
+|---|--------|-----|
+| 1 | **Firebase Service Account** | Firebase → Settings → Service accounts → Generate key → `SETUP-FCM-JSON.bat` |
+| 2 | **Agora** | console.agora.io → `SETUP-AGORA.bat` |
+| 3 | **اختبار يدوي** | [START_TOMORROW.md](./START_TOMORROW.md) §4 |
+| 4 | **(اختياري) Android app في Firebase** | `google-services.json` — عند بناء APK |
+| 5 | **VPS** | لاحقاً — [DEPLOYMENT.md](./DEPLOYMENT.md) |
+
+---
+
+## حسابات سريعة
 
 | الدور | المستخدم | كلمة المرور |
 |-------|----------|-------------|
 | مديرة | `admin` | `Admin@123` |
 | معلمة | `p2teacher` | `Test@123456` |
 | ولي أمر | `p2parent` | `Test@123456` |
+| بث | `p5teacher` / `p5parent` | `Test@123456` |
 
 > كل الحسابات: [ACCOUNTS.md](./ACCOUNTS.md)
 
 ---
 
-## أين وصلنا؟
-
-| المرحلة | المحتوى | API | Web | اختبار تلقائي |
-|---------|---------|-----|-----|---------------|
-| **1** | Auth + CRUD + ربط | ✅ | ✅ | — |
-| **2** | صور، حضور، وجبات، بانرات | ✅ | ✅ | `test-phase2.ps1` ✅ |
-| **3** | واجبات، ملصقات، AI | ✅ | ✅ | `test-phase3.ps1` ✅ |
-| **4** | درdشة WebSocket (**كل الأدوار**) | ✅ | ✅ | `test-phase4.ps1` ✅ |
-| **5** | بث Agora (**حقيقي Web+Mobile**) | ✅ | ✅ | `test-phase5.ps1` ✅ |
-| **6** | نشر + فحص إطلاق | ✅ | ✅ | `test-phase6.ps1` ✅ |
-| **Brand** | الهوية البصرية v1.0 | — | ✅ | يدوي |
-
-**الخلاصة:** المراحل 1–6 **مكتملة ومختبرة محلياً** + الهوية البصرية **مُطبّقة**. المتبقي: نشر VPS + App Store + FCM حقيقي + **مفاتيح Agora في `.env`** + استبدال الشعار الرسمي.
-
----
-
-## ابدأ من هنا
-
-📄 **[START_TOMORROW.md](./START_TOMORROW.md)** — تشغيل + فحص + حسابات
-
----
-
-## التشغيل
+## اختبارات تلقائية (آخر تشغيل 22 يوليو)
 
 ```powershell
-# الطريقة الأسهل
-E:\Eman Project\START.bat
-
-# أو
-E:\Eman Project\scripts\go.ps1
-
-# Web فقط (بعد تعديل Flutter)
-E:\Eman Project\scripts\start-web-fast.ps1
-```
-
-| الخدمة | URL | ملاحظة |
-|--------|-----|--------|
-| **Web** | http://localhost:8082/login | ⚠️ **8082 فقط** — لا 8081 |
-| **API** | http://localhost:3000/api | |
-| **Swagger** | http://localhost:3000/api/docs | |
-| **MySQL** | localhost:3306 | XAMPP |
-
-> استخدم **localhost** دائماً — لا تخلط مع `127.0.0.1` (مشاكل CORS للصور).
-
-**آخر تشغيل (21 يوليو):** API ✅ Web ✅ (8082) MySQL ✅ — إشعارات + درdشة مختبرة
-
----
-
-## حسابات الاختبار
-
-📄 **[ACCOUNTS.md](./ACCOUNTS.md)** — كل المستخدمين وكلمات السر
-
-| سريع | |
-|------|--|
-| مديرة | `admin` / `Admin@123` |
-| معلمة صور | `p2teacher` / `Test@123456` |
-| ولي أمر | `p2parent` / `Test@123456` |
-
----
-
-## اختبارات تلقائية
-
-```powershell
-E:\Eman Project\scripts\test-all.ps1          # مراحل 2-5 + واجهة ولي الأمر
-E:\Eman Project\scripts\test-phase6.ps1       # فحص إطلاق شامل
-E:\Eman Project\scripts\test-parent-ui.ps1    # ألبوم + إشعارات + كل شاشات ولي الأمر
+E:\Eman Project\scripts\pre-launch-local.ps1   # شامل
+E:\Eman Project\scripts\test-all.ps1           # مراحل 2–5 + إشعارات + FCM
 ```
 
 | السكربت | النتيجة |
 |---------|---------|
-| test-phase2.ps1 | ✅ ALL PASSED |
-| test-phase3.ps1 | ✅ ALL PASSED |
-| test-phase4.ps1 | ✅ ALL PASSED |
-| test-phase5.ps1 | ✅ ALL PASSED |
-| test-phase6.ps1 | ✅ READY FOR LAUNCH PREP |
-| test-parent-ui.ps1 | ✅ ALL OK |
+| `pre-launch-local.ps1` | ✅ PRE-LAUNCH LOCAL: COMPLETE |
+| `test-phase2.ps1` … `test-phase5.ps1` | ✅ ALL PASSED |
+| `test-notifications.ps1` | ✅ ALL PASSED |
+| `test-fcm.ps1` | ✅ ALL PASSED |
+| `test-parent-ui.ps1` | ✅ ALL OK |
+| `test-phase6.ps1` | ✅ READY FOR LAUNCH PREP |
 
----
-
-## ما تم في جلسة 19 يوليو — الهوية البصرية
-
-📄 **[BRAND_IMPLEMENTATION.md](./BRAND_IMPLEMENTATION.md)** — التفاصيل الكاملة
-
-| البند | الحالة |
-|-------|--------|
-| `app_colors.dart` + `app_theme.dart` + gradients + spacing | ✅ |
-| Splash Screen (تدرج + شعار + مؤشر) | ✅ |
-| Login Screen (عربي + بطاقة 16) | ✅ |
-| AppBar ملوّن حسب الدور (admin/teacher/parent) | ✅ |
-| RoleBadge في بطاقات الترحيب | ✅ |
-| `assets/brand/logo.png` | ✅ placeholder |
-| `flutter build web --release` | ✅ |
-| Web على :8082 | ✅ |
-
----
-
-## ما تم في جلسة 16–17 يوليو
-
-### المراحل 4–6
-- `test-phase4.ps1` + `test-phase5.ps1` + `test-phase6.ps1` + `test-all.ps1`
-- إصلاحات درdشة: MIME، dedup، أخطاء
-- توثيق PHASE4/5/6_TEST.md
-
-### الإشعارات
-- إرسال المديرة → سجل لكل مستخدم (الجرس ينقص)
-- `markRead` يعمل على كل الإشعارات
-- 📄 [PHOTOS_NOTIFICATIONS_FIX.md](./PHOTOS_NOTIFICATIONS_FIX.md)
-
-### الصور (إصلاح Web)
-- CORS على `/uploads/`
-- مسارات نسبية `/uploads/photos/...`
-- `resolveMediaUrl` في Flutter
-- ألبوم ولي الأمر: refresh + معاينة + أخطاء
-- رفع المعلمة: MIME + retry JWT
+> ⚠️ Agora + FCM = **WARN** (مفاتiح فارغة — طبيعي)
 
 ---
 
 ## سكربتات مهمة
 
-| السكربت | الوظيفة |
-|---------|---------|
+| السكربت / BAT | الوظيفة |
+|---------------|---------|
 | `START.bat` | تشغيل كامل |
+| `COMPLETE-PRE-LAUNCH.bat` | **فحص شامل قبل VPS** |
+| `SETUP-FCM-JSON.bat` | FCM من ملف JSON |
+| `SETUP-FCM.bat` | FCM يدوي |
+| `SETUP-AGORA.bat` | Agora |
 | `scripts/go.ps1` | stop + start + health |
-| `scripts/stop-all.ps1` | إيقاف API + Web |
-| `scripts/restart-api.ps1` | إعادة API |
-| `scripts/start-web-fast.ps1` | بناء + Web :8082 |
-| `scripts/health-check.ps1` | فحص المنافذ |
-| `scripts/ensure-test-accounts.ps1` | تفعيل حسابات p2–p5 + إنهاء بثوث عالقة |
-| `scripts/setup-agora.ps1` | إعداد مفاتيح Agora في `.env` |
-| `scripts/setup-github.ps1` | **إنشاء repo GitHub + push** |
-| `scripts/spa_server.py` | خادم SPA :8082 |
+| `scripts/verify-fcm.ps1` | فحص FCM |
+| `scripts/verify-agora.ps1` | فحص Agora |
+| `scripts/verify-minio.ps1` | فحص التخزين |
 
 ---
 
-## فحص يدوي (قائمة)
+## حالة المفاتiح (.env)
 
-### الهوية البصرية
-- [ ] Splash — تدرج + شعار
-- [ ] Login — «مرحباً بك في كيدي لينك»
-- [ ] admin → AppBar أزرق + شارة مديرة
-- [ ] p2teacher → AppBar أخضر
-- [ ] p2parent → AppBar برتقالي
-
-### الميزات
-- [ ] `p2teacher` → رفع صورة
-- [ ] `admin` → موافقة صورة
-- [ ] `p2parent` → ألبوم (صورة تظهر) + 🔔
-- [ ] `p3parent` → واجبات + ملصقات
-- [ ] `p4parent` → درdشة + صورة
-- [ ] `p5teacher` → بث → `p5parent` مشاهدة
-
----
-
-## أخطاء معروفة
-
-| # | المشكلة | الأولوية |
-|---|---------|----------|
-| 1 | **شعار placeholder** — استبدل `logo.png` بالرسمي | متوسطة |
-| 2 | **FCM stub** — إشعارات DB فقط | منخفضة |
-| 3 | **Agora Web stub** — **مُصلَح** (بث حقيقي مع مفاتيح `.env`) | ✅ |
-| 4 | **MinIO معطّل** — `backend/uploads/` للتطوير | متوسطة |
-| 5 | **وثائق قديمة** — بعضها ذكرت :8081 (مُصلَح) | ✅ |
+| المتغير | الحالة |
+|---------|--------|
+| `FCM_PROJECT_ID` / `FCM_*` | ⏳ فارغ — مشروع Firebase **Kiddy Link** جاهز في Console |
+| `AGORA_APP_ID` / `AGORA_APP_CERTIFICATE` | ⏳ فارغ — demo mode |
+| `OPENAI_API_KEY` | ⏳ فارغ — AI fallback |
+| التخزين | ✅ `MINIO_ENABLED=false` → `backend/uploads/` |
 
 ---
 
@@ -199,20 +138,17 @@ E:\Eman Project\scripts\test-parent-ui.ps1    # ألبوم + إشعارات + ك
 
 | الملف | المحتوى |
 |-------|---------|
-| [START_TOMORROW.md](./START_TOMORROW.md) | **ابدأ هنا** |
+| [START_TOMORROW.md](./START_TOMORROW.md) | **ابدأ بكرة هنا** |
 | [CHECKPOINT.md](./CHECKPOINT.md) | هذا الملف |
-| [BRAND_IMPLEMENTATION.md](./BRAND_IMPLEMENTATION.md) | **الهوية البصرية — التنفيذ** |
-| [ACCOUNTS.md](./ACCOUNTS.md) | حسابات وكلمات سر |
-| [AGORA_SETUP.md](./AGORA_SETUP.md) | **بث Agora حقيقي** |
-| [NOTIFICATIONS_AND_CHAT_UPDATE.md](./NOTIFICATIONS_AND_CHAT_UPDATE.md) | درdشة + إشعارات |
-| [PHASES.md](./PHASES.md) | المراحل 1–6 |
-| [PROJECT_SUMMARY.md](./PROJECT_SUMMARY.md) | ملخص شامل |
-| [PHASE2_TEST.md](./PHASE2_TEST.md) … [PHASE6_TEST.md](./PHASE6_TEST.md) | اختبارات |
-| [DEPLOYMENT.md](./DEPLOYMENT.md) | النشر |
-| [../DEVELOPER_SPEC.md](../DEVELOPER_SPEC.md) | المواصفات |
-| [../BRAND_IDENTITY.md](../BRAND_IDENTITY.md) | الهوية — المواصفة |
+| [PRE_LAUNCH_LOCAL.md](./PRE_LAUNCH_LOCAL.md) | جاهزية قبل VPS |
+| [FCM_SETUP.md](./FCM_SETUP.md) | Firebase / FCM |
+| [AGORA_SETUP.md](./AGORA_SETUP.md) | Agora بث |
+| [MINIO_SETUP.md](./MINIO_SETUP.md) | MinIO |
+| [LOGO_SETUP.md](./LOGO_SETUP.md) | الشعار الرسمي |
+| [DEPLOYMENT.md](./DEPLOYMENT.md) | النشر VPS |
+| [GITHUB_SETUP.md](./GITHUB_SETUP.md) | GitHub |
 | [../CHANGELOG.md](../CHANGELOG.md) | سجل التغييرات |
 
 ---
 
-*آخر تحديث: 21 يوليو 2026 — 6:35 م*
+*آخر تحديث: 23 يوليو 2026 — 2:10 ص*

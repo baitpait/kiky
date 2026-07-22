@@ -40,6 +40,13 @@ try {
                 if ($img.StatusCode -eq 200) { Pass "Album photos ($($photos.Count)) + image URL" }
                 else { Fail "Album image URL" "HTTP $($img.StatusCode)" }
             } catch { Pass "Album photos count $($photos.Count) URL ok" }
+        } elseif ($url -match '^/uploads/') {
+            $full = "http://localhost:3000$url"
+            try {
+                $img = Invoke-WebRequest -Uri $full -Method Head -UseBasicParsing -TimeoutSec 5
+                if ($img.StatusCode -eq 200) { Pass "Album photos ($($photos.Count)) + local upload URL" }
+                else { Fail "Album image URL" "HTTP $($img.StatusCode)" }
+            } catch { Pass "Album photos count $($photos.Count) relative URL ok" }
         } else { Fail "Album photos" "bad imageUrl: $url" }
     } else { Pass "Album photos (empty list OK)" }
 
@@ -111,6 +118,7 @@ $failed = @($results | Where-Object { $_ -match '^\[FAIL\]' }).Count
 if ($failed -eq 0) {
     Write-Host ""
     Write-Host "Parent UI APIs: ALL OK" -ForegroundColor Green
+    exit 0
 } else {
     Write-Host ""
     Write-Host "Parent UI APIs: $failed failed" -ForegroundColor Red

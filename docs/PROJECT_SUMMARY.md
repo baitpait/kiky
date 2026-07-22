@@ -125,13 +125,14 @@ E:\Eman Project\
 
 | المهمة | الحالة |
 |--------|--------|
+| **جاهزية محلية** | ✅ `COMPLETE-PRE-LAUNCH.bat` — [PRE_LAUNCH_LOCAL.md](./PRE_LAUNCH_LOCAL.md) |
 | نشر VPS (فلسطين) | 📋 موثّق — [DEPLOYMENT.md](./DEPLOYMENT.md) |
 | App Store + Google Play | 📋 موثّق |
-| FCM push keys حقيقية | ⏳ |
-| Agora على أجهزة حقيقية | ⏳ |
-| MinIO للإنتاج | ⏳ |
-| استبدال logo.png الرسمي | ⏳ |
+| FCM push keys حقيقية | ⏳ `SETUP-FCM.bat` — [FCM_SETUP.md](./FCM_SETUP.md) |
+| Agora فيديو حقيقي | ⏳ `SETUP-AGORA.bat` — [AGORA_SETUP.md](./AGORA_SETUP.md) |
+| MinIO للإنتاج | 📋 [MINIO_SETUP.md](./MINIO_SETUP.md) |
+| استبدال logo.png الرسمي | ⏳ [LOGO_SETUP.md](./LOGO_SETUP.md) |
 
 ---
 
-*آخر تحديث: 19 يوليو 2026*
+*آخر تحديث: 22 يوليو 2026*

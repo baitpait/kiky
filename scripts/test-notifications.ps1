@@ -117,6 +117,7 @@ $failed = @($results | Where-Object { $_ -like '[FAIL]*' }).Count
 if ($failed -eq 0) {
     Write-Host ""
     Write-Host "Notifications spec: ALL PASSED" -ForegroundColor Green
+    exit 0
 } else {
     Write-Host ""
     Write-Host "Notifications spec: $failed failed" -ForegroundColor Red

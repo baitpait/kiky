@@ -30,4 +30,14 @@ class NotificationRepository {
     }
     return 0;
   }
+
+  Future<void> registerDevice({
+    required String token,
+    required String platform,
+  }) async {
+    await _api.post(
+      '/devices/register',
+      body: {'token': token, 'platform': platform},
+    );
+  }
 }

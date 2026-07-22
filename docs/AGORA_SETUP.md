@@ -22,7 +22,9 @@
 
 ### 2. ضبط `.env`
 
-افتح `E:\Eman Project\backend\.env`:
+**الطريقة السريعة:** انقر مرتين على `SETUP-AGORA.bat` في جذر المشروع.
+
+**أو يدوياً** — افتح `E:\Eman Project\backend\.env`:
 
 ```env
 AGORA_APP_ID=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
@@ -30,13 +32,21 @@ AGORA_APP_CERTIFICATE=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 AGORA_TOKEN_EXPIRE=3600
 ```
 
-### 3. أعد تشغيل API
+### 3. تحقق
+
+```powershell
+E:\Eman Project\scripts\verify-agora.ps1
+```
+
+يجب أن يظهر `REAL mode` و token طويل (ليس `demo-token`).
+
+### 4. أعد تشغيل API
 
 ```powershell
 E:\Eman Project\scripts\restart-api.ps1
 ```
 
-### 4. أعد بناء Web (بعد تحديث Agora)
+### 5. أعد بناء Web (بعد تحديث Agora)
 
 ```powershell
 E:\Eman Project\scripts\start-web-fast.ps1
