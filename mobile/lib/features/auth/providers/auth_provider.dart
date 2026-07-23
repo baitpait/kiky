@@ -49,7 +49,7 @@ class AuthProvider extends ChangeNotifier {
         _user = UserModel.fromJson(
           jsonDecode(userJson) as Map<String, dynamic>,
         );
-        await PushRegistrationService(_api).registerIfAvailable();
+        await const PushRegistrationService().registerIfAvailable();
       }
     } catch (_) {
       await _clearSession();
@@ -72,7 +72,7 @@ class AuthProvider extends ChangeNotifier {
       final tokens = AuthTokens.fromJson(result);
       await _persistSession(tokens);
       _user = tokens.user;
-      await PushRegistrationService(_api).registerIfAvailable();
+      await const PushRegistrationService().registerIfAvailable();
       _loading = false;
       notifyListeners();
       return true;
