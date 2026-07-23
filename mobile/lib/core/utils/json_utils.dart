@@ -5,4 +5,13 @@ int asInt(dynamic value) {
   throw FormatException('Expected int, got $value');
 }
 
+int? asIntOrNull(dynamic value) {
+  if (value == null) return null;
+  try {
+    return asInt(value);
+  } catch (_) {
+    return null;
+  }
+}
+
 String? asString(dynamic value) => value?.toString();

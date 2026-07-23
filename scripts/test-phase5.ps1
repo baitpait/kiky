@@ -123,7 +123,8 @@ try {
 
 try {
     $myActive = Invoke-RestMethod -Uri "$api/live/my-active" -Headers $th
-    if ($myActive.id -eq $streamId) { Pass "Teacher my-active stream" }
+    $activeId = if ($myActive.stream) { [int]$myActive.stream.id } else { [int]$myActive.id }
+    if ($activeId -eq $streamId) { Pass "Teacher my-active stream" }
     else { Fail "Teacher my-active" "stream id mismatch" }
 } catch { Fail "Teacher my-active" $_.Exception.Message }
 

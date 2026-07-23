@@ -47,10 +47,6 @@ export class LiveService {
       },
     });
 
-    const token = this.buildToken(channelName, userId, RtcRole.PUBLISHER);
-    const appId = this.config.get<string>('AGORA_APP_ID', '');
-    const hasAgora = !!(appId && this.config.get('AGORA_APP_CERTIFICATE'));
-
     const parentUserIds = await this.getParentIdsForTeacher(teacher.id);
     await this.push.notifyUsers(
       parentUserIds,
@@ -61,15 +57,13 @@ export class LiveService {
 
     return {
       stream,
-      agora: {
-        appId,
+      agora: this.buildAgoraPayload(
         channelName,
-        token,
-        uid: userId,
-        broadcasterUid: userId,
-        role: 'publisher',
-        demo: !hasAgora,
-      },
+        userId,
+        userId,
+        RtcRole.PUBLISHER,
+        'publisher',
+      ),
     };
   }
 
@@ -137,30 +131,61 @@ export class LiveService {
       throw new ForbiddenException('This stream is not for your children');
     }
 
-    const token = this.buildToken(stream.channelName, userId, RtcRole.SUBSCRIBER);
-    const appId = this.config.get<string>('AGORA_APP_ID', '');
-    const hasAgora = !!(appId && this.config.get('AGORA_APP_CERTIFICATE'));
     const broadcasterUid = stream.teacher.userId;
 
     return {
       stream,
-      agora: {
-        appId,
-        channelName: stream.channelName,
-        token,
-        uid: userId,
+      agora: this.buildAgoraPayload(
+        stream.channelName,
+        userId,
         broadcasterUid,
-        role: 'audience',
-        demo: !hasAgora,
-      },
+        RtcRole.SUBSCRIBER,
+        'audience',
+      ),
     };
   }
 
   async getMyActive(userId: number) {
     const teacher = await this.users.getTeacherByUserId(userId);
-    return this.prisma.liveStream.findFirst({
+    const stream = await this.prisma.liveStream.findFirst({
       where: { teacherId: teacher.id, status: LiveStreamStatus.active },
+      include: {
+        teacher: { include: { user: { select: { name: true } } } },
+      },
     });
+
+    if (!stream) return null;
+
+    return {
+      stream,
+      agora: this.buildAgoraPayload(
+        stream.channelName,
+        userId,
+        userId,
+        RtcRole.PUBLISHER,
+        'publisher',
+      ),
+    };
+  }
+
+  private buildAgoraPayload(
+    channelName: string,
+    uid: number,
+    broadcasterUid: number,
+    role: number,
+    roleName: 'publisher' | 'audience',
+  ) {
+    const appId = this.config.get<string>('AGORA_APP_ID', '');
+    const hasAgora = !!(appId && this.config.get('AGORA_APP_CERTIFICATE'));
+    return {
+      appId,
+      channelName,
+      token: this.buildToken(channelName, uid, role),
+      uid,
+      broadcasterUid,
+      role: roleName,
+      demo: !hasAgora,
+    };
   }
 
   private buildToken(

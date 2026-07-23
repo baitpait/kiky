@@ -103,6 +103,9 @@ class AgoraLiveHelper {
           publishMicrophoneTrack: isBroadcaster,
           autoSubscribeAudio: true,
           autoSubscribeVideo: true,
+          audienceLatencyLevel: isBroadcaster
+              ? AudienceLatencyLevelType.audienceLatencyLevelUltraLowLatency
+              : AudienceLatencyLevelType.audienceLatencyLevelLowLatency,
         ),
       );
 

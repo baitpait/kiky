@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../auth/providers/auth_provider.dart';
 import '../../../core/theme/app_theme.dart';
+import '../../../core/utils/json_utils.dart';
 import '../services/live_repository.dart';
 import '../services/agora_live_helper.dart';
 
@@ -17,9 +20,13 @@ class _TeacherLiveScreenState extends State<TeacherLiveScreen> {
   final _agora = AgoraLiveHelper();
   Map<String, dynamic>? _session;
   bool _loading = false;
+  bool _checkingActive = true;
   bool _broadcasting = false;
   bool _demoMode = false;
   String? _agoraError;
+
+  LiveRepository get _repo =>
+      LiveRepository(context.read<AuthProvider>().api);
 
   @override
   void initState() {
@@ -27,6 +34,7 @@ class _TeacherLiveScreenState extends State<TeacherLiveScreen> {
     _agora.onStateChanged = () {
       if (mounted) setState(() {});
     };
+    WidgetsBinding.instance.addPostFrameCallback((_) => _checkActive());
   }
 
   @override
@@ -37,44 +45,57 @@ class _TeacherLiveScreenState extends State<TeacherLiveScreen> {
     super.dispose();
   }
 
+  Future<void> _checkActive() async {
+    try {
+      final active = await _repo.myActive();
+      if (active != null && mounted) {
+        setState(() {
+          _session = active;
+          _demoMode = active['agora']?['demo'] == true;
+          _broadcasting = false;
+          _checkingActive = false;
+        });
+      } else if (mounted) {
+        setState(() => _checkingActive = false);
+      }
+    } catch (_) {
+      if (mounted) setState(() => _checkingActive = false);
+    }
+  }
+
+  Future<bool> _joinAgora(Map<String, dynamic> result) async {
+    final agora = result['agora'] as Map<String, dynamic>? ?? {};
+    _demoMode = agora['demo'] == true;
+
+    if (_demoMode) return true;
+
+    final uid = asIntOrNull(agora['uid']) ?? 0;
+    return _agora.initAndJoin(
+      appId: agora['appId']?.toString() ?? '',
+      token: agora['token']?.toString() ?? '',
+      channelName: agora['channelName']?.toString() ?? '',
+      uid: uid,
+      isBroadcaster: true,
+    );
+  }
+
   Future<void> _start() async {
     setState(() {
       _loading = true;
       _agoraError = null;
     });
     try {
-      final repo = LiveRepository(context.read<AuthProvider>().api);
-      final result = await repo.start(_titleController.text.trim());
-      final agora = result['agora'] as Map<String, dynamic>? ?? {};
-      _demoMode = agora['demo'] == true;
-
-      if (_demoMode) {
-        setState(() {
-          _session = result;
-          _broadcasting = true;
-          _loading = false;
-        });
-        return;
-      }
-
-      final joined = await _agora.initAndJoin(
-        appId: agora['appId']?.toString() ?? '',
-        token: agora['token']?.toString() ?? '',
-        channelName: agora['channelName']?.toString() ?? '',
-        uid: agora['uid'] as int? ?? 0,
-        isBroadcaster: true,
-      );
+      final result = await _repo.start(_titleController.text.trim());
+      final joined = await _joinAgora(result);
 
       if (!joined) {
         final stream = result['stream'] as Map<String, dynamic>?;
-        final streamId = stream?['id'] as int?;
-        if (streamId != null) {
-          await repo.end(streamId);
-        }
+        final streamId = asIntOrNull(stream?['id']);
+        if (streamId != null) await _repo.end(streamId);
         setState(() {
           _loading = false;
           _agoraError =
-              'تعذّر بدء الكاميرا/الميكروفون. تأكد من السماح للمتصفح بالوصول.';
+              'تعذّر بدء الكاميرا/الميكروفون. اسمح للمتصفح بالوصول ثم أعد المحاولة.';
         });
         return;
       }
@@ -86,6 +107,18 @@ class _TeacherLiveScreenState extends State<TeacherLiveScreen> {
       });
     } catch (e) {
       setState(() => _loading = false);
+      final msg = e.toString();
+      if (msg.contains('active live stream') || msg.contains('already have')) {
+        await _checkActive();
+        if (_session != null && mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('لديك بث مفتوح — اضغط «متابعة البث» أو «إنهاء البث»'),
+            ),
+          );
+        }
+        return;
+      }
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -97,18 +130,40 @@ class _TeacherLiveScreenState extends State<TeacherLiveScreen> {
     }
   }
 
+  Future<void> _resumeActive() async {
+    if (_session == null) return;
+    setState(() {
+      _loading = true;
+      _agoraError = null;
+    });
+
+    final joined = await _joinAgora(_session!);
+    if (!joined) {
+      setState(() {
+        _loading = false;
+        _agoraError =
+            'تعذّر إعادة الاتصال بالبث. اسمح للكاميرا/الميكروفون ثم حاول مجدداً.';
+      });
+      return;
+    }
+
+    setState(() {
+      _broadcasting = true;
+      _loading = false;
+    });
+  }
+
   Future<void> _end() async {
     if (_session == null) return;
     final stream = _session!['stream'] as Map<String, dynamic>?;
-    final streamId = stream?['id'] as int?;
+    final streamId = asIntOrNull(stream?['id']);
     if (streamId == null) return;
 
     setState(() => _loading = true);
     try {
-      if (!mounted) return;
       await _agora.leave();
       if (!mounted) return;
-      await LiveRepository(context.read<AuthProvider>().api).end(streamId);
+      await _repo.end(streamId);
       if (!mounted) return;
       setState(() {
         _session = null;
@@ -128,7 +183,13 @@ class _TeacherLiveScreenState extends State<TeacherLiveScreen> {
         appBar: AppBar(title: const Text('بث مباشر')),
         body: Padding(
           padding: const EdgeInsets.all(16),
-          child: _broadcasting ? _buildLive() : _buildStart(),
+          child: _checkingActive
+              ? const Center(child: CircularProgressIndicator())
+              : _broadcasting
+                  ? _buildLive()
+                  : _session != null
+                      ? _buildResume()
+                      : _buildStart(),
         ),
       ),
     );
@@ -141,13 +202,13 @@ class _TeacherLiveScreenState extends State<TeacherLiveScreen> {
         const Icon(Icons.videocam, size: 72, color: AppColors.coralRed),
         const SizedBox(height: 16),
         const Text(
-          'المعلمة فقط تبدأ البث',
+          'المعلمة تبدأ البث — أولياء الأمور يشاهدون',
           textAlign: TextAlign.center,
           style: TextStyle(fontSize: 16),
         ),
         const SizedBox(height: 8),
         const Text(
-          'يحتاج بث حقيقي: AGORA_APP_ID و AGORA_APP_CERTIFICATE في backend/.env',
+          'للبث الحقيقي: AGORA_APP_ID + AGORA_APP_CERTIFICATE في backend/.env',
           textAlign: TextAlign.center,
           style: TextStyle(fontSize: 12, color: AppColors.textSecondary),
         ),
@@ -178,6 +239,45 @@ class _TeacherLiveScreenState extends State<TeacherLiveScreen> {
     );
   }
 
+  Widget _buildResume() {
+    final stream = _session?['stream'] as Map<String, dynamic>?;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Card(
+          color: AppColors.softSky,
+          child: ListTile(
+            leading: const Icon(Icons.live_tv, color: AppColors.coralRed),
+            title: Text(stream?['title']?.toString() ?? 'بث نشط'),
+            subtitle: const Text('لديك بث مفتوح — أكملي أو أنهي'),
+          ),
+        ),
+        const SizedBox(height: 16),
+        if (_agoraError != null)
+          Text(
+            _agoraError!,
+            textAlign: TextAlign.center,
+            style: const TextStyle(color: AppColors.coralRed),
+          ),
+        const Spacer(),
+        ElevatedButton(
+          onPressed: _loading ? null : _resumeActive,
+          style: ElevatedButton.styleFrom(
+            backgroundColor: AppColors.linkGreen,
+          ),
+          child: _loading
+              ? const CircularProgressIndicator(color: Colors.white)
+              : const Text('متابعة البث'),
+        ),
+        const SizedBox(height: 12),
+        OutlinedButton(
+          onPressed: _loading ? null : _end,
+          child: const Text('إنهاء البث'),
+        ),
+      ],
+    );
+  }
+
   Widget _buildLive() {
     final stream = _session?['stream'] as Map<String, dynamic>?;
     final preview = _agora.localPreview();
@@ -191,7 +291,7 @@ class _TeacherLiveScreenState extends State<TeacherLiveScreen> {
               leading: Icon(Icons.info_outline),
               title: Text('وضع تجريبي'),
               subtitle: Text(
-                'أضف AGORA_APP_ID و AGORA_APP_CERTIFICATE في backend/.env ثم أعد تشغيل API',
+                'شغّل SETUP-AGORA.bat وأضف المفاتiح ثم أعد تشغيل API',
               ),
             ),
           ),

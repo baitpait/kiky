@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../auth/providers/auth_provider.dart';
 import '../../../core/theme/app_theme.dart';
+import '../../../core/utils/json_utils.dart';
 import '../services/live_repository.dart';
 import '../services/agora_live_helper.dart';
 
@@ -19,6 +22,10 @@ class _ParentLiveScreenState extends State<ParentLiveScreen> {
   final _agora = AgoraLiveHelper();
   bool _demoMode = false;
   String? _agoraError;
+  Timer? _refreshTimer;
+
+  LiveRepository get _repo =>
+      LiveRepository(context.read<AuthProvider>().api);
 
   @override
   void initState() {
@@ -27,10 +34,14 @@ class _ParentLiveScreenState extends State<ParentLiveScreen> {
       if (mounted) setState(() {});
     };
     _load();
+    _refreshTimer = Timer.periodic(const Duration(seconds: 8), (_) {
+      if (_watching == null && mounted) _load(silent: true);
+    });
   }
 
   @override
   void dispose() {
+    _refreshTimer?.cancel();
     _agora.leave();
     _agora.disposeNotifier();
     super.dispose();
@@ -38,33 +49,21 @@ class _ParentLiveScreenState extends State<ParentLiveScreen> {
 
   int? _broadcasterUid(Map<String, dynamic>? watching) {
     final agora = watching?['agora'] as Map<String, dynamic>?;
-    final fromAgora = agora?['broadcasterUid'];
-    if (fromAgora is int) return fromAgora;
-    if (fromAgora is num) return fromAgora.toInt();
-
-    final stream = watching?['stream'] as Map<String, dynamic>?;
-    final teacher = stream?['teacher'] as Map<String, dynamic>?;
-    if (teacher == null) return null;
-    final userId = teacher['userId'];
-    if (userId is int) return userId;
-    if (userId is num) return userId.toInt();
-    final user = teacher['user'] as Map<String, dynamic>?;
-    final raw = user?['id'];
-    if (raw is int) return raw;
-    if (raw is num) return raw.toInt();
-    return null;
+    return asIntOrNull(agora?['broadcasterUid']);
   }
 
-  Future<void> _load() async {
+  Future<void> _load({bool silent = false}) async {
+    if (!silent) setState(() => _loading = true);
     try {
-      final list =
-          await LiveRepository(context.read<AuthProvider>().api).activeStreams();
-      setState(() {
-        _streams = list;
-        _loading = false;
-      });
+      final list = await _repo.activeStreams();
+      if (mounted) {
+        setState(() {
+          _streams = list;
+          _loading = false;
+        });
+      }
     } catch (e) {
-      setState(() => _loading = false);
+      if (mounted) setState(() => _loading = false);
     }
   }
 
@@ -74,8 +73,7 @@ class _ParentLiveScreenState extends State<ParentLiveScreen> {
       _agoraError = null;
     });
     try {
-      final result =
-          await LiveRepository(context.read<AuthProvider>().api).join(streamId);
+      final result = await _repo.join(streamId);
       final agora = result['agora'] as Map<String, dynamic>? ?? {};
       _demoMode = agora['demo'] == true;
 
@@ -88,11 +86,12 @@ class _ParentLiveScreenState extends State<ParentLiveScreen> {
       }
 
       final broadcasterUid = _broadcasterUid(result);
+      final uid = asIntOrNull(agora['uid']) ?? 0;
       final joined = await _agora.initAndJoin(
         appId: agora['appId']?.toString() ?? '',
         token: agora['token']?.toString() ?? '',
         channelName: agora['channelName']?.toString() ?? '',
-        uid: agora['uid'] as int? ?? 0,
+        uid: uid,
         isBroadcaster: false,
         expectedRemoteUid: broadcasterUid,
       );
@@ -100,7 +99,8 @@ class _ParentLiveScreenState extends State<ParentLiveScreen> {
       if (!joined) {
         setState(() {
           _loading = false;
-          _agoraError = 'تعذّر الاتصال بالبث. تحقق من Agora واتصال الإنترنت.';
+          _agoraError =
+              'تعذّر الاتصال بالبث. تأكد أن المعلمة بدأت البث وAgora مُعدّ.';
         });
         return;
       }
@@ -148,11 +148,31 @@ class _ParentLiveScreenState extends State<ParentLiveScreen> {
   }
 
   Widget _buildList() {
-    if (_loading) {
+    if (_loading && _streams.isEmpty) {
       return const Center(child: CircularProgressIndicator());
     }
     if (_streams.isEmpty) {
-      return const Center(child: Text('لا يوجد بث مباشر الآن'));
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Icon(Icons.live_tv_outlined, size: 64, color: AppColors.textSecondary),
+            const SizedBox(height: 16),
+            const Text('لا يوجد بث مباشر الآن'),
+            const SizedBox(height: 8),
+            const Text(
+              'سيظهر البث هنا عندما تبدأ المعلمة',
+              style: TextStyle(color: AppColors.textSecondary, fontSize: 13),
+            ),
+            const SizedBox(height: 24),
+            OutlinedButton.icon(
+              onPressed: _load,
+              icon: const Icon(Icons.refresh),
+              label: const Text('تحديث'),
+            ),
+          ],
+        ),
+      );
     }
     return RefreshIndicator(
       onRefresh: _load,
@@ -175,7 +195,7 @@ class _ParentLiveScreenState extends State<ParentLiveScreen> {
                 label: Text('🔴 مباشر'),
                 backgroundColor: AppColors.softSky,
               ),
-              onTap: () => _join(s['id'] as int),
+              onTap: () => _join(asInt(s['id'])),
             ),
           );
         },
@@ -194,7 +214,7 @@ class _ParentLiveScreenState extends State<ParentLiveScreen> {
           const ListTile(
             leading: Icon(Icons.info_outline, color: AppColors.warmOrange),
             title: Text('وضع تجريبي — Agora غير مُعد'),
-            subtitle: Text('أضف مفاتيح Agora في backend/.env'),
+            subtitle: Text('شغّل SETUP-AGORA.bat على جهاز التطوير'),
           ),
         if (_agoraError != null)
           ListTile(
@@ -204,7 +224,7 @@ class _ParentLiveScreenState extends State<ParentLiveScreen> {
         Expanded(
           child: ValueListenableBuilder<int?>(
             valueListenable: _agora.remoteUid,
-            builder: (context, _, __) {
+            builder: (context, remoteId, __) {
               final remote = _agora.remotePreview();
               return Container(
                 margin: const EdgeInsets.all(16),
@@ -243,6 +263,16 @@ class _ParentLiveScreenState extends State<ParentLiveScreen> {
                               teacherUser?['name']?.toString() ?? '',
                               style: const TextStyle(color: Colors.white70),
                             ),
+                            if (!_demoMode &&
+                                _agora.isJoined &&
+                                remoteId == null)
+                              const Padding(
+                                padding: EdgeInsets.only(top: 12),
+                                child: Text(
+                                  'بانتظار فيديو المعلمة...',
+                                  style: TextStyle(color: Colors.white54),
+                                ),
+                              ),
                             const SizedBox(height: 12),
                             const Text(
                               '🔴 LIVE',
