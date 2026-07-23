@@ -86,6 +86,8 @@ class _TeacherLiveScreenState extends State<TeacherLiveScreen> {
     });
     try {
       final result = await _repo.start(_titleController.text.trim());
+      final resumed = result['resumed'] == true;
+
       final joined = await _joinAgora(result);
 
       if (!joined) {
@@ -105,20 +107,16 @@ class _TeacherLiveScreenState extends State<TeacherLiveScreen> {
         _broadcasting = true;
         _loading = false;
       });
+
+      if (resumed && mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('تم استئناف البث المفتوح'),
+          ),
+        );
+      }
     } catch (e) {
       setState(() => _loading = false);
-      final msg = e.toString();
-      if (msg.contains('active live stream') || msg.contains('already have')) {
-        await _checkActive();
-        if (_session != null && mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('لديك بث مفتوح — اضغط «متابعة البث» أو «إنهاء البث»'),
-            ),
-          );
-        }
-        return;
-      }
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -291,7 +289,7 @@ class _TeacherLiveScreenState extends State<TeacherLiveScreen> {
               leading: Icon(Icons.info_outline),
               title: Text('وضع تجريبي'),
               subtitle: Text(
-                'شغّل SETUP-AGORA.bat وأضف المفاتiح ثم أعد تشغيل API',
+                'شغّل SETUP-AGORA.bat وأضف المفاتيح ثم أعد تشغيل API',
               ),
             ),
           ),

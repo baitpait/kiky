@@ -29,9 +29,22 @@ export class LiveService {
 
     const existing = await this.prisma.liveStream.findFirst({
       where: { teacherId: teacher.id, status: LiveStreamStatus.active },
+      include: {
+        teacher: { include: { user: { select: { name: true } } } },
+      },
     });
     if (existing) {
-      throw new BadRequestException('You already have an active live stream');
+      return {
+        stream: existing,
+        agora: this.buildAgoraPayload(
+          existing.channelName,
+          userId,
+          userId,
+          RtcRole.PUBLISHER,
+          'publisher',
+        ),
+        resumed: true,
+      };
     }
 
     const channelName = `kiddy-${teacher.id}-${randomUUID().slice(0, 8)}`;

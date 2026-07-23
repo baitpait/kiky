@@ -129,19 +129,15 @@ try {
 } catch { Fail "Teacher my-active" $_.Exception.Message }
 
 try {
-    try {
-        Invoke-RestMethod -Uri "$api/live/start" -Method POST -Headers $th `
-            -ContentType "application/json" `
-            -Body (@{ title = "Duplicate" } | ConvertTo-Json) -ErrorAction Stop | Out-Null
-        Fail "Duplicate stream blocked" "should reject second start"
-    } catch {
-        if ($_.Exception.Response.StatusCode.value__ -eq 400) {
-            Pass "Duplicate stream blocked (400)"
-        } else {
-            Fail "Duplicate stream blocked" $_.Exception.Message
-        }
+    $dup = Invoke-RestMethod -Uri "$api/live/start" -Method POST -Headers $th `
+        -ContentType "application/json" `
+        -Body (@{ title = "Duplicate" } | ConvertTo-Json)
+    if ($dup.resumed -eq $true -and [int]$dup.stream.id -eq $streamId) {
+        Pass "Duplicate start resumes same stream"
+    } else {
+        Fail "Duplicate start resumes" "expected resumed=true same id"
     }
-} catch { Fail "Duplicate stream blocked" $_.Exception.Message }
+} catch { Fail "Duplicate start resumes" $_.Exception.Message }
 
 try {
     $active = Invoke-RestMethod -Uri "$api/live/active" -Headers $ph

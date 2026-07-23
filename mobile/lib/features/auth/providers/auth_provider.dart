@@ -36,12 +36,8 @@ class AuthProvider extends ChangeNotifier {
 
   Future<void> init() async {
     try {
-      final access = await _storage
-          .read(_accessKey)
-          .timeout(const Duration(seconds: 2), onTimeout: () => null);
-      final userJson = await _storage
-          .read(_userKey)
-          .timeout(const Duration(seconds: 2), onTimeout: () => null);
+      final access = await _readStorage(_accessKey);
+      final userJson = await _readStorage(_userKey);
 
       if (access != null && userJson != null) {
         _accessToken = access;
@@ -144,6 +140,14 @@ class AuthProvider extends ChangeNotifier {
     await _storage.delete(_accessKey);
     await _storage.delete(_refreshKey);
     await _storage.delete(_userKey);
+  }
+
+  Future<String?> _readStorage(String key) async {
+    final future = _storage.read(key);
+    if (kIsWeb) {
+      return future.timeout(const Duration(seconds: 2), onTimeout: () => null);
+    }
+    return future;
   }
 }
 
