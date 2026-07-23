@@ -3,6 +3,10 @@
 | الملف | المحتوى |
 |-------|---------|
 | **[CHECKPOINT.md](./CHECKPOINT.md)** | **نقطة التوقف الحالية — اقرأه أولاً** |
+| **[START_TOMORROW.md](./START_TOMORROW.md)** | **دليل البدء السريع (24 يوليو 2026)** |
+| **[PHASE5_LIVE_COMPLETE.md](./PHASE5_LIVE_COMPLETE.md)** | **دليل البث المباشر Agora** |
+| **[PRE_LAUNCH_LOCAL.md](./PRE_LAUNCH_LOCAL.md)** | **جاهزية محلية قبل VPS** |
+| **[FCM_SETUP.md](./FCM_SETUP.md)** | **Firebase / FCM** |
 | **[NOTIFICATIONS_AND_CHAT_UPDATE.md](./NOTIFICATIONS_AND_CHAT_UPDATE.md)** | **دردشة كل الأدوار + إشعارات دقيقة (21 يوليو 2026)** |
 | **[AGORA_SETUP.md](./AGORA_SETUP.md)** | **بث Agora حقيقي — إعداد المفاتيح** |
 | **[BRAND_IMPLEMENTATION.md](./BRAND_IMPLEMENTATION.md)** | **الهوية البصرية v1.0 — التنفيذ** |

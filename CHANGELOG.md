@@ -521,3 +521,47 @@ All notable changes documented per phase.
 ### Test results
 - `pre-launch-local.ps1`: PRE-LAUNCH LOCAL COMPLETE
 - All phase tests + notifications + FCM API + parent UI: PASSED
+
+---
+
+## [Live Streaming Complete + GitHub Sync] — 2026-07-23/24 ✅
+
+### Added
+
+**Backend**
+- `getMyActive()` returns `{ stream, agora }` with publisher token for resume
+- `start()` returns `resumed: true` when teacher already has active stream (idempotent)
+
+**Mobile**
+- Teacher: resume active stream UI + auto-join on duplicate start
+- Parent: auto-refresh live list every 8s + improved viewer UX
+- `asIntOrNull()` helper in `json_utils.dart`
+- Agora audience latency settings for parent viewing
+
+**Documentation**
+- `docs/PHASE5_LIVE_COMPLETE.md` — full live streaming guide
+
+**Scripts**
+- `test-phase5.ps1` — validates resume behavior on duplicate start
+
+### Fixed
+- `PushRegistrationService` — removed unused `_api` field (analyzer warning)
+- `AuthProvider.init()` — storage timeout scoped to web only (fixes `flutter test`)
+- Teacher live screen Arabic typo (المفاتيح)
+- Stale active streams cleared via `ensure-test-accounts.ps1`
+
+### GitHub
+- Repo: https://github.com/nahlahalbostnje-ctrl/kiddy-link
+- Commits: `04b62a5`, `565caa8`, `9a979bc` — all pushed to `master`
+- `backend/.env` remains gitignored (Agora keys local only)
+
+### Session status (24 Jul)
+- Agora **REAL mode** configured locally (`demo=False` in tests)
+- Firebase Service Account JSON **still pending**
+- VPS deploy **deferred**
+
+### Test results
+- `test-phase5.ps1`: ALL PASSED (13/13, `demo=False`)
+- `flutter test`: ALL PASSED
+- `flutter analyze`: 0 errors (21 info style hints)
+- `npm run build` (backend): success

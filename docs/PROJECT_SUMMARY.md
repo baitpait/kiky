@@ -1,6 +1,7 @@
 # Kiddy Link — ملخص المشروع الكامل
 
-> **الحالة: المراحل 1–6 ✅ + الهوية البصرية ✅** — 19 يوليو 2026  
+> **الحالة: المراحل 1–6 ✅ + Pre-launch ✅ + بث Agora REAL ✅** — 24 يوليو 2026  
+> **GitHub:** https://github.com/nahlahalbostnje-ctrl/kiddy-link — commit `9a979bc`  
 > **نقطة التوقف:** [docs/CHECKPOINT.md](./CHECKPOINT.md)
 
 ---
@@ -112,6 +113,10 @@ E:\Eman Project\
 | الملف | المحتوى |
 |-------|---------|
 | [CHECKPOINT.md](./CHECKPOINT.md) | نقطة التوقف — اقرأ أولاً |
+| [START_TOMORROW.md](./START_TOMORROW.md) | دليل البدء السريع |
+| [PHASE5_LIVE_COMPLETE.md](./PHASE5_LIVE_COMPLETE.md) | دليل البث المباشر |
+| [PRE_LAUNCH_LOCAL.md](./PRE_LAUNCH_LOCAL.md) | جاهزية قبل VPS |
+| [FCM_SETUP.md](./FCM_SETUP.md) | Firebase / FCM |
 | [BRAND_IMPLEMENTATION.md](./BRAND_IMPLEMENTATION.md) | الهوية البصرية — التنفيذ |
 | [PHASES.md](./PHASES.md) | تفاصيل المراحل 1–6 |
 | [FULL_DOCUMENTATION.md](./FULL_DOCUMENTATION.md) | مرجع شامل |

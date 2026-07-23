@@ -91,9 +91,10 @@ E:\Eman Project\scripts\test-phase5.ps1
 | Web Agora (iris-web-rtc) | ✅ |
 | Android/iOS permissions | ✅ |
 | استئناف بث المعلمة بعد refresh | ✅ |
-| تحديث تلقائي قائمة البث لولي الأmer | ✅ |
+| استئناف تلقائي عند ضغط «بدء البث» مرة ثانية | ✅ |
+| تحديث تلقائي قائمة البث لولي الأمر | ✅ |
 | إشعار push عند بدء البث | ✅ |
-| منع بث مزدوج | ✅ |
+| Agora REAL mode (مفاتiح في `.env`) | ✅ محلي |
 
 ---
 
@@ -101,6 +102,7 @@ E:\Eman Project\scripts\test-phase5.ps1
 
 | المشكلة | الحل |
 |---------|------|
+| «You already have an active live stream» | `ensure-test-accounts.ps1` + Ctrl+Shift+R — أو اضغط «بدء البث» (يستأنف تلقائياً بعد التحديث) |
 | «وضع تجريبي» | `SETUP-AGORA.bat` + restart API |
 | شاشة سوداء (معلمة) | اسمح للكاميرا في المتصفح |
 | ولي الأمر لا يرى فيديو | المعلمة في شاشة البث + Agora REAL |

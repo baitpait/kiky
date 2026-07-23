@@ -1,6 +1,6 @@
 # حالة المراحل — Kiddy Link
 
-> آخر تحديث: **19 يوليو 2026** — راجع [CHECKPOINT.md](./CHECKPOINT.md) لنقطة التوقف الحالية
+> آخر تحديث: **24 يوليو 2026** — راجع [CHECKPOINT.md](./CHECKPOINT.md) لنقطة التوقف الحالية
 
 ---
 
@@ -11,11 +11,11 @@
 | **1** | الأساس (Auth, CRUD, Flutter login) | ✅ | ✅ | ✅ |
 | **2** | صور + حضور + وجبات + بانرات + تقويم | ✅ | ✅ `test-phase2.ps1` | ✅ |
 | **3** | ملصقات + واجبات + AI | ✅ | ✅ `test-phase3.ps1` | ✅ |
-| **4** | دردشة WebSocket | ✅ | ✅ `test-phase4.ps1` | ⏳ جاهز |
-| **5** | Agora بث مباشر | ✅ | ✅ `test-phase5.ps1` | ⏳ Web stub |
+| **4** | دردشة WebSocket | ✅ | ✅ `test-phase4.ps1` | ✅ |
+| **5** | Agora بث مباشر (REAL + استئناف) | ✅ | ✅ `test-phase5.ps1` | ✅ |
 | **Brand** | الهوية البصرية v1.0 | ✅ | ✅ | يدوي |
 
-> المراحل 1–5 مختبرة على API (XAMPP). المرحلة 6 جاهزة للنشر حسب `DEPLOYMENT.md`.
+> المراحل 1–6 + Pre-launch مختبرة محلياً (XAMPP). المتبقي: FCM JSON + VPS.
 
 ---
 

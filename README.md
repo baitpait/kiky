@@ -4,7 +4,9 @@
 
 | | |
 |---|---|
-| **الحالة** | المراحل 1–6 ✅ + الهوية البصرية ✅ |
+| **الحالة** | المراحل 1–6 ✅ + Pre-launch ✅ + بث Agora REAL ✅ |
+| **GitHub** | https://github.com/nahlahalbostnje-ctrl/kiddy-link |
+| **آخر commit** | `9a979bc` |
 | **اللغة** | عربي RTL |
 | **Stack** | Flutter · NestJS · MySQL (XAMPP) |
 
@@ -67,10 +69,12 @@ Eman Project/
 
 ## ما تم إنجازه
 
-- **المراحل 1–6:** Auth, CRUD, صور, حضور, وجبات, واجبات, ملصقات, AI, درdشة, بث, نشر
-- **اختبارات:** `test-phase2.ps1` … `test-phase6.ps1` — ALL PASSED
+- **المراحل 1–6:** Auth, CRUD, صور, حضور, وجبات, واجبات, ملصقات, AI, درdشة, بث Agora REAL, نشر
+- **Pre-launch:** `COMPLETE-PRE-LAUNCH.bat` — فحص شامل قبل VPS
+- **اختبارات:** `test-phase2.ps1` … `test-phase6.ps1` + `flutter test` — ALL PASSED
 - **الهوية البصرية v1.0:** Splash, Login, ألوان, AppBar حسب الدور
 - **Web:** http://localhost:8082/login
+- **GitHub:** كل الكود مرفوع — `.env` محمي محلياً
 
 ---
 
