@@ -10,7 +10,9 @@ import 'chat_room_screen.dart';
 
 /// درdشة — admin ↔ teacher ↔ parent (كل الأدوار)
 class ChatListScreen extends StatefulWidget {
-  const ChatListScreen({super.key});
+  const ChatListScreen({super.key, this.embedded = false});
+
+  final bool embedded;
 
   @override
   State<ChatListScreen> createState() => _ChatListScreenState();
@@ -309,6 +311,48 @@ class _ChatListScreenState extends State<ChatListScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final body = _loading
+        ? const Center(child: CircularProgressIndicator())
+        : _conversations.isEmpty
+            ? const Center(child: Text('لا محادثات بعد — اضغط + لبدء محادثة'))
+            : RefreshIndicator(
+                onRefresh: _load,
+                child: ListView.builder(
+                  itemCount: _conversations.length,
+                  itemBuilder: (_, i) {
+                    final c = _conversations[i];
+                    return ListTile(
+                      leading: const CircleAvatar(
+                        child: Icon(Icons.chat_bubble_outline),
+                      ),
+                      title: Text(_title(c)),
+                      subtitle: Text(_preview(c)),
+                      onTap: () => _openRoom(c),
+                    );
+                  },
+                ),
+              );
+
+    if (widget.embedded) {
+      return Directionality(
+        textDirection: TextDirection.rtl,
+        child: Stack(
+          children: [
+            Positioned.fill(child: body),
+            Positioned(
+              left: 16,
+              bottom: 16,
+              child: FloatingActionButton(
+                onPressed: _startChat,
+                tooltip: 'محادثة جديدة',
+                child: const Icon(Icons.add_comment),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
@@ -318,27 +362,7 @@ class _ChatListScreenState extends State<ChatListScreen> {
           tooltip: 'محادثة جديدة',
           child: const Icon(Icons.add_comment),
         ),
-        body: _loading
-            ? const Center(child: CircularProgressIndicator())
-            : _conversations.isEmpty
-                ? const Center(child: Text('لا محادثات بعد — اضغط + لبدء محادثة'))
-                : RefreshIndicator(
-                    onRefresh: _load,
-                    child: ListView.builder(
-                      itemCount: _conversations.length,
-                      itemBuilder: (_, i) {
-                        final c = _conversations[i];
-                        return ListTile(
-                          leading: const CircleAvatar(
-                            child: Icon(Icons.chat_bubble_outline),
-                          ),
-                          title: Text(_title(c)),
-                          subtitle: Text(_preview(c)),
-                          onTap: () => _openRoom(c),
-                        );
-                      },
-                    ),
-                  ),
+        body: body,
       ),
     );
   }

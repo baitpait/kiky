@@ -70,54 +70,81 @@ class _AdminParentsScreenState extends State<AdminParentsScreen> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   TextFormField(
-                    controller: usernameCtrl,
-                    decoration: const InputDecoration(labelText: 'اسم المستخدم'),
-                    validator: (v) =>
-                        v == null || v.isEmpty ? 'مطلوب' : null,
-                  ),
-                  TextFormField(
                     controller: nameCtrl,
+                    textInputAction: TextInputAction.next,
                     decoration: const InputDecoration(labelText: 'الاسم'),
                     validator: (v) =>
                         v == null || v.isEmpty ? 'مطلوب' : null,
                   ),
+                  const SizedBox(height: 16),
                   TextFormField(
-                    controller: phoneCtrl,
-                    decoration: const InputDecoration(labelText: 'الهاتف (اختياري)'),
-                    keyboardType: TextInputType.phone,
+                    controller: usernameCtrl,
+                    textInputAction: TextInputAction.next,
+                    decoration: const InputDecoration(labelText: 'اسم المستخدم'),
+                    validator: (v) =>
+                        v == null || v.isEmpty ? 'مطلوب' : null,
                   ),
+                  const SizedBox(height: 16),
                   TextFormField(
                     controller: passwordCtrl,
                     obscureText: true,
+                    textInputAction: TextInputAction.next,
                     decoration: InputDecoration(
-                      labelText: isEdit ? 'كلمة مرور جديدة (اختياري)' : 'كلمة المرور',
+                      labelText: isEdit
+                          ? 'كلمة مرور جديدة (اختياري)'
+                          : 'كلمة المرور',
                     ),
                     validator: (v) {
                       if (!isEdit && (v == null || v.length < 6)) {
                         return '6 أحرف على الأقل';
                       }
-                      if (isEdit && v != null && v.isNotEmpty && v.length < 6) {
+                      if (isEdit &&
+                          v != null &&
+                          v.isNotEmpty &&
+                          v.length < 6) {
                         return '6 أحرف على الأقل';
                       }
                       return null;
                     },
                   ),
+                  const SizedBox(height: 16),
+                  TextFormField(
+                    controller: phoneCtrl,
+                    textInputAction: TextInputAction.done,
+                    decoration: const InputDecoration(
+                      labelText: 'الهاتف (اختياري)',
+                    ),
+                    keyboardType: TextInputType.phone,
+                  ),
                 ],
               ),
             ),
           ),
+          actionsPadding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
           actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(ctx, false),
-              child: const Text('إلغاء'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                if (formKey.currentState!.validate()) {
-                  Navigator.pop(ctx, true);
-                }
-              },
-              child: Text(isEdit ? 'حفظ' : 'إنشاء'),
+            SizedBox(
+              width: double.maxFinite,
+              child: Row(
+                children: [
+                  Expanded(
+                    child: OutlinedButton(
+                      onPressed: () => Navigator.pop(ctx, false),
+                      child: const Text('إلغاء'),
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        if (formKey.currentState!.validate()) {
+                          Navigator.pop(ctx, true);
+                        }
+                      },
+                      child: Text(isEdit ? 'حفظ' : 'إنشاء'),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ],
         ),
@@ -250,7 +277,7 @@ class _AdminParentsScreenState extends State<AdminParentsScreen> {
                               child: ListTile(
                                 title: Text(user?['name']?.toString() ?? ''),
                                 subtitle: Text(
-                                  '${user?['username']} · ${students.length} طفل',
+                                  '${user?['username']} · ولي أمر · ${students.length} طالب',
                                 ),
                                 trailing: PopupMenuButton<String>(
                                   onSelected: (v) {

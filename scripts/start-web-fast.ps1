@@ -3,6 +3,10 @@
 .SYNOPSIS
   تشغيل Kiddy Link Web بسرعة — Release + بدون CDN (لا ينتظر الإنترنت)
 #>
+param(
+    [switch]$Force
+)
+
 $projectRoot = "E:\Eman Project"
 $mobile = Join-Path $projectRoot "mobile"
 $flutterBin = "C:\src\flutter\bin"
@@ -21,6 +25,10 @@ $env:PATH = "$flutterBin;$env:PATH"
 Write-Host "=== Kiddy Link - Fast Web ===" -ForegroundColor Cyan
 
 $needsBuild = -not (Test-Path (Join-Path $buildDir "index.html"))
+if ($Force) {
+    $needsBuild = $true
+    Remove-Item $stampFile -ErrorAction SilentlyContinue
+}
 if (-not $needsBuild -and (Test-Path $stampFile)) {
     $srcNewer = Get-ChildItem (Join-Path $mobile "lib") -Recurse -File -ErrorAction SilentlyContinue |
         Where-Object { $_.LastWriteTime -gt (Get-Item $stampFile).LastWriteTime } |

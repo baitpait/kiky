@@ -9,7 +9,9 @@ import 'teacher_student_profile_screen.dart';
 
 /// DEVELOPER_SPEC §8.3 #2 — قائمة طلابي
 class TeacherStudentsScreen extends StatefulWidget {
-  const TeacherStudentsScreen({super.key});
+  const TeacherStudentsScreen({super.key, this.embedded = false});
+
+  final bool embedded;
 
   @override
   State<TeacherStudentsScreen> createState() => _TeacherStudentsScreenState();
@@ -48,75 +50,84 @@ class _TeacherStudentsScreenState extends State<TeacherStudentsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Directionality(
-      textDirection: TextDirection.rtl,
-      child: Scaffold(
-        appBar: AppBar(title: const Text('قائمة طلابي')),
-        body: RefreshIndicator(
-          onRefresh: _load,
-          child: _loading
-              ? const Center(child: CircularProgressIndicator())
-              : _error != null
+    final body = RefreshIndicator(
+      onRefresh: _load,
+      child: _loading
+          ? const Center(child: CircularProgressIndicator())
+          : _error != null
+              ? ListView(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(24),
+                      child: Column(
+                        children: [
+                          Text(_error!, textAlign: TextAlign.center),
+                          ElevatedButton(
+                            onPressed: _load,
+                            child: const Text('إعادة المحاولة'),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                )
+              : _students.isEmpty
                   ? ListView(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(24),
-                          child: Column(
-                            children: [
-                              Text(_error!, textAlign: TextAlign.center),
-                              ElevatedButton(
-                                onPressed: _load,
-                                child: const Text('إعادة المحاولة'),
-                              ),
-                            ],
+                      children: const [
+                        SizedBox(height: 120),
+                        Center(
+                          child: Text(
+                            'لا يوجد طلاب مرتبطين بك — اطلبي من المديرة الربط',
                           ),
                         ),
                       ],
                     )
-                  : _students.isEmpty
-                      ? ListView(
-                          children: const [
-                            SizedBox(height: 120),
-                            Center(
-                              child: Text(
-                                'لا يوجد طلاب مرتبطين بك — اطلبي من المديرة الربط',
+                  : ListView.builder(
+                      itemCount: _students.length,
+                      itemBuilder: (_, i) {
+                        final s = _students[i];
+                        return Card(
+                          margin: const EdgeInsets.symmetric(
+                            horizontal: 12,
+                            vertical: 6,
+                          ),
+                          child: ListTile(
+                            leading: CircleAvatar(
+                              backgroundColor:
+                                  AppColors.kiddyBlue.withValues(alpha: 0.15),
+                              child: const Icon(
+                                Icons.child_care,
+                                color: AppColors.kiddyBlue,
                               ),
                             ),
-                          ],
-                        )
-                      : ListView.builder(
-                          itemCount: _students.length,
-                          itemBuilder: (_, i) {
-                            final s = _students[i];
-                            return Card(
-                              margin: const EdgeInsets.symmetric(
-                                horizontal: 12,
-                                vertical: 6,
+                            title: Text(s.name),
+                            subtitle: Text('الصف: ${s.className}'),
+                            trailing: const Icon(Icons.chevron_left),
+                            onTap: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) =>
+                                    TeacherStudentProfileScreen(student: s),
                               ),
-                              child: ListTile(
-                                leading: CircleAvatar(
-                                  backgroundColor:
-                                      AppColors.kiddyBlue.withValues(alpha: 0.15),
-                                  child: const Icon(
-                                    Icons.child_care,
-                                    color: AppColors.kiddyBlue,
-                                  ),
-                                ),
-                                title: Text(s.name),
-                                subtitle: Text('الصف: ${s.className}'),
-                                trailing: const Icon(Icons.chevron_left),
-                                onTap: () => Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (_) =>
-                                        TeacherStudentProfileScreen(student: s),
-                                  ),
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-        ),
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+    );
+
+    if (widget.embedded) {
+      return Directionality(
+        textDirection: TextDirection.rtl,
+        child: body,
+      );
+    }
+
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Scaffold(
+        appBar: AppBar(title: const Text('قائمة طلابي')),
+        body: body,
       ),
     );
   }

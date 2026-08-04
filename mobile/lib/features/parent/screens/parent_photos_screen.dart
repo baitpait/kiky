@@ -8,9 +8,14 @@ import '../../../shared/utils/media_url_utils.dart';
 import '../../admin/widgets/admin_feedback.dart';
 
 class ParentPhotosScreen extends StatefulWidget {
-  const ParentPhotosScreen({super.key, required this.student});
+  const ParentPhotosScreen({
+    super.key,
+    required this.student,
+    this.embedded = false,
+  });
 
   final StudentModel student;
+  final bool embedded;
 
   @override
   State<ParentPhotosScreen> createState() => _ParentPhotosScreenState();
@@ -90,80 +95,89 @@ class _ParentPhotosScreenState extends State<ParentPhotosScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final body = RefreshIndicator(
+      onRefresh: _load,
+      child: _loading
+          ? const Center(child: CircularProgressIndicator())
+          : _error != null
+              ? ListView(
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(24),
+                      child: Column(
+                        children: [
+                          const Icon(Icons.error_outline,
+                              size: 48, color: AppColors.coralRed),
+                          const SizedBox(height: 12),
+                          Text(_error!, textAlign: TextAlign.center),
+                          const SizedBox(height: 16),
+                          ElevatedButton(
+                            onPressed: _load,
+                            child: const Text('إعادة المحاولة'),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                )
+              : _photos.isEmpty
+                  ? ListView(
+                      physics: const AlwaysScrollableScrollPhysics(),
+                      children: const [
+                        SizedBox(height: 120),
+                        Center(child: Text('لا توجد صور منشورة بعد')),
+                      ],
+                    )
+                  : GridView.builder(
+                      padding: const EdgeInsets.all(8),
+                      physics: const AlwaysScrollableScrollPhysics(),
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 8,
+                        mainAxisSpacing: 8,
+                      ),
+                      itemCount: _photos.length,
+                      itemBuilder: (_, i) {
+                        final p = _photos[i];
+                        final url = resolveMediaUrl(
+                          p['imageUrl']?.toString() ??
+                              p['image_url']?.toString(),
+                        );
+                        return GestureDetector(
+                          onTap: () => _openPhoto(p),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(12),
+                            child: url.isEmpty
+                                ? Container(
+                                    color: AppColors.softSky,
+                                    child: const Icon(Icons.broken_image),
+                                  )
+                                : Image.network(
+                                    url,
+                                    fit: BoxFit.cover,
+                                    errorBuilder: (_, __, ___) =>
+                                        const Icon(Icons.broken_image),
+                                  ),
+                          ),
+                        );
+                      },
+                    ),
+    );
+
+    if (widget.embedded) {
+      return Directionality(
+        textDirection: TextDirection.rtl,
+        child: body,
+      );
+    }
+
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
         appBar: AppBar(title: Text('صور ${widget.student.name}')),
-        body: RefreshIndicator(
-          onRefresh: _load,
-          child: _loading
-              ? const Center(child: CircularProgressIndicator())
-              : _error != null
-                  ? ListView(
-                      physics: const AlwaysScrollableScrollPhysics(),
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(24),
-                          child: Column(
-                            children: [
-                              const Icon(Icons.error_outline,
-                                  size: 48, color: AppColors.coralRed),
-                              const SizedBox(height: 12),
-                              Text(_error!, textAlign: TextAlign.center),
-                              const SizedBox(height: 16),
-                              ElevatedButton(
-                                onPressed: _load,
-                                child: const Text('إعادة المحاولة'),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    )
-                  : _photos.isEmpty
-                      ? ListView(
-                          physics: const AlwaysScrollableScrollPhysics(),
-                          children: const [
-                            SizedBox(height: 120),
-                            Center(child: Text('لا توجد صور منشورة بعد')),
-                          ],
-                        )
-                      : GridView.builder(
-                          padding: const EdgeInsets.all(8),
-                          physics: const AlwaysScrollableScrollPhysics(),
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            crossAxisSpacing: 8,
-                            mainAxisSpacing: 8,
-                          ),
-                          itemCount: _photos.length,
-                          itemBuilder: (_, i) {
-                            final p = _photos[i];
-                            final url = resolveMediaUrl(
-                              p['imageUrl']?.toString() ??
-                                  p['image_url']?.toString(),
-                            );
-                            return GestureDetector(
-                              onTap: () => _openPhoto(p),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(12),
-                                child: url.isEmpty
-                                    ? Container(
-                                        color: AppColors.softSky,
-                                        child: const Icon(Icons.broken_image),
-                                      )
-                                    : Image.network(
-                                        url,
-                                        fit: BoxFit.cover,
-                                        errorBuilder: (_, __, ___) =>
-                                            const Icon(Icons.broken_image),
-                                      ),
-                              ),
-                            );
-                          },
-                        ),
-        ),
+        body: body,
       ),
     );
   }

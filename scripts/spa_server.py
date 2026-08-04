@@ -23,6 +23,14 @@ class SpaHandler(SimpleHTTPRequestHandler):
         self.path = "/index.html"
         return super().do_GET()
 
+    def end_headers(self):
+        path = self.path.split("?", 1)[0]
+        if path.endswith((".js", ".html", ".json")) or path == "/":
+            self.send_header("Cache-Control", "no-cache, no-store, must-revalidate")
+            self.send_header("Pragma", "no-cache")
+            self.send_header("Expires", "0")
+        super().end_headers()
+
     def log_message(self, fmt, *args):
         if args and str(args[0]).startswith("GET /"):
             super().log_message(fmt, *args)

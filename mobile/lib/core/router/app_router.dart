@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../features/auth/providers/auth_provider.dart';
 import '../../features/auth/screens/login_screen.dart';
-import '../../features/admin/screens/admin_home_screen.dart';
-import '../../features/teacher/screens/teacher_home_screen.dart';
-import '../../features/parent/screens/parent_home_screen.dart';
+import '../../features/admin/screens/admin_shell.dart';
+import '../../features/teacher/screens/teacher_shell.dart';
+import '../../features/parent/screens/parent_shell.dart';
 
 class AppRouter {
   AppRouter(this.auth);
@@ -44,15 +44,15 @@ class AppRouter {
       ),
       GoRoute(
         path: '/admin',
-        builder: (_, __) => const AdminHomeScreen(),
+        builder: (_, __) => const AdminShell(),
       ),
       GoRoute(
         path: '/teacher',
-        builder: (_, __) => const TeacherHomeScreen(),
+        builder: (_, __) => const TeacherShell(),
       ),
       GoRoute(
         path: '/parent',
-        builder: (_, __) => const ParentHomeScreen(),
+        builder: (_, __) => const ParentShell(),
       ),
     ],
     errorBuilder: (context, state) => Directionality(
