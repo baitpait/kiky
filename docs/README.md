@@ -3,6 +3,7 @@
 | الملف | المحتوى |
 |-------|---------|
 | **[CHECKPOINT.md](./CHECKPOINT.md)** | **نقطة التوقف الحالية — اقرأه أولاً** |
+| **[PRODUCTION_BAITPAIT.md](./PRODUCTION_BAITPAIT.md)** | **نشر الإنتاج على kiddylink.baitpait.com (4 أغسطس 2026)** |
 | **[START_TOMORROW.md](./START_TOMORROW.md)** | **دليل البدء السريع (24 يوليو 2026)** |
 | **[PHASE5_LIVE_COMPLETE.md](./PHASE5_LIVE_COMPLETE.md)** | **دليل البث المباشر Agora** |
 | **[PRE_LAUNCH_LOCAL.md](./PRE_LAUNCH_LOCAL.md)** | **جاهزية محلية قبل VPS** |
@@ -26,7 +27,8 @@
 | [API-PHASE4.md](./API-PHASE4.md) | توثيق APIs المرحلة 4 + WebSocket |
 | [API-PHASE5.md](./API-PHASE5.md) | توثيق APIs المرحلة 5 + Agora |
 | [API-PHASE6.md](./API-PHASE6.md) | توثيق APIs المرحلة 6 + نشر |
-| [DEPLOYMENT.md](./DEPLOYMENT.md) | دليل النشر على السيرفر |
+| [DEPLOYMENT.md](./DEPLOYMENT.md) | دليل النشر العام (Docker) |
+| [PRODUCTION_BAITPAIT.md](./PRODUCTION_BAITPAIT.md) | النشر الفعلي Webuzo + PM2 |
 | [PROJECT_SUMMARY.md](./PROJECT_SUMMARY.md) | ملخص المشروع الكامل |
 | [DEVELOPMENT_WORKFLOW.md](./DEVELOPMENT_WORKFLOW.md) | سير العمل + التدريب + الاختبار |
 | [DATABASE.md](./DATABASE.md) | جداول MySQL + العلاقات |

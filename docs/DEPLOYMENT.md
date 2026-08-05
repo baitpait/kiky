@@ -1,5 +1,8 @@
 # نشر Kiddy Link — المرحلة 6
 
+> **نشر فعلي على baitpait (أغسطس 2026):** انظر  
+> **[PRODUCTION_BAITPAIT.md](./PRODUCTION_BAITPAIT.md)** — Webuzo + PM2 + MariaDB (بدون Docker).
+
 ## متطلبات السيرفر (فلسطين)
 
 | المكوّن | الحد الأدنى |

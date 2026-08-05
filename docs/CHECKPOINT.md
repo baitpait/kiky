@@ -1,46 +1,35 @@
 # نقطة التوقف — Kiddy Link
-> **التاريخ:** 24 يوليو 2026 — **آخر جلسة**  
-> **المسار:** `E:\Eman Project\`  
-> **البيئة:** Windows + XAMPP MySQL (3306) — **بدون Docker**  
-> **GitHub:** https://github.com/nahlahalbostnje-ctrl/kiddy-link — **آخر commit:** `9a979bc`
+> **التاريخ:** 4 أغسطس 2026 — **آخر جلسة**  
+> **المسار المحلي (Mac):** `.../kiddy-link`  
+> **الإنتاج:** https://kiddylink.baitpait.com/api  
+> **GitHub:** https://github.com/nahlahalbostnje-ctrl/kiddy-link
 
 ---
 
 ## 🟢 ابدأ من هنا
 
-📄 **[START_TOMORROW.md](./START_TOMORROW.md)** — تشغيل + الخطوة الجاية
-
-```powershell
-# 1. تشغيل
-E:\Eman Project\START.bat
-
-# 2. فحص شامل
-E:\Eman Project\COMPLETE-PRE-LAUNCH.bat
-
-# 3. Firebase — بعد ما تنزل JSON
-E:\Eman Project\SETUP-FCM-JSON.bat
-```
+📄 **[PRODUCTION_BAITPAIT.md](./PRODUCTION_BAITPAIT.md)** — تشغيل الإنتاج + أوامر الصيانة
 
 | الخدمة | URL |
 |--------|-----|
-| **Web** | http://localhost:8082/login |
-| **API** | http://localhost:3000/api |
+| **API إنتاج** | https://kiddylink.baitpait.com/api |
+| **APK** | `~/Desktop/kiddy-link-release.apk` |
+| **دخول مديرة** | `admin` / `100200300` |
 | **GitHub** | https://github.com/nahlahalbostnje-ctrl/kiddy-link |
 
 ---
 
-## آخر تحديث (23–24 يوليو 2026)
+## آخر تحديث (4 أغسطس 2026)
 
 | الميزة | الحالة | التوثيق |
 |--------|--------|---------|
-| **مراحل التطوير 1–6** | ✅ | [PHASES.md](./PHASES.md) |
-| **جاهزية محلية قبل VPS** | ✅ | [PRE_LAUNCH_LOCAL.md](./PRE_LAUNCH_LOCAL.md) |
-| **بث Agora REAL (كود + اختبار)** | ✅ | [PHASE5_LIVE_COMPLETE.md](./PHASE5_LIVE_COMPLETE.md) |
-| **استئناف البث (بدل خطأ 400)** | ✅ | commit `9a979bc` |
-| **GitHub — كل الكود مرفوع** | ✅ | `master` = `origin/master` |
-| **مفاتiح Agora في `.env` (محلي)** | ✅ REAL | `SETUP-AGORA.bat` — **لا تُرفع Git** |
-| **Firebase Console — مشروع Kiddy Link** | ⏳ | **Service Account JSON لم يُضبط بعد** |
-| **نشر VPS** | 📋 | [DEPLOYMENT.md](./DEPLOYMENT.md) — **لاحقاً** |
+| **نشر Backend على baitpait** | ✅ PM2 :3010 | [PRODUCTION_BAITPAIT.md](./PRODUCTION_BAITPAIT.md) |
+| **دومين API + SSL** | ✅ | `kiddylink.baitpait.com/api` |
+| **Agora REAL (إنتاج + محلي)** | ✅ | مفاتيح في `.env` — لا تُرفع Git |
+| **APK مربوط بالإنتاج** | ✅ | سطح المكتب |
+| **Bottom navigation shells** | ✅ | commit `cce31f2` |
+| **Firebase FCM** | ⏳ | [FCM_SETUP.md](./FCM_SETUP.md) |
+| **WebSocket عبر Apache** | ⏳ | يحتاج `proxy_wstunnel` |
 
 ---
 
@@ -57,7 +46,7 @@ E:\Eman Project\SETUP-FCM-JSON.bat
 | **Pre-launch** | جاهزية قبل VPS | ✅ | ✅ | `pre-launch-local.ps1` ✅ |
 | **Brand** | الهوية البصرية v1.0 | — | ✅ | يدوي |
 
-**الخلاصة:** التطوير **1–6 منتهي** + **جاهزية محلية** + **بث Agora REAL**. المتبقي: **Firebase FCM JSON** ثم **VPS**.
+**الخلاصة:** التطوير **1–6 منتهي** + **Backend منشور على الإنتاج** + **APK جاهز**. المتبقي: **FCM** + تحسين **WebSocket** + (اختياري) واجهة Web على الدومين.
 
 ---
 
@@ -65,10 +54,10 @@ E:\Eman Project\SETUP-FCM-JSON.bat
 
 | # | المهمة | كيف |
 |---|--------|-----|
-| 1 | **Firebase Service Account** | Firebase → Settings → Service accounts → Generate key → `SETUP-FCM-JSON.bat` |
-| 2 | **اختبار يدوي للبث** | `p5teacher` يبدأ → `p5parent` يشاهد (نافذتين) — [PHASE5_LIVE_COMPLETE.md](./PHASE5_LIVE_COMPLETE.md) |
-| 3 | **(اختياري) Android app في Firebase** | `google-services.json` — عند بناء APK |
-| 4 | **VPS** | [DEPLOYMENT.md](./DEPLOYMENT.md) |
+| 1 | **اختبار APK على جهاز حقيقي** | تثبيت `kiddy-link-release.apk` → دخول `admin` / `100200300` |
+| 2 | **Firebase Service Account** | [FCM_SETUP.md](./FCM_SETUP.md) + `google-services.json` |
+| 3 | **WebSocket للدردشة** | تفعيل `proxy_wstunnel` — [PRODUCTION_BAITPAIT.md](./PRODUCTION_BAITPAIT.md) |
+| 4 | **(اختياري) رفع Flutter Web** | إلى `/home/baitpait/public_html/kiddylink` |
 
 ---
 

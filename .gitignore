@@ -58,3 +58,6 @@ Thumbs.db
 # Local backups
 mysql-backup*/
 backend/uploads/
+
+# APK builds (too large for git)
+*.apk
