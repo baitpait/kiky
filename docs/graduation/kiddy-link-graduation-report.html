@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Kiddy Link — مشروع تخرج كامل — جامعة القدس المفتوحة</title>
+<style>
+@page { size: A4; margin: 2cm; }
+* { box-sizing: border-box; }
+body { font-family: "Traditional Arabic","Arial","Tahoma",sans-serif; font-size: 15pt; line-height: 1.75; color:#111; margin:0; padding:20px; max-width:210mm; margin-inline:auto; background:#fff; }
+h1,h2,h3,h4 { font-family: Arial,Tahoma,sans-serif; color:#0b3d5c; page-break-after:avoid; }
+h1 { font-size:21pt; text-align:center; }
+h2 { font-size:17pt; border-bottom:2px solid #4A90D9; padding-bottom:6px; margin-top:1.8em; }
+h3 { font-size:15pt; margin-top:1.3em; color:#1a5f7a; }
+h4 { font-size:14pt; margin-top:1em; }
+p { text-align:justify; margin:.55em 0; }
+ul,ol { padding-right:1.5em; }
+li { margin:.3em 0; }
+.center { text-align:center; }
+.cover { min-height:90vh; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; page-break-after:always; gap:.35em; }
+.cover .uni { font-size:20pt; font-weight:bold; }
+.cover .proj-title { font-size:26pt; font-weight:bold; color:#4A90D9; margin:1em 0 .2em; }
+.cover .subtitle { font-size:14pt; color:#555; }
+.muted { color:#555; font-size:12.5pt; }
+.page-break { page-break-before:always; }
+table { width:100%; border-collapse:collapse; margin:1em 0; font-size:12.5pt; page-break-inside:avoid; }
+th,td { border:1px solid #777; padding:7px 9px; text-align:right; vertical-align:top; }
+th { background:#E8F4FC; }
+.caption { text-align:center; font-size:12pt; color:#222; margin:0.3em 0 1.2em; font-weight:bold; }
+.fig { margin:1em auto; text-align:center; page-break-inside:avoid; }
+.fig svg { max-width:100%; height:auto; border:1px solid #ddd; background:#fafcff; }
+.note { background:#f4f8fb; border-right:4px solid #4A90D9; padding:10px 14px; margin:1em 0; font-size:12.5pt; }
+.mono { font-family:Consolas,monospace; font-size:11.5pt; direction:ltr; unicode-bidi:embed; }
+.uc-box { border:1px solid #99b; border-radius:8px; padding:10px 14px; margin:1em 0; background:#fcfdff; page-break-inside:avoid; }
+.small { font-size:12pt; }
+.wire { border:2px solid #4A90D9; border-radius:16px; width:280px; margin:1em auto; background:#fff; overflow:hidden; page-break-inside:avoid; display:inline-block; vertical-align:top; margin-left:12px; margin-right:12px; }
+.wire .bar { background:#4A90D9; color:#fff; padding:10px; text-align:center; font-size:12pt; }
+.wire .body { padding:12px; min-height:160px; font-size:11.5pt; }
+.wire .nav { display:flex; border-top:1px solid #ddd; font-size:9.5pt; }
+.wire .nav span { flex:1; text-align:center; padding:8px 2px; border-left:1px solid #eee; }
+.badge { display:inline-block; background:#E8F4FC; border:1px solid #4A90D9; border-radius:6px; padding:2px 8px; margin:2px; font-size:11pt; }
+</style>
+</head>
+<body>
+
+<section class="cover">
+  <div>بسم الله الرحمن الرحيم</div>
+  <div class="uni">جامعة القدس المفتوحة</div>
+  <div>فرع دورا / [الفرع]</div>
+  <div>كلية التكنولوجيا والعلوم التطبيقية</div>
+  <div>تخصص أنظمة المعلومات الحاسوبية</div>
+  <div class="proj-title">Kiddy Link</div>
+  <div class="subtitle">كيدي لينك — ربط الروضة بالبيت</div>
+  <div class="subtitle">Connecting Home &amp; Kindergarten</div>
+  <p class="muted">تطبيق موبايل يربط روضة أطفال واحدة بأولياء الأمور</p>
+  <p style="margin-top:1.5em"><strong>إعداد:</strong><br>[اسم الطالب/ة الرباعي]</p>
+  <p><strong>إشراف:</strong><br>[اسم المشرف/ة]</p>
+  <p class="muted" style="margin-top:2em">قُدّم هذا المشروع استكمالًا لمتطلبات الحصول على درجة البكالوريوس<br>في تخصص أنظمة المعلومات الحاسوبية — العام 2026</p>
+</section>
+
+<section class="page-break"><h1>الملخص</h1>
+<p>يتلخص هذا المشروع في بناء تطبيق موبايل باسم <strong>Kiddy Link</strong> يهدف إلى ربط روضة أطفال واحدة بأولياء الأمور رقميًا، بما يسهّل متابعة الأطفال يوميًا ويعزّز التواصل بين البيت والروضة ضمن قناة رسمية وآمنة.</p>
+<ul>
+<li><strong>مديرة الروضة:</strong> إدارة الحسابات، الموافقات، التقويم، البانرات، الإشعارات، والملصقات.</li>
+<li><strong>المعلمة:</strong> الحضور، الوجبات، الصور، الواجبات، البث المباشر، والدردشة مع أولياء الأمور.</li>
+<li><strong>ولي الأمر:</strong> متابعة أطفاله ومشاهدة البث والدردشة مع المعلمة.</li>
+</ul>
+<table>
+<tr><th>البند</th><th>التفاصيل</th></tr>
+<tr><td>النطاق</td><td>روضة واحدة — عربي RTL — بدون دفع أو تسجيل ذاتي</td></tr>
+<tr><td>الموبايل</td><td>Flutter (Dart)</td></tr>
+<tr><td>الخادم</td><td>NestJS + Prisma</td></tr>
+<tr><td>قاعدة البيانات</td><td>MySQL / MariaDB</td></tr>
+<tr><td>خدمات</td><td>Redis، Storage، Agora، OpenAI</td></tr>
+<tr><td>الإنتاج</td><td class="mono">https://kiddylink.baitpait.com/api</td></tr>
+</table>
+</section>
+
+<section class="page-break"><h1>الإهداء</h1>
+<p>إلى الأهل الكرام، وإلى المشرف والأساتذة الأفاضل، وإلى كل من آمن بفكرة ربط البيت بالروضة رقميًا.</p>
+</section>
+
+<section class="page-break"><h1>فهرس المحتويات</h1>
+<ol>
+<li>الملخص</li><li>الإهداء</li><li>المقدمة</li><li>المكونات الرئيسية</li>
+<li>الفصل الأول: الاستهلال</li><li>الفصل الثاني: التفصيل والتحليل</li>
+<li>الفصل الثالث: البناء والتصميم</li><li>الفصل الرابع: الانتقال والتنفيذ</li>
+<li>المصادر والمراجع</li>
+</ol>
+<h2>فهرس الأشكال</h2>
+<ul class="small">
+<li>1.0 المعمار العام — 1.1 RUP — 1.2 جانت</li>
+<li>3.1 المتفاعلون — 3.2 إلى 3.5 حالات الاستخدام</li>
+<li>3.6 الأصناف — 3.9+ الأنشطة — 3.25+ الشاشات — 3.38+ التسلسلية</li>
+</ul>
+</section>
+
+<section class="page-break"><h1>المقدمة</h1>
+<p>مع توسّع التطبيقات الذكية، أصبحت روضات الأطفال بحاجة إلى قناة تواصل رقمية موثوقة تربط الإدارة والمعلمات بأولياء الأمور، بعيدًا عن تشتت الرسائل عبر واتساب. من هنا جاءت فكرة <strong>Kiddy Link</strong>: تطبيق موبايل عربي بالكامل بواجهات حسب الدور، مع خادم مركزي للبيانات والصلاحيات والإشعارات والبث.</p>
+</section>
+
+<section><h1>المكونات الرئيسية للمشروع</h1>
+<p>أربعة فصول وفق RUP: الاستهلال، التفصيل والتحليل، البناء والتصميم، ثم الانتقال والتنفيذ.</p></section>
+
+<section class="page-break"><h1>الفصل الأول: مرحلة الاستهلال</h1>
+<h2>ملخص المشروع</h2>
+<p>Kiddy Link تطبيق موبايل يربط روضة واحدة بأولياء الأمور عبر ثلاث واجهات. الحسابات تُنشأ بواسطة المديرة فقط. تم بناء API ونشره وتشغيل تجربة APK.</p>
+<div class="fig"><svg viewBox="0 0 820 420" xmlns="http://www.w3.org/2000/svg">
+  <rect width="820" height="420" fill="#f7fbff"/>
+  <rect x="220" y="20" width="380" height="70" rx="12" fill="#4A90D9"/>
+  <text x="410" y="48" text-anchor="middle" fill="#fff" font-size="18" font-family="Arial">Flutter App (RTL)</text>
+  <text x="410" y="72" text-anchor="middle" fill="#e8f4fc" font-size="13" font-family="Arial">Admin / Teacher / Parent</text>
+  <line x1="410" y1="90" x2="410" y2="130" stroke="#333" stroke-width="2"/>
+  <text x="480" y="115" fill="#333" font-size="12" font-family="Arial">HTTPS + WebSocket</text>
+  <rect x="220" y="135" width="380" height="70" rx="12" fill="#2d6a4f"/>
+  <text x="410" y="165" text-anchor="middle" fill="#fff" font-size="18" font-family="Arial">NestJS API</text>
+  <text x="410" y="188" text-anchor="middle" fill="#d8f3dc" font-size="13" font-family="Arial">REST + JWT + Roles + WS</text>
+  <rect x="40" y="255" width="160" height="60" rx="10" fill="#e76f51"/>
+  <text x="120" y="292" text-anchor="middle" fill="#fff" font-size="15" font-family="Arial">MySQL</text>
+  <rect x="220" y="255" width="160" height="60" rx="10" fill="#f4a261"/>
+  <text x="300" y="292" text-anchor="middle" fill="#fff" font-size="15" font-family="Arial">Redis</text>
+  <rect x="400" y="255" width="160" height="60" rx="10" fill="#457b9d"/>
+  <text x="480" y="292" text-anchor="middle" fill="#fff" font-size="15" font-family="Arial">Storage</text>
+  <rect x="580" y="255" width="180" height="60" rx="10" fill="#6d597a"/>
+  <text x="670" y="280" text-anchor="middle" fill="#fff" font-size="14" font-family="Arial">Agora + OpenAI</text>
+  <text x="670" y="300" text-anchor="middle" fill="#efe" font-size="12" font-family="Arial">Live / Homework AI</text>
+  <line x1="280" y1="205" x2="140" y2="250" stroke="#333" stroke-width="2"/>
+  <line x1="360" y1="205" x2="300" y2="250" stroke="#333" stroke-width="2"/>
+  <line x1="460" y1="205" x2="520" y2="250" stroke="#333" stroke-width="2"/>
+  <line x1="540" y1="205" x2="680" y2="250" stroke="#333" stroke-width="2"/>
+  <rect x="150" y="345" width="520" height="50" rx="10" fill="#264653"/>
+  <text x="410" y="376" text-anchor="middle" fill="#fff" font-size="15" font-family="Arial">Production: kiddylink.baitpait.com/api</text>
+</svg></div><p class="caption">الشكل 1.0 — المعمار العام لنظام Kiddy Link</p>
+<h2>نبذة عن النظام</h2>
+<p>Client–Server: Flutter ↔ NestJS عبر HTTPS/WS، MySQL للبيانات، Redis مساعد، تخزين ملفات، Agora للبث، OpenAI لتحليل الواجبات من الخادم فقط.</p>
+<h2>منهجية البحث (RUP)</h2>
+<div class="fig"><svg viewBox="0 0 820 220" xmlns="http://www.w3.org/2000/svg">
+  <rect width="820" height="220" fill="#f7fbff"/>
+  <text x="410" y="30" text-anchor="middle" fill="#0b3d5c" font-size="18" font-family="Arial">Rational Unified Process (RUP)</text>
+  <rect x="30" y="60" width="160" height="90" rx="12" fill="#4A90D9"/>
+  <text x="110" y="100" text-anchor="middle" fill="#fff" font-size="16" font-family="Arial">Inception</text>
+  <text x="110" y="125" text-anchor="middle" fill="#eaf" font-size="13" font-family="Arial">الاستهلال</text>
+  <rect x="230" y="60" width="160" height="90" rx="12" fill="#2a9d8f"/>
+  <text x="310" y="100" text-anchor="middle" fill="#fff" font-size="16" font-family="Arial">Elaboration</text>
+  <text x="310" y="125" text-anchor="middle" fill="#eaf" font-size="13" font-family="Arial">التفصيل</text>
+  <rect x="430" y="60" width="160" height="90" rx="12" fill="#e9c46a"/>
+  <text x="510" y="100" text-anchor="middle" fill="#333" font-size="16" font-family="Arial">Construction</text>
+  <text x="510" y="125" text-anchor="middle" fill="#333" font-size="13" font-family="Arial">البناء</text>
+  <rect x="630" y="60" width="160" height="90" rx="12" fill="#e76f51"/>
+  <text x="710" y="100" text-anchor="middle" fill="#fff" font-size="16" font-family="Arial">Transition</text>
+  <text x="710" y="125" text-anchor="middle" fill="#fff" font-size="13" font-family="Arial">الانتقال</text>
+  <line x1="190" y1="105" x2="225" y2="105" stroke="#333" stroke-width="3"/>
+  <line x1="390" y1="105" x2="425" y2="105" stroke="#333" stroke-width="3"/>
+  <line x1="590" y1="105" x2="625" y2="105" stroke="#333" stroke-width="3"/>
+</svg></div><p class="caption">الشكل 1.1 — مراحل منهجية RUP</p>
+<ul>
+<li><strong>Inception:</strong> الفكرة والنطاق والأهداف.</li>
+<li><strong>Elaboration:</strong> المشكلة والمتطلبات والجدوى.</li>
+<li><strong>Construction:</strong> UML والبناء.</li>
+<li><strong>Transition:</strong> الاختبار والنشر.</li>
+</ul>
+<h2>أهداف المشروع</h2>
+<ul>
+<li>قناة رقمية موثوقة بين الروضة والبيت.</li>
+<li>إدارة مركزية للصلاحيات والموافقات.</li>
+<li>توثيق يومي للمعلمة ومتابعة لولي الأمر.</li>
+<li>نشر API وإصدار APK للتجربة.</li>
+</ul>
+<table>
+<tr><th>المرحلة</th><th>المدة</th><th>المخرجات</th></tr>
+<tr><td>الاستهلال</td><td>أسبوعان</td><td>نطاق وأهداف</td></tr>
+<tr><td>التفصيل</td><td>3 أسابيع</td><td>تحليل وجدوى</td></tr>
+<tr><td>البناء</td><td>8–10 أسابيع</td><td>UML + كود</td></tr>
+<tr><td>الانتقال</td><td>2–3 أسابيع</td><td>اختبار ونشر</td></tr>
+</table>
+<p class="caption">جدول 1.1 — الجدول الزمني التقديري</p>
+<div class="fig"><svg viewBox="0 0 820 280" xmlns="http://www.w3.org/2000/svg">
+  <rect width="820" height="280" fill="#f7fbff"/>
+  <text x="410" y="28" text-anchor="middle" fill="#0b3d5c" font-size="16" font-family="Arial">مخطط جانت التقديري</text>
+  <text x="10" y="88" font-size="13" font-family="Arial" fill="#222">الاستهلال</text><rect x="142" y="70" width="77" height="28" rx="6" fill="#4A90D9"/><text x="10" y="133" font-size="13" font-family="Arial" fill="#222">التفصيل والتحليل</text><rect x="230" y="115" width="66" height="28" rx="6" fill="#2a9d8f"/><text x="10" y="178" font-size="13" font-family="Arial" fill="#222">البناء والتصميم</text><rect x="307" y="160" width="275" height="28" rx="6" fill="#e9c46a"/><text x="10" y="223" font-size="13" font-family="Arial" fill="#222">الانتقال والتنفيذ</text><rect x="593" y="205" width="99" height="28" rx="6" fill="#e76f51"/>
+  <text x="120" y="260" font-size="11" fill="#666" font-family="Arial">الزمن →</text>
+</svg></div><p class="caption">الشكل 1.2 — مخطط جانت التقديري</p>
+</section>
+
+<section class="page-break"><h1>الفصل الثاني: مرحلة التفصيل والتحليل</h1>
+<h2>أهمية المشروع</h2>
+<ul>
+<li>تنظيم التواصل بدل القنوات العشوائية.</li>
+<li>توثيق يوم الطفل في مكان واحد.</li>
+<li>رقابة المديرة على الصور والصلاحيات.</li>
+<li>شفافية لولي الأمر.</li>
+</ul>
+<h2>مشكلة البحث</h2>
+<p>صعوبة إدارة التواصل اليومي بشكل منظم وآمن، وضياع المعلومات عبر المحادثات الجماعية، والحاجة إلى نظام رقمي لروضة واحدة بتطبيق عربي للأدوار الثلاثة.</p>
+<h2>أساليب جمع البيانات</h2>
+<ul>
+<li>مقابلات مع مديرة/معلمة/ولي أمر.</li>
+<li>ملاحظة التواصل الحالي.</li>
+<li>مراجعة DEVELOPER_SPEC ومخطط Prisma.</li>
+</ul>
+<h2>الجدوى</h2>
+<ul>
+<li><strong>فنية:</strong> Flutter + NestJS + MySQL + Redis + Agora.</li>
+<li><strong>مادية:</strong> سيرفر + نطاق + SSL، وعائد تنظيمي تربوي.</li>
+</ul>
+<table>
+<tr><th>الكيان</th><th>الوصف</th><th>حقول</th></tr>
+<tr><td>User</td><td>حسابات</td><td>username, role, is_active</td></tr>
+<tr><td>Student</td><td>طفل</td><td>name, links</td></tr>
+<tr><td>AttendanceRecord</td><td>حضور</td><td>student_id, type</td></tr>
+<tr><td>Photo</td><td>صور</td><td>url, status</td></tr>
+<tr><td>Homework</td><td>واجبات</td><td>title, grade</td></tr>
+<tr><td>Conversation/Message</td><td>دردشة</td><td>content</td></tr>
+<tr><td>LiveStream</td><td>بث</td><td>channel, status</td></tr>
+<tr><td>Notification</td><td>إشعارات</td><td>title, category</td></tr>
+</table>
+<p class="caption">جدول 2.2 — قاموس بيانات مبسّط</p>
+</section>
+
+<section class="page-break"><h1>الفصل الثالث: مرحلة البناء والتصميم</h1>
+<div class="fig"><svg viewBox="0 0 820 280" xmlns="http://www.w3.org/2000/svg">
+  <rect width="820" height="280" fill="#f7fbff"/>
+  <rect x="310" y="100" width="200" height="70" rx="12" fill="#264653"/>
+  <text x="410" y="142" text-anchor="middle" fill="#fff" font-size="18" font-family="Arial">Kiddy Link</text>
+  <circle cx="120" cy="80" r="16" fill="#4A90D9"/><line x1="120" y1="96" x2="120" y2="135" stroke="#4A90D9" stroke-width="4"/><line x1="98" y1="112" x2="142" y2="112" stroke="#4A90D9" stroke-width="4"/><line x1="120" y1="135" x2="100" y2="170" stroke="#4A90D9" stroke-width="4"/><line x1="120" y1="135" x2="140" y2="170" stroke="#4A90D9" stroke-width="4"/>
+  <text x="120" y="200" text-anchor="middle" font-size="14" font-family="Arial">المديرة</text>
+  <circle cx="700" cy="80" r="16" fill="#e76f51"/><line x1="700" y1="96" x2="700" y2="135" stroke="#e76f51" stroke-width="4"/><line x1="678" y1="112" x2="722" y2="112" stroke="#e76f51" stroke-width="4"/><line x1="700" y1="135" x2="680" y2="170" stroke="#e76f51" stroke-width="4"/><line x1="700" y1="135" x2="720" y2="170" stroke="#e76f51" stroke-width="4"/>
+  <text x="700" y="200" text-anchor="middle" font-size="14" font-family="Arial">ولي الأمر</text>
+  <circle cx="410" cy="230" r="16" fill="#2a9d8f"/><line x1="410" y1="214" x2="410" y2="175" stroke="#2a9d8f" stroke-width="3"/>
+  <text x="410" y="265" text-anchor="middle" font-size="14" font-family="Arial">المعلمة</text>
+  <line x1="150" y1="100" x2="310" y2="125" stroke="#888" stroke-dasharray="4"/>
+  <line x1="670" y1="100" x2="510" y2="125" stroke="#888" stroke-dasharray="4"/>
+  <line x1="410" y1="214" x2="410" y2="170" stroke="#888" stroke-dasharray="4"/>
+</svg></div><p class="caption">الشكل 3.1 — المتفاعلون في نظام Kiddy Link</p>
+<div class="fig"><svg viewBox="0 0 820 390" xmlns="http://www.w3.org/2000/svg">
+  <rect width="820" height="390" fill="#f7fbff"/>
+  <rect x="120" y="20" width="580" height="350" rx="8" fill="none" stroke="#4A90D9" stroke-width="2"/>
+  <text x="410" y="18" text-anchor="middle" font-size="14" fill="#0b3d5c" font-family="Arial">Kiddy Link</text>
+  <text x="50" y="180" text-anchor="middle" font-size="13" font-family="Arial">مديرة</text>
+  <text x="770" y="140" text-anchor="middle" font-size="13" font-family="Arial">ولي أمر</text>
+  <text x="770" y="300" text-anchor="middle" font-size="13" font-family="Arial">معلمة</text>
+  <ellipse cx="410" cy="50" rx="90" ry="20" fill="#E8F4FC" stroke="#333" stroke-width="1.5"/><text x="410" y="54" text-anchor="middle" font-size="11" font-family="Arial">تسجيل الدخول</text><ellipse cx="200" cy="105" rx="95" ry="20" fill="#E8F4FC" stroke="#333" stroke-width="1.5"/><text x="200" y="109" text-anchor="middle" font-size="11" font-family="Arial">إدارة الحسابات</text><ellipse cx="200" cy="150" rx="95" ry="20" fill="#E8F4FC" stroke="#333" stroke-width="1.5"/><text x="200" y="154" text-anchor="middle" font-size="11" font-family="Arial">موافقة الصور</text><ellipse cx="200" cy="195" rx="100" ry="20" fill="#E8F4FC" stroke="#333" stroke-width="1.5"/><text x="200" y="199" text-anchor="middle" font-size="11" font-family="Arial">تقويم/بانرات</text><ellipse cx="200" cy="240" rx="95" ry="20" fill="#E8F4FC" stroke="#333" stroke-width="1.5"/><text x="200" y="244" text-anchor="middle" font-size="11" font-family="Arial">إدارة الملصقات</text><ellipse cx="410" cy="105" rx="90" ry="20" fill="#d8f3dc" stroke="#333" stroke-width="1.5"/><text x="410" y="109" text-anchor="middle" font-size="11" font-family="Arial">تسجيل حضور</text><ellipse cx="410" cy="150" rx="90" ry="20" fill="#d8f3dc" stroke="#333" stroke-width="1.5"/><text x="410" y="154" text-anchor="middle" font-size="11" font-family="Arial">تأكيد وجبات</text><ellipse cx="410" cy="195" rx="95" ry="20" fill="#d8f3dc" stroke="#333" stroke-width="1.5"/><text x="410" y="199" text-anchor="middle" font-size="11" font-family="Arial">رفع صور ألبوم</text><ellipse cx="410" cy="240" rx="90" ry="20" fill="#d8f3dc" stroke="#333" stroke-width="1.5"/><text x="410" y="244" text-anchor="middle" font-size="11" font-family="Arial">واجبات منزلية</text><ellipse cx="410" cy="285" rx="85" ry="20" fill="#d8f3dc" stroke="#333" stroke-width="1.5"/><text x="410" y="289" text-anchor="middle" font-size="11" font-family="Arial">بث مباشر</text><ellipse cx="620" cy="105" rx="95" ry="20" fill="#ffe8d6" stroke="#333" stroke-width="1.5"/><text x="620" y="109" text-anchor="middle" font-size="11" font-family="Arial">متابعة الطفل</text><ellipse cx="620" cy="150" rx="90" ry="20" fill="#ffe8d6" stroke="#333" stroke-width="1.5"/><text x="620" y="154" text-anchor="middle" font-size="11" font-family="Arial">عرض الصور</text><ellipse cx="620" cy="195" rx="90" ry="20" fill="#ffe8d6" stroke="#333" stroke-width="1.5"/><text x="620" y="199" text-anchor="middle" font-size="11" font-family="Arial">عرض واجبات</text><ellipse cx="620" cy="240" rx="85" ry="20" fill="#ffe8d6" stroke="#333" stroke-width="1.5"/><text x="620" y="244" text-anchor="middle" font-size="11" font-family="Arial">مشاهدة بث</text><ellipse cx="520" cy="330" rx="90" ry="20" fill="#f1e6ff" stroke="#333" stroke-width="1.5"/><text x="520" y="334" text-anchor="middle" font-size="11" font-family="Arial">دردشة</text>
+</svg></div><p class="caption">الشكل 3.2 — مخطط حالات الاستخدام للنظام كامل</p>
+<div class="fig"><svg viewBox="0 0 700 300" xmlns="http://www.w3.org/2000/svg">
+  <rect width="700" height="300" fill="#f7fbff"/>
+  <rect x="140" y="25" width="520" height="255" rx="8" fill="none" stroke="#4A90D9" stroke-width="2"/>
+  <text x="400" y="20" text-anchor="middle" font-size="14" fill="#0b3d5c" font-family="Arial">حالات الاستخدام — المديرة</text>
+  <circle cx="60" cy="140" r="14" fill="#4A90D9"/>
+  <text x="60" y="175" text-anchor="middle" font-size="12" font-family="Arial">ممثل</text>
+  <ellipse cx="230" cy="70" rx="105" ry="17" fill="#fff" stroke="#333" stroke-width="1.5"/><text x="230" y="74" text-anchor="middle" font-size="11" font-family="Arial">إدارة حسابات</text><ellipse cx="230" cy="110" rx="105" ry="17" fill="#fff" stroke="#333" stroke-width="1.5"/><text x="230" y="114" text-anchor="middle" font-size="11" font-family="Arial">موافقة صور</text><ellipse cx="230" cy="150" rx="105" ry="17" fill="#fff" stroke="#333" stroke-width="1.5"/><text x="230" y="154" text-anchor="middle" font-size="11" font-family="Arial">تقويم</text><ellipse cx="230" cy="190" rx="105" ry="17" fill="#fff" stroke="#333" stroke-width="1.5"/><text x="230" y="194" text-anchor="middle" font-size="11" font-family="Arial">بانرات</text><ellipse cx="480" cy="70" rx="105" ry="17" fill="#fff" stroke="#333" stroke-width="1.5"/><text x="480" y="74" text-anchor="middle" font-size="11" font-family="Arial">إشعارات</text><ellipse cx="480" cy="110" rx="105" ry="17" fill="#fff" stroke="#333" stroke-width="1.5"/><text x="480" y="114" text-anchor="middle" font-size="11" font-family="Arial">ملصقات</text><ellipse cx="480" cy="150" rx="105" ry="17" fill="#fff" stroke="#333" stroke-width="1.5"/><text x="480" y="154" text-anchor="middle" font-size="11" font-family="Arial">دخول</text>
+</svg></div><p class="caption">الشكل 3.3 — المديرة</p>
+<div class="fig"><svg viewBox="0 0 700 300" xmlns="http://www.w3.org/2000/svg">
+  <rect width="700" height="300" fill="#f7fbff"/>
+  <rect x="140" y="25" width="520" height="255" rx="8" fill="none" stroke="#2a9d8f" stroke-width="2"/>
+  <text x="400" y="20" text-anchor="middle" font-size="14" fill="#0b3d5c" font-family="Arial">حالات الاستخدام — المعلمة</text>
+  <circle cx="60" cy="140" r="14" fill="#2a9d8f"/>
+  <text x="60" y="175" text-anchor="middle" font-size="12" font-family="Arial">ممثل</text>
+  <ellipse cx="230" cy="70" rx="105" ry="17" fill="#fff" stroke="#333" stroke-width="1.5"/><text x="230" y="74" text-anchor="middle" font-size="11" font-family="Arial">حضور</text><ellipse cx="230" cy="110" rx="105" ry="17" fill="#fff" stroke="#333" stroke-width="1.5"/><text x="230" y="114" text-anchor="middle" font-size="11" font-family="Arial">وجبات</text><ellipse cx="230" cy="150" rx="105" ry="17" fill="#fff" stroke="#333" stroke-width="1.5"/><text x="230" y="154" text-anchor="middle" font-size="11" font-family="Arial">رفع صور</text><ellipse cx="230" cy="190" rx="105" ry="17" fill="#fff" stroke="#333" stroke-width="1.5"/><text x="230" y="194" text-anchor="middle" font-size="11" font-family="Arial">واجبات</text><ellipse cx="480" cy="70" rx="105" ry="17" fill="#fff" stroke="#333" stroke-width="1.5"/><text x="480" y="74" text-anchor="middle" font-size="11" font-family="Arial">بث مباشر</text><ellipse cx="480" cy="110" rx="105" ry="17" fill="#fff" stroke="#333" stroke-width="1.5"/><text x="480" y="114" text-anchor="middle" font-size="11" font-family="Arial">دردشة</text><ellipse cx="480" cy="150" rx="105" ry="17" fill="#fff" stroke="#333" stroke-width="1.5"/><text x="480" y="154" text-anchor="middle" font-size="11" font-family="Arial">دخول</text>
+</svg></div><p class="caption">الشكل 3.4 — المعلمة</p>
+<div class="fig"><svg viewBox="0 0 700 300" xmlns="http://www.w3.org/2000/svg">
+  <rect width="700" height="300" fill="#f7fbff"/>
+  <rect x="140" y="25" width="520" height="255" rx="8" fill="none" stroke="#e76f51" stroke-width="2"/>
+  <text x="400" y="20" text-anchor="middle" font-size="14" fill="#0b3d5c" font-family="Arial">حالات الاستخدام — ولي الأمر</text>
+  <circle cx="60" cy="140" r="14" fill="#e76f51"/>
+  <text x="60" y="175" text-anchor="middle" font-size="12" font-family="Arial">ممثل</text>
+  <ellipse cx="230" cy="70" rx="105" ry="17" fill="#fff" stroke="#333" stroke-width="1.5"/><text x="230" y="74" text-anchor="middle" font-size="11" font-family="Arial">متابعة طفل</text><ellipse cx="230" cy="110" rx="105" ry="17" fill="#fff" stroke="#333" stroke-width="1.5"/><text x="230" y="114" text-anchor="middle" font-size="11" font-family="Arial">صور معتمدة</text><ellipse cx="230" cy="150" rx="105" ry="17" fill="#fff" stroke="#333" stroke-width="1.5"/><text x="230" y="154" text-anchor="middle" font-size="11" font-family="Arial">واجبات</text><ellipse cx="230" cy="190" rx="105" ry="17" fill="#fff" stroke="#333" stroke-width="1.5"/><text x="230" y="194" text-anchor="middle" font-size="11" font-family="Arial">حضور</text><ellipse cx="480" cy="70" rx="105" ry="17" fill="#fff" stroke="#333" stroke-width="1.5"/><text x="480" y="74" text-anchor="middle" font-size="11" font-family="Arial">مشاهدة بث</text><ellipse cx="480" cy="110" rx="105" ry="17" fill="#fff" stroke="#333" stroke-width="1.5"/><text x="480" y="114" text-anchor="middle" font-size="11" font-family="Arial">دردشة</text><ellipse cx="480" cy="150" rx="105" ry="17" fill="#fff" stroke="#333" stroke-width="1.5"/><text x="480" y="154" text-anchor="middle" font-size="11" font-family="Arial">دخول</text>
+</svg></div><p class="caption">الشكل 3.5 — ولي الأمر</p>
+
+<h2>توثيق حالات الاستخدام</h2>
+
+<div class="uc-box">
+<h4>1) توثيق حالة الاستخدام: تسجيل الدخول</h4>
+<ul>
+<li><strong>الممثل الأساسي:</strong> جميع الأدوار</li>
+<li><strong>المتطلب السابق:</strong> وجود حساب منشأ من المديرة</li>
+<li><strong>خطوات العمل الرئيسية:</strong> فتح التطبيق ← إدخال البيانات ← POST /auth/login ← استلام التوكن ← التوجيه حسب الدور</li>
+<li><strong>المسار البديل:</strong> بيانات خاطئة أو حساب غير نشط ← رسالة خطأ عربية</li>
+<li><strong>العمليات اللاحقة:</strong> الدخول للواجهة الخاصة بالدور</li>
+</ul>
+</div>
+
+<div class="uc-box">
+<h4>2) توثيق حالة الاستخدام: إدارة الحسابات</h4>
+<ul>
+<li><strong>الممثل الأساسي:</strong> المديرة</li>
+<li><strong>المتطلب السابق:</strong> تسجيل دخول المديرة</li>
+<li><strong>خطوات العمل الرئيسية:</strong> إنشاء/تعديل/تعطيل معلمة أو ولي أمر وربط الأطفال</li>
+<li><strong>المسار البديل:</strong> بيانات ناقصة أو اسم مستخدم مكرر</li>
+<li><strong>العمليات اللاحقة:</strong> ظهور الحساب في القوائم</li>
+</ul>
+</div>
+
+<div class="uc-box">
+<h4>3) توثيق حالة الاستخدام: الموافقة على الصور</h4>
+<ul>
+<li><strong>الممثل الأساسي:</strong> المديرة</li>
+<li><strong>المتطلب السابق:</strong> صور بحالة pending</li>
+<li><strong>خطوات العمل الرئيسية:</strong> عرض الصور المعلقة ← موافقة/رفض ← تحديث الحالة</li>
+<li><strong>المسار البديل:</strong> رفض الصورة</li>
+<li><strong>العمليات اللاحقة:</strong> ظهور الصورة لولي الأمر مع إشعار</li>
+</ul>
+</div>
+
+<div class="uc-box">
+<h4>4) توثيق حالة الاستخدام: إدارة التقويم والبانرات</h4>
+<ul>
+<li><strong>الممثل الأساسي:</strong> المديرة</li>
+<li><strong>المتطلب السابق:</strong> صلاحية مديرة</li>
+<li><strong>خطوات العمل الرئيسية:</strong> إضافة/تعديل أحداث وبانرات</li>
+<li><strong>المسار البديل:</strong> حقول غير مكتملة</li>
+<li><strong>العمليات اللاحقة:</strong> عرض المحتوى للمستخدمين</li>
+</ul>
+</div>
+
+<div class="uc-box">
+<h4>5) توثيق حالة الاستخدام: إدارة الملصقات والمستويات</h4>
+<ul>
+<li><strong>الممثل الأساسي:</strong> المديرة</li>
+<li><strong>المتطلب السابق:</strong> صلاحية مديرة</li>
+<li><strong>خطوات العمل الرئيسية:</strong> إدارة sticker_levels والملصقات</li>
+<li><strong>المسار البديل:</strong> تعطيل مستوى مستخدم</li>
+<li><strong>العمليات اللاحقة:</strong> استخدام الملصقات في التحفيز</li>
+</ul>
+</div>
+
+<div class="uc-box">
+<h4>6) توثيق حالة الاستخدام: تسجيل الحضور</h4>
+<ul>
+<li><strong>الممثل الأساسي:</strong> المعلمة</li>
+<li><strong>المتطلب السابق:</strong> معلمة مرتبطة بطلاب</li>
+<li><strong>خطوات العمل الرئيسية:</strong> اختيار الطالب ← check-in/out ← حفظ السجل</li>
+<li><strong>المسار البديل:</strong> طالب غير مرتبط</li>
+<li><strong>العمليات اللاحقة:</strong> تحديث ملخص ولي الأمر</li>
+</ul>
+</div>
+
+<div class="uc-box">
+<h4>7) توثيق حالة الاستخدام: تأكيد الوجبات</h4>
+<ul>
+<li><strong>الممثل الأساسي:</strong> المعلمة / ولي الأمر</li>
+<li><strong>المتطلب السابق:</strong> سجل يومي للطفل</li>
+<li><strong>خطوات العمل الرئيسية:</strong> تأكيد الوجبة وحفظ MealRecord</li>
+<li><strong>المسار البديل:</strong> لا يوجد سجل</li>
+<li><strong>العمليات اللاحقة:</strong> تحديث حالة الوجبة</li>
+</ul>
+</div>
+
+<div class="uc-box">
+<h4>8) توثيق حالة الاستخدام: رفع صور الألبوم</h4>
+<ul>
+<li><strong>الممثل الأساسي:</strong> المعلمة</li>
+<li><strong>المتطلب السابق:</strong> تسجيل دخول المعلمة</li>
+<li><strong>خطوات العمل الرئيسية:</strong> اختيار صورة ← رفع ← حالة pending</li>
+<li><strong>المسار البديل:</strong> نوع ملف غير مدعوم</li>
+<li><strong>العمليات اللاحقة:</strong> انتظار موافقة المديرة</li>
+</ul>
+</div>
+
+<div class="uc-box">
+<h4>9) توثيق حالة الاستخدام: الواجبات المنزلية</h4>
+<ul>
+<li><strong>الممثل الأساسي:</strong> المعلمة / ولي الأمر</li>
+<li><strong>المتطلب السابق:</strong> طالب مرتبط</li>
+<li><strong>خطوات العمل الرئيسية:</strong> إنشاء واجب ← متابعة/رفع ← تقييم/AI</li>
+<li><strong>المسار البديل:</strong> ملف غير صالح</li>
+<li><strong>العمليات اللاحقة:</strong> حفظ الواجب والتقييم</li>
+</ul>
+</div>
+
+<div class="uc-box">
+<h4>10) توثيق حالة الاستخدام: بدء بث مباشر</h4>
+<ul>
+<li><strong>الممثل الأساسي:</strong> المعلمة</li>
+<li><strong>المتطلب السابق:</strong> مفاتيح Agora مضبوطة</li>
+<li><strong>خطوات العمل الرئيسية:</strong> POST /live/start ← قناة وتوكن ← بدء البث</li>
+<li><strong>المسار البديل:</strong> بث نشط أو مفاتيح ناقصة</li>
+<li><strong>العمليات اللاحقة:</strong> إشعار أولياء الأمور</li>
+</ul>
+</div>
+
+<div class="uc-box">
+<h4>11) توثيق حالة الاستخدام: مشاهدة البث</h4>
+<ul>
+<li><strong>الممثل الأساسي:</strong> ولي الأمر</li>
+<li><strong>المتطلب السابق:</strong> بث نشط لمعلمة الطفل</li>
+<li><strong>خطوات العمل الرئيسية:</strong> فتح البث ← join ← استلام توكن</li>
+<li><strong>المسار البديل:</strong> لا يوجد بث نشط</li>
+<li><strong>العمليات اللاحقة:</strong> عرض الفيديو</li>
+</ul>
+</div>
+
+<div class="uc-box">
+<h4>12) توثيق حالة الاستخدام: الدردشة</h4>
+<ul>
+<li><strong>الممثل الأساسي:</strong> معلمة ↔ ولي أمر</li>
+<li><strong>المتطلب السابق:</strong> ارتباط بنفس الطفل</li>
+<li><strong>خطوات العمل الرئيسية:</strong> فتح محادثة ← إرسال نص/مرفق</li>
+<li><strong>المسار البديل:</strong> غير مصرح / شبكة</li>
+<li><strong>العمليات اللاحقة:</strong> حفظ الرسالة</li>
+</ul>
+</div>
+
+<div class="uc-box">
+<h4>13) توثيق حالة الاستخدام: متابعة الطفل</h4>
+<ul>
+<li><strong>الممثل الأساسي:</strong> ولي أمر</li>
+<li><strong>المتطلب السابق:</strong> أطفال مرتبطون</li>
+<li><strong>خطوات العمل الرئيسية:</strong> عرض ملخص الحضور والصور والواجبات</li>
+<li><strong>المسار البديل:</strong> لا أطفال ← رسالة فارغة</li>
+<li><strong>العمليات اللاحقة:</strong> التنقل للتفاصيل</li>
+</ul>
+</div>
+
+<h2>مخططات الأنشطة</h2>
+<div class="fig"><svg viewBox="0 0 520 455" xmlns="http://www.w3.org/2000/svg"><rect width="520" height="455" fill="#f7fbff"/><ellipse cx="260" cy="30" rx="40" ry="16" fill="#4A90D9"/><text x="260" y="35" text-anchor="middle" fill="#fff" font-size="12">بداية</text><line x1="260" y1="50" x2="260" y2="70" stroke="#333"/><rect x="140" y="70" width="240" height="36" rx="8" fill="#fff" stroke="#333"/><text x="260" y="93" text-anchor="middle" font-size="12">فتح شاشة الدخول</text><line x1="260" y1="105" x2="260" y2="125" stroke="#333"/><rect x="140" y="125" width="240" height="36" rx="8" fill="#fff" stroke="#333"/><text x="260" y="148" text-anchor="middle" font-size="12">إدخال البيانات</text><line x1="260" y1="160" x2="260" y2="180" stroke="#333"/><rect x="140" y="180" width="240" height="36" rx="8" fill="#fff" stroke="#333"/><text x="260" y="203" text-anchor="middle" font-size="12">إرسال /auth/login</text><line x1="260" y1="215" x2="260" y2="235" stroke="#333"/><polygon points="260,235 360,257 260,279 160,257" fill="#fff3cd" stroke="#333"/><text x="260" y="262" text-anchor="middle" font-size="11">نجاح؟</text><line x1="260" y1="275" x2="260" y2="295" stroke="#333"/><rect x="140" y="295" width="240" height="36" rx="8" fill="#fff" stroke="#333"/><text x="260" y="318" text-anchor="middle" font-size="12">حفظ التوكن</text><line x1="260" y1="330" x2="260" y2="350" stroke="#333"/><rect x="140" y="350" width="240" height="36" rx="8" fill="#fff" stroke="#333"/><text x="260" y="373" text-anchor="middle" font-size="12">التوجيه حسب الدور</text><line x1="260" y1="390" x2="260" y2="405" stroke="#333"/><ellipse cx="260" cy="421" rx="40" ry="16" fill="#e76f51"/><text x="260" y="426" text-anchor="middle" fill="#fff" font-size="12">نهاية</text></svg></div><p class="caption">الشكل 3.9 — أنشطة تسجيل الدخول</p>
+<div class="fig"><svg viewBox="0 0 520 395" xmlns="http://www.w3.org/2000/svg"><rect width="520" height="395" fill="#f7fbff"/><ellipse cx="260" cy="30" rx="40" ry="16" fill="#2a9d8f"/><text x="260" y="35" text-anchor="middle" fill="#fff" font-size="12">بداية</text><line x1="260" y1="50" x2="260" y2="70" stroke="#333"/><rect x="140" y="70" width="240" height="36" rx="8" fill="#fff" stroke="#333"/><text x="260" y="93" text-anchor="middle" font-size="12">فتح الموافقات</text><line x1="260" y1="105" x2="260" y2="125" stroke="#333"/><rect x="140" y="125" width="240" height="36" rx="8" fill="#fff" stroke="#333"/><text x="260" y="148" text-anchor="middle" font-size="12">عرض الصورة</text><line x1="260" y1="160" x2="260" y2="180" stroke="#333"/><rect x="140" y="180" width="240" height="36" rx="8" fill="#fff" stroke="#333"/><text x="260" y="203" text-anchor="middle" font-size="12">موافقة أو رفض</text><line x1="260" y1="215" x2="260" y2="235" stroke="#333"/><rect x="140" y="235" width="240" height="36" rx="8" fill="#fff" stroke="#333"/><text x="260" y="258" text-anchor="middle" font-size="12">تحديث الحالة</text><line x1="260" y1="270" x2="260" y2="290" stroke="#333"/><rect x="140" y="290" width="240" height="36" rx="8" fill="#fff" stroke="#333"/><text x="260" y="313" text-anchor="middle" font-size="12">إشعار عند الموافقة</text><line x1="260" y1="330" x2="260" y2="345" stroke="#333"/><ellipse cx="260" cy="361" rx="40" ry="16" fill="#e76f51"/><text x="260" y="366" text-anchor="middle" fill="#fff" font-size="12">نهاية</text></svg></div><p class="caption">الشكل 3.10 — أنشطة موافقة صورة</p>
+<div class="fig"><svg viewBox="0 0 520 395" xmlns="http://www.w3.org/2000/svg"><rect width="520" height="395" fill="#f7fbff"/><ellipse cx="260" cy="30" rx="40" ry="16" fill="#e9c46a"/><text x="260" y="35" text-anchor="middle" fill="#fff" font-size="12">بداية</text><line x1="260" y1="50" x2="260" y2="70" stroke="#333"/><rect x="140" y="70" width="240" height="36" rx="8" fill="#fff" stroke="#333"/><text x="260" y="93" text-anchor="middle" font-size="12">فتح قائمة الطلاب</text><line x1="260" y1="105" x2="260" y2="125" stroke="#333"/><rect x="140" y="125" width="240" height="36" rx="8" fill="#fff" stroke="#333"/><text x="260" y="148" text-anchor="middle" font-size="12">اختيار طالب</text><line x1="260" y1="160" x2="260" y2="180" stroke="#333"/><rect x="140" y="180" width="240" height="36" rx="8" fill="#fff" stroke="#333"/><text x="260" y="203" text-anchor="middle" font-size="12">check-in/out</text><line x1="260" y1="215" x2="260" y2="235" stroke="#333"/><rect x="140" y="235" width="240" height="36" rx="8" fill="#fff" stroke="#333"/><text x="260" y="258" text-anchor="middle" font-size="12">حفظ السجل</text><line x1="260" y1="270" x2="260" y2="290" stroke="#333"/><rect x="140" y="290" width="240" height="36" rx="8" fill="#fff" stroke="#333"/><text x="260" y="313" text-anchor="middle" font-size="12">تحديث ملخص ولي الأمر</text><line x1="260" y1="330" x2="260" y2="345" stroke="#333"/><ellipse cx="260" cy="361" rx="40" ry="16" fill="#e76f51"/><text x="260" y="366" text-anchor="middle" fill="#fff" font-size="12">نهاية</text></svg></div><p class="caption">الشكل 3.11 — أنشطة تسجيل حضور</p>
+<div class="fig"><svg viewBox="0 0 520 395" xmlns="http://www.w3.org/2000/svg"><rect width="520" height="395" fill="#f7fbff"/><ellipse cx="260" cy="30" rx="40" ry="16" fill="#e76f51"/><text x="260" y="35" text-anchor="middle" fill="#fff" font-size="12">بداية</text><line x1="260" y1="50" x2="260" y2="70" stroke="#333"/><rect x="140" y="70" width="240" height="36" rx="8" fill="#fff" stroke="#333"/><text x="260" y="93" text-anchor="middle" font-size="12">طلب بدء البث</text><line x1="260" y1="105" x2="260" y2="125" stroke="#333"/><rect x="140" y="125" width="240" height="36" rx="8" fill="#fff" stroke="#333"/><text x="260" y="148" text-anchor="middle" font-size="12">التحقق من الصلاحية</text><line x1="260" y1="160" x2="260" y2="180" stroke="#333"/><rect x="140" y="180" width="240" height="36" rx="8" fill="#fff" stroke="#333"/><text x="260" y="203" text-anchor="middle" font-size="12">إنشاء قناة Agora</text><line x1="260" y1="215" x2="260" y2="235" stroke="#333"/><rect x="140" y="235" width="240" height="36" rx="8" fill="#fff" stroke="#333"/><text x="260" y="258" text-anchor="middle" font-size="12">توليد توكن</text><line x1="260" y1="270" x2="260" y2="290" stroke="#333"/><rect x="140" y="290" width="240" height="36" rx="8" fill="#fff" stroke="#333"/><text x="260" y="313" text-anchor="middle" font-size="12">إشعار أولياء الأمور</text><line x1="260" y1="330" x2="260" y2="345" stroke="#333"/><ellipse cx="260" cy="361" rx="40" ry="16" fill="#e76f51"/><text x="260" y="366" text-anchor="middle" fill="#fff" font-size="12">نهاية</text></svg></div><p class="caption">الشكل 3.12 — أنشطة بدء بث</p>
+<div class="fig"><svg viewBox="0 0 520 400" xmlns="http://www.w3.org/2000/svg"><rect width="520" height="400" fill="#f7fbff"/><ellipse cx="260" cy="30" rx="40" ry="16" fill="#6d597a"/><text x="260" y="35" text-anchor="middle" fill="#fff" font-size="12">بداية</text><line x1="260" y1="50" x2="260" y2="70" stroke="#333"/><rect x="140" y="70" width="240" height="36" rx="8" fill="#fff" stroke="#333"/><text x="260" y="93" text-anchor="middle" font-size="12">فتح المحادثة</text><line x1="260" y1="105" x2="260" y2="125" stroke="#333"/><rect x="140" y="125" width="240" height="36" rx="8" fill="#fff" stroke="#333"/><text x="260" y="148" text-anchor="middle" font-size="12">كتابة رسالة</text><line x1="260" y1="160" x2="260" y2="180" stroke="#333"/><rect x="140" y="180" width="240" height="36" rx="8" fill="#fff" stroke="#333"/><text x="260" y="203" text-anchor="middle" font-size="12">إرسال REST/WS</text><line x1="260" y1="215" x2="260" y2="235" stroke="#333"/><polygon points="260,235 360,257 260,279 160,257" fill="#fff3cd" stroke="#333"/><text x="260" y="262" text-anchor="middle" font-size="11">نجاح؟</text><line x1="260" y1="275" x2="260" y2="295" stroke="#333"/><rect x="140" y="295" width="240" height="36" rx="8" fill="#fff" stroke="#333"/><text x="260" y="318" text-anchor="middle" font-size="12">عرض الرسالة</text><line x1="260" y1="335" x2="260" y2="350" stroke="#333"/><ellipse cx="260" cy="366" rx="40" ry="16" fill="#e76f51"/><text x="260" y="371" text-anchor="middle" fill="#fff" font-size="12">نهاية</text></svg></div><p class="caption">الشكل 3.13 — أنشطة الدردشة</p>
+
+<div class="fig"><svg viewBox="0 0 780 550" xmlns="http://www.w3.org/2000/svg">
+  <rect width="780" height="550" fill="#f7fbff"/>
+  <rect x="40" y="30" width="150" height="105" fill="#fff" stroke="#0b3d5c"/><rect x="40" y="30" width="150" height="26" fill="#4A90D9"/><text x="115" y="48" text-anchor="middle" fill="#fff" font-size="13" font-family="Arial">User</text><text x="48" y="78" font-size="11" font-family="Consolas">id</text><text x="48" y="94" font-size="11" font-family="Consolas">username</text><text x="48" y="110" font-size="11" font-family="Consolas">role</text><text x="48" y="126" font-size="11" font-family="Consolas">is_active</text><rect x="220" y="30" width="150" height="105" fill="#fff" stroke="#0b3d5c"/><rect x="220" y="30" width="150" height="26" fill="#4A90D9"/><text x="295" y="48" text-anchor="middle" fill="#fff" font-size="13" font-family="Arial">Student</text><text x="228" y="78" font-size="11" font-family="Consolas">id</text><text x="228" y="94" font-size="11" font-family="Consolas">name</text><text x="228" y="110" font-size="11" font-family="Consolas">class</text><rect x="400" y="30" width="150" height="105" fill="#fff" stroke="#0b3d5c"/><rect x="400" y="30" width="150" height="26" fill="#4A90D9"/><text x="475" y="48" text-anchor="middle" fill="#fff" font-size="13" font-family="Arial">Teacher</text><text x="408" y="78" font-size="11" font-family="Consolas">id</text><text x="408" y="94" font-size="11" font-family="Consolas">user_id</text><rect x="580" y="30" width="150" height="105" fill="#fff" stroke="#0b3d5c"/><rect x="580" y="30" width="150" height="26" fill="#4A90D9"/><text x="655" y="48" text-anchor="middle" fill="#fff" font-size="13" font-family="Arial">Parent</text><text x="588" y="78" font-size="11" font-family="Consolas">id</text><text x="588" y="94" font-size="11" font-family="Consolas">user_id</text><rect x="40" y="160" width="150" height="105" fill="#fff" stroke="#0b3d5c"/><rect x="40" y="160" width="150" height="26" fill="#4A90D9"/><text x="115" y="178" text-anchor="middle" fill="#fff" font-size="13" font-family="Arial">Attendance</text><text x="48" y="208" font-size="11" font-family="Consolas">student_id</text><text x="48" y="224" font-size="11" font-family="Consolas">type</text><text x="48" y="240" font-size="11" font-family="Consolas">date</text><rect x="220" y="160" width="150" height="105" fill="#fff" stroke="#0b3d5c"/><rect x="220" y="160" width="150" height="26" fill="#4A90D9"/><text x="295" y="178" text-anchor="middle" fill="#fff" font-size="13" font-family="Arial">Photo</text><text x="228" y="208" font-size="11" font-family="Consolas">url</text><text x="228" y="224" font-size="11" font-family="Consolas">status</text><rect x="400" y="160" width="150" height="105" fill="#fff" stroke="#0b3d5c"/><rect x="400" y="160" width="150" height="26" fill="#4A90D9"/><text x="475" y="178" text-anchor="middle" fill="#fff" font-size="13" font-family="Arial">Homework</text><text x="408" y="208" font-size="11" font-family="Consolas">title</text><text x="408" y="224" font-size="11" font-family="Consolas">grade</text><rect x="580" y="160" width="150" height="105" fill="#fff" stroke="#0b3d5c"/><rect x="580" y="160" width="150" height="26" fill="#4A90D9"/><text x="655" y="178" text-anchor="middle" fill="#fff" font-size="13" font-family="Arial">MealRecord</text><text x="588" y="208" font-size="11" font-family="Consolas">student_id</text><text x="588" y="224" font-size="11" font-family="Consolas">status</text><rect x="40" y="290" width="150" height="105" fill="#fff" stroke="#0b3d5c"/><rect x="40" y="290" width="150" height="26" fill="#4A90D9"/><text x="115" y="308" text-anchor="middle" fill="#fff" font-size="13" font-family="Arial">Conversation</text><text x="48" y="338" font-size="11" font-family="Consolas">kind</text><rect x="220" y="290" width="150" height="105" fill="#fff" stroke="#0b3d5c"/><rect x="220" y="290" width="150" height="26" fill="#4A90D9"/><text x="295" y="308" text-anchor="middle" fill="#fff" font-size="13" font-family="Arial">Message</text><text x="228" y="338" font-size="11" font-family="Consolas">content</text><text x="228" y="354" font-size="11" font-family="Consolas">sent_at</text><rect x="400" y="290" width="150" height="105" fill="#fff" stroke="#0b3d5c"/><rect x="400" y="290" width="150" height="26" fill="#4A90D9"/><text x="475" y="308" text-anchor="middle" fill="#fff" font-size="13" font-family="Arial">LiveStream</text><text x="408" y="338" font-size="11" font-family="Consolas">channel</text><text x="408" y="354" font-size="11" font-family="Consolas">status</text><rect x="580" y="290" width="150" height="105" fill="#fff" stroke="#0b3d5c"/><rect x="580" y="290" width="150" height="26" fill="#4A90D9"/><text x="655" y="308" text-anchor="middle" fill="#fff" font-size="13" font-family="Arial">Notification</text><text x="588" y="338" font-size="11" font-family="Consolas">title</text><text x="588" y="354" font-size="11" font-family="Consolas">category</text><rect x="310" y="420" width="150" height="105" fill="#fff" stroke="#0b3d5c"/><rect x="310" y="420" width="150" height="26" fill="#4A90D9"/><text x="385" y="438" text-anchor="middle" fill="#fff" font-size="13" font-family="Arial">Sticker</text><text x="318" y="468" font-size="11" font-family="Consolas">name</text><text x="318" y="484" font-size="11" font-family="Consolas">level_id</text>
+  <line x1="115" y1="135" x2="115" y2="160" stroke="#333"/>
+  <line x1="295" y1="135" x2="295" y2="160" stroke="#333"/>
+  <line x1="190" y1="80" x2="220" y2="80" stroke="#333"/>
+  <line x1="370" y1="80" x2="400" y2="80" stroke="#333"/>
+</svg></div><p class="caption">الشكل 3.6 — مخطط الأصناف (Class Diagram)</p>
+
+<h2>تصميم الشاشات</h2>
+<table>
+<tr><th>الشاشة</th><th>الدور</th><th>الوظيفة</th><th>مصدر البيانات</th></tr>
+<tr><td>تسجيل الدخول</td><td>الكل</td><td>مصادقة</td><td>/auth/login</td></tr>
+<tr><td>لوحة المديرة</td><td>مديرة</td><td>إحصائيات</td><td>dashboard stats</td></tr>
+<tr><td>الحسابات</td><td>مديرة</td><td>CRUD</td><td>teachers/parents/students</td></tr>
+<tr><td>الموافقات</td><td>مديرة</td><td>اعتماد صور</td><td>pending photos</td></tr>
+<tr><td>طلاب/يومي</td><td>معلمة</td><td>حضور ووجبات وصور</td><td>attendance/meals/photos</td></tr>
+<tr><td>رئيسية ولي الأمر</td><td>ولي أمر</td><td>ملخص طفل</td><td>children + summary</td></tr>
+<tr><td>الصور/التعلّم</td><td>ولي أمر</td><td>ألبوم وواجبات</td><td>photos/homeworks</td></tr>
+<tr><td>الدردشة</td><td>معلمة/ولي أمر</td><td>محادثات</td><td>conversations</td></tr>
+<tr><td>البث</td><td>معلمة/ولي أمر</td><td>Agora</td><td>live/start|join</td></tr>
+</table>
+<p class="caption">جدول 3.1 — توثيق الشاشات</p>
+<div class="center">
+<div class='wire'><div class='bar'>تسجيل الدخول</div><div class='body'><div class='badge'>اسم المستخدم</div><div class='badge'>كلمة المرور</div><div class='badge'>زر دخول</div></div><div class='nav'><span>—</span></div></div>
+<div class='wire'><div class='bar'>لوحة المديرة</div><div class='body'><div class='badge'>إحصائيات</div><div class='badge'>معلمات</div><div class='badge'>طلاب</div><div class='badge'>صور معلّقة</div></div><div class='nav'><span>رئيسية</span><span>حسابات</span><span>موافقات</span><span>دردشة</span><span>المزيد</span></div></div>
+<div class='wire'><div class='bar'>المعلمة</div><div class='body'><div class='badge'>طلاب الصف</div><div class='badge'>حضور اليوم</div><div class='badge'>اختصارات</div></div><div class='nav'><span>رئيسية</span><span>طلاب</span><span>يومي</span><span>دردشة</span><span>المزيد</span></div></div>
+<div class='wire'><div class='bar'>ولي الأمر</div><div class='body'><div class='badge'>اختيار طفل</div><div class='badge'>ملخص حضور</div><div class='badge'>صور/واجبات</div></div><div class='nav'><span>رئيسية</span><span>صور</span><span>تعلّم</span><span>دردشة</span><span>المزيد</span></div></div>
+</div>
+<p class="caption">الأشكال 3.25–3.28 — إطارات سلكية للشاشات الرئيسية</p>
+
+<h2>المخططات التسلسلية</h2>
+<div class="fig"><svg viewBox="0 0 550 272" xmlns="http://www.w3.org/2000/svg"><rect width="550" height="272" fill="#f7fbff"/><defs><marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#222"/></marker></defs><rect x="35" y="15" width="90" height="30" rx="6" fill="#4A90D9"/><text x="80" y="35" text-anchor="middle" fill="#fff" font-size="12">التطبيق</text><line x1="80" y1="45" x2="80" y2="257" stroke="#999" stroke-dasharray="4"/><rect x="185" y="15" width="90" height="30" rx="6" fill="#4A90D9"/><text x="230" y="35" text-anchor="middle" fill="#fff" font-size="12">API</text><line x1="230" y1="45" x2="230" y2="257" stroke="#999" stroke-dasharray="4"/><rect x="335" y="15" width="90" height="30" rx="6" fill="#4A90D9"/><text x="380" y="35" text-anchor="middle" fill="#fff" font-size="12">DB</text><line x1="380" y1="45" x2="380" y2="257" stroke="#999" stroke-dasharray="4"/><line x1="80" y1="75" x2="230" y2="75" stroke="#222" stroke-width="1.5" marker-end="url(#arr)"/><text x="155.0" y="68" text-anchor="middle" font-size="11">POST /auth/login</text><line x1="230" y1="113" x2="380" y2="113" stroke="#222" stroke-width="1.5" marker-end="url(#arr)"/><text x="305.0" y="106" text-anchor="middle" font-size="11">تحقق المستخدم</text><line x1="380" y1="151" x2="230" y2="151" stroke="#222" stroke-width="1.5" marker-end="url(#arr)"/><text x="305.0" y="144" text-anchor="middle" font-size="11">OK</text><line x1="230" y1="189" x2="80" y2="189" stroke="#222" stroke-width="1.5" marker-end="url(#arr)"/><text x="155.0" y="182" text-anchor="middle" font-size="11">JWT</text></svg></div><p class="caption">الشكل 3.38 — تسلسلي تفاؤلي لتسجيل الدخول</p>
+<div class="fig"><svg viewBox="0 0 550 272" xmlns="http://www.w3.org/2000/svg"><rect width="550" height="272" fill="#f7fbff"/><defs><marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#222"/></marker></defs><rect x="35" y="15" width="90" height="30" rx="6" fill="#4A90D9"/><text x="80" y="35" text-anchor="middle" fill="#fff" font-size="12">التطبيق</text><line x1="80" y1="45" x2="80" y2="257" stroke="#999" stroke-dasharray="4"/><rect x="185" y="15" width="90" height="30" rx="6" fill="#4A90D9"/><text x="230" y="35" text-anchor="middle" fill="#fff" font-size="12">API</text><line x1="230" y1="45" x2="230" y2="257" stroke="#999" stroke-dasharray="4"/><rect x="335" y="15" width="90" height="30" rx="6" fill="#e76f51"/><text x="380" y="35" text-anchor="middle" fill="#fff" font-size="12">DB</text><line x1="380" y1="45" x2="380" y2="257" stroke="#999" stroke-dasharray="4"/><line x1="80" y1="75" x2="230" y2="75" stroke="#222" stroke-width="1.5" marker-end="url(#arr)"/><text x="155.0" y="68" text-anchor="middle" font-size="11">POST /auth/login</text><line x1="230" y1="113" x2="380" y2="113" stroke="#222" stroke-width="1.5" marker-end="url(#arr)"/><text x="305.0" y="106" text-anchor="middle" font-size="11">بحث</text><line x1="380" y1="151" x2="230" y2="151" stroke="#222" stroke-width="1.5" marker-end="url(#arr)"/><text x="305.0" y="144" text-anchor="middle" font-size="11">فشل</text><line x1="230" y1="189" x2="80" y2="189" stroke="#222" stroke-width="1.5" marker-end="url(#arr)"/><text x="155.0" y="182" text-anchor="middle" font-size="11">401</text></svg></div><p class="caption">الشكل 3.39 — تسلسلي تشاؤمي لتسجيل الدخول</p>
+<div class="fig"><svg viewBox="0 0 700 272" xmlns="http://www.w3.org/2000/svg"><rect width="700" height="272" fill="#f7fbff"/><defs><marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#222"/></marker></defs><rect x="35" y="15" width="90" height="30" rx="6" fill="#4A90D9"/><text x="80" y="35" text-anchor="middle" fill="#fff" font-size="12">مديرة</text><line x1="80" y1="45" x2="80" y2="257" stroke="#999" stroke-dasharray="4"/><rect x="185" y="15" width="90" height="30" rx="6" fill="#4A90D9"/><text x="230" y="35" text-anchor="middle" fill="#fff" font-size="12">API</text><line x1="230" y1="45" x2="230" y2="257" stroke="#999" stroke-dasharray="4"/><rect x="335" y="15" width="90" height="30" rx="6" fill="#4A90D9"/><text x="380" y="35" text-anchor="middle" fill="#fff" font-size="12">DB</text><line x1="380" y1="45" x2="380" y2="257" stroke="#999" stroke-dasharray="4"/><rect x="485" y="15" width="90" height="30" rx="6" fill="#4A90D9"/><text x="530" y="35" text-anchor="middle" fill="#fff" font-size="12">ولي أمر</text><line x1="530" y1="45" x2="530" y2="257" stroke="#999" stroke-dasharray="4"/><line x1="80" y1="75" x2="230" y2="75" stroke="#222" stroke-width="1.5" marker-end="url(#arr)"/><text x="155.0" y="68" text-anchor="middle" font-size="11">اعتماد</text><line x1="230" y1="113" x2="380" y2="113" stroke="#222" stroke-width="1.5" marker-end="url(#arr)"/><text x="305.0" y="106" text-anchor="middle" font-size="11">approved</text><line x1="380" y1="151" x2="230" y2="151" stroke="#222" stroke-width="1.5" marker-end="url(#arr)"/><text x="305.0" y="144" text-anchor="middle" font-size="11">OK</text><line x1="230" y1="189" x2="530" y2="189" stroke="#222" stroke-width="1.5" marker-end="url(#arr)"/><text x="380.0" y="182" text-anchor="middle" font-size="11">إشعار</text></svg></div><p class="caption">الشكل 3.40 — تفاؤلي لموافقة صورة</p>
+<div class="fig"><svg viewBox="0 0 550 272" xmlns="http://www.w3.org/2000/svg"><rect width="550" height="272" fill="#f7fbff"/><defs><marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#222"/></marker></defs><rect x="35" y="15" width="90" height="30" rx="6" fill="#4A90D9"/><text x="80" y="35" text-anchor="middle" fill="#fff" font-size="12">مديرة</text><line x1="80" y1="45" x2="80" y2="257" stroke="#999" stroke-dasharray="4"/><rect x="185" y="15" width="90" height="30" rx="6" fill="#4A90D9"/><text x="230" y="35" text-anchor="middle" fill="#fff" font-size="12">API</text><line x1="230" y1="45" x2="230" y2="257" stroke="#999" stroke-dasharray="4"/><rect x="335" y="15" width="90" height="30" rx="6" fill="#e76f51"/><text x="380" y="35" text-anchor="middle" fill="#fff" font-size="12">DB</text><line x1="380" y1="45" x2="380" y2="257" stroke="#999" stroke-dasharray="4"/><line x1="80" y1="75" x2="230" y2="75" stroke="#222" stroke-width="1.5" marker-end="url(#arr)"/><text x="155.0" y="68" text-anchor="middle" font-size="11">اعتماد</text><line x1="230" y1="113" x2="380" y2="113" stroke="#222" stroke-width="1.5" marker-end="url(#arr)"/><text x="305.0" y="106" text-anchor="middle" font-size="11">غير موجودة</text><line x1="380" y1="151" x2="230" y2="151" stroke="#222" stroke-width="1.5" marker-end="url(#arr)"/><text x="305.0" y="144" text-anchor="middle" font-size="11">404</text><line x1="230" y1="189" x2="80" y2="189" stroke="#222" stroke-width="1.5" marker-end="url(#arr)"/><text x="155.0" y="182" text-anchor="middle" font-size="11">خطأ</text></svg></div><p class="caption">الشكل 3.41 — تشاؤمي لموافقة صورة</p>
+<div class="fig"><svg viewBox="0 0 550 272" xmlns="http://www.w3.org/2000/svg"><rect width="550" height="272" fill="#f7fbff"/><defs><marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#222"/></marker></defs><rect x="35" y="15" width="90" height="30" rx="6" fill="#4A90D9"/><text x="80" y="35" text-anchor="middle" fill="#fff" font-size="12">معلمة</text><line x1="80" y1="45" x2="80" y2="257" stroke="#999" stroke-dasharray="4"/><rect x="185" y="15" width="90" height="30" rx="6" fill="#4A90D9"/><text x="230" y="35" text-anchor="middle" fill="#fff" font-size="12">API</text><line x1="230" y1="45" x2="230" y2="257" stroke="#999" stroke-dasharray="4"/><rect x="335" y="15" width="90" height="30" rx="6" fill="#4A90D9"/><text x="380" y="35" text-anchor="middle" fill="#fff" font-size="12">DB</text><line x1="380" y1="45" x2="380" y2="257" stroke="#999" stroke-dasharray="4"/><line x1="80" y1="75" x2="230" y2="75" stroke="#222" stroke-width="1.5" marker-end="url(#arr)"/><text x="155.0" y="68" text-anchor="middle" font-size="11">POST /attendance</text><line x1="230" y1="113" x2="380" y2="113" stroke="#222" stroke-width="1.5" marker-end="url(#arr)"/><text x="305.0" y="106" text-anchor="middle" font-size="11">insert</text><line x1="380" y1="151" x2="230" y2="151" stroke="#222" stroke-width="1.5" marker-end="url(#arr)"/><text x="305.0" y="144" text-anchor="middle" font-size="11">OK</text><line x1="230" y1="189" x2="80" y2="189" stroke="#222" stroke-width="1.5" marker-end="url(#arr)"/><text x="155.0" y="182" text-anchor="middle" font-size="11">نجاح</text></svg></div><p class="caption">الشكل 3.42 — تفاؤلي لتسجيل حضور</p>
+<div class="fig"><svg viewBox="0 0 700 310" xmlns="http://www.w3.org/2000/svg"><rect width="700" height="310" fill="#f7fbff"/><defs><marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#222"/></marker></defs><rect x="35" y="15" width="90" height="30" rx="6" fill="#4A90D9"/><text x="80" y="35" text-anchor="middle" fill="#fff" font-size="12">معلمة</text><line x1="80" y1="45" x2="80" y2="295" stroke="#999" stroke-dasharray="4"/><rect x="185" y="15" width="90" height="30" rx="6" fill="#4A90D9"/><text x="230" y="35" text-anchor="middle" fill="#fff" font-size="12">API</text><line x1="230" y1="45" x2="230" y2="295" stroke="#999" stroke-dasharray="4"/><rect x="335" y="15" width="90" height="30" rx="6" fill="#4A90D9"/><text x="380" y="35" text-anchor="middle" fill="#fff" font-size="12">Agora</text><line x1="380" y1="45" x2="380" y2="295" stroke="#999" stroke-dasharray="4"/><rect x="485" y="15" width="90" height="30" rx="6" fill="#4A90D9"/><text x="530" y="35" text-anchor="middle" fill="#fff" font-size="12">ولي أمر</text><line x1="530" y1="45" x2="530" y2="295" stroke="#999" stroke-dasharray="4"/><line x1="80" y1="75" x2="230" y2="75" stroke="#222" stroke-width="1.5" marker-end="url(#arr)"/><text x="155.0" y="68" text-anchor="middle" font-size="11">/live/start</text><line x1="230" y1="113" x2="380" y2="113" stroke="#222" stroke-width="1.5" marker-end="url(#arr)"/><text x="305.0" y="106" text-anchor="middle" font-size="11">token</text><line x1="380" y1="151" x2="230" y2="151" stroke="#222" stroke-width="1.5" marker-end="url(#arr)"/><text x="305.0" y="144" text-anchor="middle" font-size="11">OK</text><line x1="230" y1="189" x2="530" y2="189" stroke="#222" stroke-width="1.5" marker-end="url(#arr)"/><text x="380.0" y="182" text-anchor="middle" font-size="11">إشعار</text><line x1="230" y1="227" x2="80" y2="227" stroke="#222" stroke-width="1.5" marker-end="url(#arr)"/><text x="155.0" y="220" text-anchor="middle" font-size="11">channel</text></svg></div><p class="caption">الشكل 3.43 — تفاؤلي لبدء بث</p>
+<div class="fig"><svg viewBox="0 0 700 272" xmlns="http://www.w3.org/2000/svg"><rect width="700" height="272" fill="#f7fbff"/><defs><marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#222"/></marker></defs><rect x="35" y="15" width="90" height="30" rx="6" fill="#4A90D9"/><text x="80" y="35" text-anchor="middle" fill="#fff" font-size="12">مرسل</text><line x1="80" y1="45" x2="80" y2="257" stroke="#999" stroke-dasharray="4"/><rect x="185" y="15" width="90" height="30" rx="6" fill="#4A90D9"/><text x="230" y="35" text-anchor="middle" fill="#fff" font-size="12">API/WS</text><line x1="230" y1="45" x2="230" y2="257" stroke="#999" stroke-dasharray="4"/><rect x="335" y="15" width="90" height="30" rx="6" fill="#4A90D9"/><text x="380" y="35" text-anchor="middle" fill="#fff" font-size="12">DB</text><line x1="380" y1="45" x2="380" y2="257" stroke="#999" stroke-dasharray="4"/><rect x="485" y="15" width="90" height="30" rx="6" fill="#4A90D9"/><text x="530" y="35" text-anchor="middle" fill="#fff" font-size="12">مستقبل</text><line x1="530" y1="45" x2="530" y2="257" stroke="#999" stroke-dasharray="4"/><line x1="80" y1="75" x2="230" y2="75" stroke="#222" stroke-width="1.5" marker-end="url(#arr)"/><text x="155.0" y="68" text-anchor="middle" font-size="11">send message</text><line x1="230" y1="113" x2="380" y2="113" stroke="#222" stroke-width="1.5" marker-end="url(#arr)"/><text x="305.0" y="106" text-anchor="middle" font-size="11">save</text><line x1="380" y1="151" x2="230" y2="151" stroke="#222" stroke-width="1.5" marker-end="url(#arr)"/><text x="305.0" y="144" text-anchor="middle" font-size="11">OK</text><line x1="230" y1="189" x2="530" y2="189" stroke="#222" stroke-width="1.5" marker-end="url(#arr)"/><text x="380.0" y="182" text-anchor="middle" font-size="11">دفع/WS</text></svg></div><p class="caption">الشكل 3.44 — تفاؤلي للدردشة</p>
+<div class="fig"><svg viewBox="0 0 550 272" xmlns="http://www.w3.org/2000/svg"><rect width="550" height="272" fill="#f7fbff"/><defs><marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#222"/></marker></defs><rect x="35" y="15" width="90" height="30" rx="6" fill="#4A90D9"/><text x="80" y="35" text-anchor="middle" fill="#fff" font-size="12">مرسل</text><line x1="80" y1="45" x2="80" y2="257" stroke="#999" stroke-dasharray="4"/><rect x="185" y="15" width="90" height="30" rx="6" fill="#4A90D9"/><text x="230" y="35" text-anchor="middle" fill="#fff" font-size="12">API</text><line x1="230" y1="45" x2="230" y2="257" stroke="#999" stroke-dasharray="4"/><rect x="335" y="15" width="90" height="30" rx="6" fill="#e76f51"/><text x="380" y="35" text-anchor="middle" fill="#fff" font-size="12">DB</text><line x1="380" y1="45" x2="380" y2="257" stroke="#999" stroke-dasharray="4"/><line x1="80" y1="75" x2="230" y2="75" stroke="#222" stroke-width="1.5" marker-end="url(#arr)"/><text x="155.0" y="68" text-anchor="middle" font-size="11">send</text><line x1="230" y1="113" x2="380" y2="113" stroke="#222" stroke-width="1.5" marker-end="url(#arr)"/><text x="305.0" y="106" text-anchor="middle" font-size="11">غير مصرح</text><line x1="380" y1="151" x2="230" y2="151" stroke="#222" stroke-width="1.5" marker-end="url(#arr)"/><text x="305.0" y="144" text-anchor="middle" font-size="11">403</text><line x1="230" y1="189" x2="80" y2="189" stroke="#222" stroke-width="1.5" marker-end="url(#arr)"/><text x="155.0" y="182" text-anchor="middle" font-size="11">خطأ</text></svg></div><p class="caption">الشكل 3.45 — تشاؤمي للدردشة</p>
+</section>
+
+<section class="page-break"><h1>الفصل الرابع: مرحلة الانتقال والتنفيذ</h1>
+<h2>الاختبار</h2>
+<p>اختبار الدخول حسب الدور، الحسابات، الحضور، الوجبات، الصور والموافقة، الواجبات، الدردشة، والبث، مع حالات الخطأ والفراغ.</p>
+<h2>تطوير النظام</h2>
+<p>بناء NestJS/Prisma وFlutter، ثم إصلاح الملاحظات وربط الإنتاج (PM2 على 3010 + Apache Proxy).</p>
+<h2>الاختبار النهائي</h2>
+<ul>
+<li>وحدات → ترابط → تكامل → نظام كامل عبر APK الإنتاج.</li>
+</ul>
+<h2>النتائج</h2>
+<ul>
+<li>تطبيق عربي متعدد الأدوار.</li>
+<li>API على <span class="mono">https://kiddylink.baitpait.com/api</span>.</li>
+<li>متابعة يومية وتواصل وبث.</li>
+<li>APK للتجربة.</li>
+</ul>
+<h2>المشاكل والتوصيات</h2>
+<ul>
+<li>تعقيد التكامل، حجم APK، استكمال FCM، WebSocket عبر Proxy.</li>
+<li>توصيات: FCM، proxy_wstunnel، توقيع Release، اختبارات آلية، تقارير أغنى.</li>
+</ul>
+<h2>المصادر والمراجع</h2>
+<ul>
+<li>جامعة القدس المفتوحة — هندسة البرمجيات / تحليل الأنظمة / قواعد البيانات</li>
+<li>Flutter / NestJS / Prisma / Agora Docs</li>
+<li>https://kiddylink.baitpait.com</li>
+</ul>
+</section>
+
+<section class="page-break center">
+<h1>تم بحمد الله</h1>
+<p class="muted">Kiddy Link — Connecting Home &amp; Kindergarten</p>
+<div class="note" style="text-align:right">
+<strong>للتحويل إلى Word:</strong> افتح الملف في Microsoft Word (ملف ← فتح ← HTML)، أو اطبع PDF من المتصفح. استبدل [اسم الطالب] و[المشرف] و[الفرع].
+</div>
+</section>
+</body></html>
