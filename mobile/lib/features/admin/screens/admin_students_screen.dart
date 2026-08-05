@@ -68,28 +68,58 @@ class _AdminStudentsScreenState extends State<AdminStudentsScreen> {
           content: Form(
             key: formKey,
             child: SingleChildScrollView(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  TextFormField(
-                    controller: nameCtrl,
-                    decoration: const InputDecoration(labelText: 'اسم الطالب'),
-                    validator: (v) =>
-                        v == null || v.isEmpty ? 'مطلوب' : null,
-                  ),
-                  TextFormField(
-                    controller: classCtrl,
-                    decoration: const InputDecoration(labelText: 'الصف / الفصل'),
-                    validator: (v) =>
-                        v == null || v.isEmpty ? 'مطلوب' : null,
-                  ),
-                  TextFormField(
-                    controller: birthCtrl,
-                    decoration: const InputDecoration(
-                      labelText: 'تاريخ الميلاد (YYYY-MM-DD)',
+              child: StatefulBuilder(
+                builder: (ctx, setLocal) => Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    TextFormField(
+                      controller: nameCtrl,
+                      decoration:
+                          const InputDecoration(labelText: 'اسم الطالب'),
+                      validator: (v) =>
+                          v == null || v.isEmpty ? 'مطلوب' : null,
                     ),
-                  ),
-                ],
+                    TextFormField(
+                      controller: classCtrl,
+                      decoration:
+                          const InputDecoration(labelText: 'الصف / الفصل'),
+                      validator: (v) =>
+                          v == null || v.isEmpty ? 'مطلوب' : null,
+                    ),
+                    TextFormField(
+                      controller: birthCtrl,
+                      readOnly: true,
+                      onTap: () async {
+                        final now = DateTime.now();
+                        var initial =
+                            now.subtract(const Duration(days: 365 * 4));
+                        final parsed = DateTime.tryParse(birthCtrl.text);
+                        if (parsed != null) initial = parsed;
+                        final picked = await showDatePicker(
+                          context: ctx,
+                          initialDate: initial.isAfter(now) ? now : initial,
+                          firstDate: DateTime(now.year - 12),
+                          lastDate: now,
+                          locale: const Locale('ar'),
+                          helpText: 'اختر تاريخ الميلاد',
+                          cancelText: 'إلغاء',
+                          confirmText: 'تم',
+                          fieldLabelText: 'تاريخ الميلاد',
+                        );
+                        if (picked == null) return;
+                        final y = picked.year.toString().padLeft(4, '0');
+                        final m = picked.month.toString().padLeft(2, '0');
+                        final d = picked.day.toString().padLeft(2, '0');
+                        setLocal(() => birthCtrl.text = '$y-$m-$d');
+                      },
+                      decoration: const InputDecoration(
+                        labelText: 'تاريخ الميلاد',
+                        hintText: 'اضغط لاختيار التاريخ من التقويم',
+                        suffixIcon: Icon(Icons.calendar_month),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
@@ -111,23 +141,29 @@ class _AdminStudentsScreenState extends State<AdminStudentsScreen> {
       ),
     );
 
+    final name = nameCtrl.text.trim();
+    final className = classCtrl.text.trim();
+    final birth = birthCtrl.text.trim();
+    nameCtrl.dispose();
+    classCtrl.dispose();
+    birthCtrl.dispose();
+
     if (ok != true || !mounted) return;
 
     setState(() => _submitting = true);
     try {
-      final birth = birthCtrl.text.trim();
       if (isEdit) {
         await _repo.updateStudent(
           asInt(existing['id']),
-          name: nameCtrl.text.trim(),
-          className: classCtrl.text.trim(),
+          name: name,
+          className: className,
           birthDate: birth.isEmpty ? null : birth,
         );
         adminSuccess('تم تحديث الطالب');
       } else {
         await _repo.createStudent(
-          name: nameCtrl.text.trim(),
-          className: classCtrl.text.trim(),
+          name: name,
+          className: className,
           birthDate: birth.isEmpty ? null : birth,
         );
         adminSuccess('تم إنشاء الطالب');

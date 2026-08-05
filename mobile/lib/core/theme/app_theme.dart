@@ -123,8 +123,17 @@ class AppTheme {
         contentTextStyle: const TextStyle(fontFamily: fontFamily),
       ),
       listTileTheme: const ListTileThemeData(
-        titleTextStyle: TextStyle(fontFamily: fontFamily, fontSize: 16),
-        subtitleTextStyle: TextStyle(fontFamily: fontFamily, fontSize: 14),
+        textColor: AppColors.textPrimary,
+        titleTextStyle: TextStyle(
+          fontFamily: fontFamily,
+          fontSize: 16,
+          color: AppColors.textPrimary,
+        ),
+        subtitleTextStyle: TextStyle(
+          fontFamily: fontFamily,
+          fontSize: 14,
+          color: AppColors.textSecondary,
+        ),
       ),
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
         selectedLabelStyle: TextStyle(fontFamily: fontFamily),
