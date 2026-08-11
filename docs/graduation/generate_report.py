@@ -109,27 +109,88 @@ def svg_rup():
 
 
 def svg_gantt():
-    phases = [
-        ("الاستهلال", 20, 90, "#4A90D9"),
-        ("التفصيل والتحليل", 100, 160, "#2a9d8f"),
-        ("البناء والتصميم", 170, 420, "#e9c46a"),
-        ("الانتقال والتنفيذ", 430, 520, "#e76f51"),
+    """مخطط جانت التفصيلي وفق الجدول الزمني 01/07/2026 — 15/08/2026."""
+    from datetime import date, timedelta
+
+    project_start = date(2026, 7, 1)
+    project_end = date(2026, 8, 15)
+    total = (project_end - project_start).days + 1  # 46
+    tasks = [
+        ("تحديد فكرة المشروع", date(2026, 7, 1), date(2026, 7, 1), 1, "#4A90D9"),
+        ("تخطيط المشروع", date(2026, 7, 2), date(2026, 7, 3), 2, "#5BA3E0"),
+        ("جمع المعلومات", date(2026, 7, 4), date(2026, 7, 6), 3, "#2a9d8f"),
+        ("دراسة الجدوى الاقتصادية", date(2026, 7, 7), date(2026, 7, 8), 2, "#3dbaab"),
+        ("تحديد متطلبات النظام", date(2026, 7, 9), date(2026, 7, 12), 4, "#e9c46a"),
+        ("وصف متطلبات النظام", date(2026, 7, 13), date(2026, 7, 16), 4, "#f4a261"),
+        ("تصميم وتطوير النظام", date(2026, 7, 17), date(2026, 7, 28), 12, "#e76f51"),
+        ("برمجة النظام", date(2026, 7, 29), date(2026, 8, 7), 10, "#c44536"),
+        ("اختبار النظام", date(2026, 8, 8), date(2026, 8, 10), 3, "#9b2226"),
+        ("التوثيق", date(2026, 7, 1), date(2026, 8, 15), 46, "#7b68a6"),
     ]
-    bars = []
-    y = 70
-    for name, x1, x2, color in phases:
-        bars.append(f'<text x="10" y="{y+18}" font-size="13" font-family="Arial" fill="#222">{name}</text>')
-        bars.append(
-            f'<rect x="{120 + x1 * 1.1:.0f}" y="{y}" width="{(x2 - x1) * 1.1:.0f}" height="28" rx="6" fill="{color}"/>'
+    label_w, chart_x, chart_w, row_h, top = 220, 230, 700, 36, 70
+    width = chart_x + chart_w + 30
+    height = top + len(tasks) * row_h + 50
+    parts = [
+        f'<svg viewBox="0 0 {width} {height}" xmlns="http://www.w3.org/2000/svg">',
+        f'<rect width="{width}" height="{height}" fill="#f7fbff"/>',
+        f'<text x="{width/2}" y="28" text-anchor="middle" fill="#0b3d5c" font-size="16" '
+        f'font-family="Arial" font-weight="bold">مخطط جانت الزمني للمشروع</text>',
+        f'<text x="{width/2}" y="48" text-anchor="middle" fill="#666" font-size="11" '
+        f'font-family="Arial">01/07/2026 — 15/08/2026</text>',
+    ]
+    for i in range(0, total + 1, 7):
+        x = chart_x + (i / total) * chart_w
+        label_date = project_start + timedelta(days=min(i, total - 1))
+        parts.append(
+            f'<line x1="{x:.1f}" y1="{top-8}" x2="{x:.1f}" y2="{top + len(tasks)*row_h}" '
+            f'stroke="#d0e0ee" stroke-width="1"/>'
         )
-        y += 45
-    svg = f"""<svg viewBox="0 0 820 280" xmlns="http://www.w3.org/2000/svg">
-  <rect width="820" height="280" fill="#f7fbff"/>
-  <text x="410" y="28" text-anchor="middle" fill="#0b3d5c" font-size="16" font-family="Arial">مخطط جانت التقديري</text>
-  {''.join(bars)}
-  <text x="120" y="260" font-size="11" fill="#666" font-family="Arial">الزمن →</text>
-</svg>"""
-    return fig(svg, "الشكل 1.2 — مخطط جانت التقديري")
+        parts.append(
+            f'<text x="{x:.1f}" y="{top-12}" text-anchor="middle" fill="#555" font-size="10" '
+            f'font-family="Arial">{label_date.strftime("%d/%m")}</text>'
+        )
+    x_end = chart_x + chart_w
+    parts.append(
+        f'<line x1="{x_end:.1f}" y1="{top-8}" x2="{x_end:.1f}" y2="{top + len(tasks)*row_h}" '
+        f'stroke="#d0e0ee" stroke-width="1"/>'
+    )
+    parts.append(
+        f'<text x="{x_end:.1f}" y="{top-12}" text-anchor="middle" fill="#555" font-size="10" '
+        f'font-family="Arial">15/08</text>'
+    )
+    for i, (name, s, e, dur, color) in enumerate(tasks):
+        y = top + i * row_h
+        if i % 2 == 0:
+            parts.append(f'<rect x="8" y="{y}" width="{width-16}" height="{row_h}" fill="#eef6fc"/>')
+        day0 = (s - project_start).days
+        day1 = (e - project_start).days + 1
+        bx = chart_x + (day0 / total) * chart_w
+        bw = max(((day1 - day0) / total) * chart_w, 4)
+        parts.append(
+            f'<text x="{chart_x - 10}" y="{y + row_h/2 + 4:.1f}" text-anchor="end" fill="#222" '
+            f'font-size="12" font-family="Arial">{i+1}. {name}</text>'
+        )
+        opacity = "0.55" if name == "التوثيق" else "1"
+        parts.append(
+            f'<rect x="{bx:.1f}" y="{y + 8}" width="{bw:.1f}" height="{row_h - 16}" rx="5" '
+            f'fill="{color}" opacity="{opacity}"/>'
+        )
+        if bw > 36:
+            parts.append(
+                f'<text x="{bx + bw/2:.1f}" y="{y + row_h/2 + 4:.1f}" text-anchor="middle" '
+                f'fill="#fff" font-size="11" font-family="Arial" font-weight="bold">{dur}</text>'
+            )
+        else:
+            parts.append(
+                f'<text x="{bx + bw + 4:.1f}" y="{y + row_h/2 + 4:.1f}" text-anchor="start" '
+                f'fill="#333" font-size="10" font-family="Arial">{dur}</text>'
+            )
+    parts.append(
+        f'<text x="{chart_x}" y="{height - 12}" fill="#666" font-size="11" font-family="Arial">'
+        f'الأرقام داخل الأشرطة = المدة بالأيام · التوثيق متوازي مع كل المهام</text>'
+    )
+    parts.append("</svg>")
+    return fig("\n".join(parts), "الشكل 1.2 — مخطط جانت الزمني للمشروع")
 
 
 def svg_actors():
@@ -426,13 +487,19 @@ def build() -> str:
 <li>نشر API وإصدار APK للتجربة.</li>
 </ul>
 <table>
-<tr><th>المرحلة</th><th>المدة</th><th>المخرجات</th></tr>
-<tr><td>الاستهلال</td><td>أسبوعان</td><td>نطاق وأهداف</td></tr>
-<tr><td>التفصيل</td><td>3 أسابيع</td><td>تحليل وجدوى</td></tr>
-<tr><td>البناء</td><td>8–10 أسابيع</td><td>UML + كود</td></tr>
-<tr><td>الانتقال</td><td>2–3 أسابيع</td><td>اختبار ونشر</td></tr>
+<tr><th>المهمة</th><th>تاريخ البدء</th><th>تاريخ الانتهاء</th><th>المدة (يوم)</th></tr>
+<tr><td>تحديد فكرة المشروع</td><td>01/07/2026</td><td>01/07/2026</td><td>1</td></tr>
+<tr><td>تخطيط المشروع</td><td>02/07/2026</td><td>03/07/2026</td><td>2</td></tr>
+<tr><td>جمع المعلومات</td><td>04/07/2026</td><td>06/07/2026</td><td>3</td></tr>
+<tr><td>دراسة الجدوى الاقتصادية</td><td>07/07/2026</td><td>08/07/2026</td><td>2</td></tr>
+<tr><td>تحديد متطلبات النظام</td><td>09/07/2026</td><td>12/07/2026</td><td>4</td></tr>
+<tr><td>وصف متطلبات النظام</td><td>13/07/2026</td><td>16/07/2026</td><td>4</td></tr>
+<tr><td>تصميم وتطوير النظام</td><td>17/07/2026</td><td>28/07/2026</td><td>12</td></tr>
+<tr><td>برمجة النظام</td><td>29/07/2026</td><td>07/08/2026</td><td>10</td></tr>
+<tr><td>اختبار النظام</td><td>08/08/2026</td><td>10/08/2026</td><td>3</td></tr>
+<tr><td>التوثيق</td><td>01/07/2026</td><td>15/08/2026</td><td>46</td></tr>
 </table>
-<p class="caption">جدول 1.1 — الجدول الزمني التقديري</p>
+<p class="caption">جدول 1.1 — الجدول الزمني التفصيلي للمشروع</p>
 {svg_gantt()}
 </section>
 
@@ -577,9 +644,13 @@ def build() -> str:
 def main():
     html = build()
     OUT.write_text(html, encoding="utf-8")
-    DESK.write_text(html, encoding="utf-8")
     print(f"WROTE {OUT} ({OUT.stat().st_size} bytes)")
-    print(f"DESK  {DESK} ({DESK.stat().st_size} bytes)")
+    try:
+        DESK.parent.mkdir(parents=True, exist_ok=True)
+        DESK.write_text(html, encoding="utf-8")
+        print(f"DESK  {DESK} ({DESK.stat().st_size} bytes)")
+    except OSError as exc:
+        print(f"DESK skipped ({exc})")
 
 
 if __name__ == "__main__":
