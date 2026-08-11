@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>مخطط جانت — الجدول الزمني للمشروع</title>
+  <style>
+    :root { --ink:#0b3d5c; --muted:#5a6f7e; --line:#c5d8e8; --bg:#f4f8fc; --card:#fff; }
+    * { box-sizing:border-box; }
+    body { margin:0; font-family:Tahoma,"Segoe UI",Arial,sans-serif; background:linear-gradient(160deg,#e8f2fa 0%,#f7fbff 45%,#eef6f4 100%); color:var(--ink); min-height:100vh; padding:24px 16px 48px; }
+    .wrap { max-width:1100px; margin:0 auto; }
+    h1 { text-align:center; font-size:1.6rem; margin:0 0 6px; }
+    .subtitle { text-align:center; color:var(--muted); margin:0 0 24px; font-size:.95rem; }
+    .panel { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px; margin-bottom:20px; box-shadow:0 8px 24px rgba(11,61,92,.06); }
+    .chart { width:100%; overflow-x:auto; }
+    .chart svg { width:100%; min-width:860px; height:auto; display:block; }
+    table { width:100%; border-collapse:collapse; font-size:.92rem; }
+    th,td { border:1px solid var(--line); padding:10px 12px; text-align:center; }
+    th { background:#0b3d5c; color:#fff; font-weight:600; }
+    tr:nth-child(even) td { background:#f3f8fc; }
+    td.task { text-align:right; font-weight:600; }
+    .legend { display:flex; flex-wrap:wrap; gap:10px 16px; justify-content:center; margin-top:12px; font-size:.85rem; color:var(--muted); }
+    .legend span { display:inline-flex; align-items:center; gap:6px; }
+    .swatch { width:14px; height:14px; border-radius:3px; display:inline-block; }
+    .note { text-align:center; color:var(--muted); font-size:.85rem; margin-top:8px; }
+    @media print { body { background:#fff; padding:0; } .panel { box-shadow:none; break-inside:avoid; } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>مخطط جانت الزمني للمشروع</h1>
+    <p class="subtitle">من 01/07/2026 إلى 15/08/2026 — إجمالي المدة 46 يوماً</p>
+    <div class="panel">
+      <div class="chart"><svg viewBox="0 0 960 480" xmlns="http://www.w3.org/2000/svg">
+<rect width="960" height="480" fill="#f7fbff"/>
+<text x="480.0" y="28" text-anchor="middle" fill="#0b3d5c" font-size="16" font-family="Arial" font-weight="bold">مخطط جانت الزمني للمشروع</text>
+<text x="480.0" y="48" text-anchor="middle" fill="#666" font-size="11" font-family="Arial">01/07/2026 — 15/08/2026</text>
+<line x1="230.0" y1="62" x2="230.0" y2="430" stroke="#d0e0ee" stroke-width="1"/>
+<text x="230.0" y="58" text-anchor="middle" fill="#555" font-size="10" font-family="Arial">01/07</text>
+<line x1="336.5" y1="62" x2="336.5" y2="430" stroke="#d0e0ee" stroke-width="1"/>
+<text x="336.5" y="58" text-anchor="middle" fill="#555" font-size="10" font-family="Arial">08/07</text>
+<line x1="443.0" y1="62" x2="443.0" y2="430" stroke="#d0e0ee" stroke-width="1"/>
+<text x="443.0" y="58" text-anchor="middle" fill="#555" font-size="10" font-family="Arial">15/07</text>
+<line x1="549.6" y1="62" x2="549.6" y2="430" stroke="#d0e0ee" stroke-width="1"/>
+<text x="549.6" y="58" text-anchor="middle" fill="#555" font-size="10" font-family="Arial">22/07</text>
+<line x1="656.1" y1="62" x2="656.1" y2="430" stroke="#d0e0ee" stroke-width="1"/>
+<text x="656.1" y="58" text-anchor="middle" fill="#555" font-size="10" font-family="Arial">29/07</text>
+<line x1="762.6" y1="62" x2="762.6" y2="430" stroke="#d0e0ee" stroke-width="1"/>
+<text x="762.6" y="58" text-anchor="middle" fill="#555" font-size="10" font-family="Arial">05/08</text>
+<line x1="869.1" y1="62" x2="869.1" y2="430" stroke="#d0e0ee" stroke-width="1"/>
+<text x="869.1" y="58" text-anchor="middle" fill="#555" font-size="10" font-family="Arial">12/08</text>
+<line x1="930.0" y1="62" x2="930.0" y2="430" stroke="#d0e0ee" stroke-width="1"/>
+<text x="930.0" y="58" text-anchor="middle" fill="#555" font-size="10" font-family="Arial">15/08</text>
+<rect x="8" y="70" width="944" height="36" fill="#eef6fc"/>
+<text x="220" y="92.0" text-anchor="end" fill="#222" font-size="12" font-family="Arial">1. تحديد فكرة المشروع</text>
+<rect x="230.0" y="78" width="15.2" height="20" rx="5" fill="#4A90D9" opacity="1"/>
+<text x="249.2" y="92.0" text-anchor="start" fill="#333" font-size="10" font-family="Arial">1</text>
+<text x="220" y="128.0" text-anchor="end" fill="#222" font-size="12" font-family="Arial">2. تخطيط المشروع</text>
+<rect x="245.2" y="114" width="30.4" height="20" rx="5" fill="#5BA3E0" opacity="1"/>
+<text x="279.7" y="128.0" text-anchor="start" fill="#333" font-size="10" font-family="Arial">2</text>
+<rect x="8" y="142" width="944" height="36" fill="#eef6fc"/>
+<text x="220" y="164.0" text-anchor="end" fill="#222" font-size="12" font-family="Arial">3. جمع المعلومات</text>
+<rect x="275.7" y="150" width="45.7" height="20" rx="5" fill="#2a9d8f" opacity="1"/>
+<text x="298.5" y="164.0" text-anchor="middle" fill="#fff" font-size="11" font-family="Arial" font-weight="bold">3</text>
+<text x="220" y="200.0" text-anchor="end" fill="#222" font-size="12" font-family="Arial">4. دراسة الجدوى الاقتصادية</text>
+<rect x="321.3" y="186" width="30.4" height="20" rx="5" fill="#3dbaab" opacity="1"/>
+<text x="355.7" y="200.0" text-anchor="start" fill="#333" font-size="10" font-family="Arial">2</text>
+<rect x="8" y="214" width="944" height="36" fill="#eef6fc"/>
+<text x="220" y="236.0" text-anchor="end" fill="#222" font-size="12" font-family="Arial">5. تحديد متطلبات النظام</text>
+<rect x="351.7" y="222" width="60.9" height="20" rx="5" fill="#e9c46a" opacity="1"/>
+<text x="382.2" y="236.0" text-anchor="middle" fill="#fff" font-size="11" font-family="Arial" font-weight="bold">4</text>
+<text x="220" y="272.0" text-anchor="end" fill="#222" font-size="12" font-family="Arial">6. وصف متطلبات النظام</text>
+<rect x="412.6" y="258" width="60.9" height="20" rx="5" fill="#f4a261" opacity="1"/>
+<text x="443.0" y="272.0" text-anchor="middle" fill="#fff" font-size="11" font-family="Arial" font-weight="bold">4</text>
+<rect x="8" y="286" width="944" height="36" fill="#eef6fc"/>
+<text x="220" y="308.0" text-anchor="end" fill="#222" font-size="12" font-family="Arial">7. تصميم وتطوير النظام</text>
+<rect x="473.5" y="294" width="182.6" height="20" rx="5" fill="#e76f51" opacity="1"/>
+<text x="564.8" y="308.0" text-anchor="middle" fill="#fff" font-size="11" font-family="Arial" font-weight="bold">12</text>
+<text x="220" y="344.0" text-anchor="end" fill="#222" font-size="12" font-family="Arial">8. برمجة النظام</text>
+<rect x="656.1" y="330" width="152.2" height="20" rx="5" fill="#c44536" opacity="1"/>
+<text x="732.2" y="344.0" text-anchor="middle" fill="#fff" font-size="11" font-family="Arial" font-weight="bold">10</text>
+<rect x="8" y="358" width="944" height="36" fill="#eef6fc"/>
+<text x="220" y="380.0" text-anchor="end" fill="#222" font-size="12" font-family="Arial">9. اختبار النظام</text>
+<rect x="808.3" y="366" width="45.7" height="20" rx="5" fill="#9b2226" opacity="1"/>
+<text x="831.1" y="380.0" text-anchor="middle" fill="#fff" font-size="11" font-family="Arial" font-weight="bold">3</text>
+<text x="220" y="416.0" text-anchor="end" fill="#222" font-size="12" font-family="Arial">10. التوثيق</text>
+<rect x="230.0" y="402" width="700.0" height="20" rx="5" fill="#7b68a6" opacity="0.55"/>
+<text x="580.0" y="416.0" text-anchor="middle" fill="#fff" font-size="11" font-family="Arial" font-weight="bold">46</text>
+<text x="230" y="468" fill="#666" font-size="11" font-family="Arial">الأرقام داخل الأشرطة = المدة بالأيام · التوثيق متوازي مع كل المهام</text>
+</svg></div>
+      <div class="legend">
+        <span><i class="swatch" style="background:#4A90D9"></i> فكرة / تخطيط</span>
+        <span><i class="swatch" style="background:#2a9d8f"></i> جمع معلومات / جدوى</span>
+        <span><i class="swatch" style="background:#e9c46a"></i> متطلبات</span>
+        <span><i class="swatch" style="background:#e76f51"></i> تصميم وتطوير</span>
+        <span><i class="swatch" style="background:#c44536"></i> برمجة / اختبار</span>
+        <span><i class="swatch" style="background:#7b68a6"></i> توثيق (متوازي)</span>
+      </div>
+    </div>
+    <div class="panel">
+      <table>
+        <thead>
+          <tr><th>المهمة</th><th>تاريخ البدء</th><th>تاريخ الانتهاء</th><th>المدة (يوم)</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="task">تحديد فكرة المشروع</td><td>01/07/2026</td><td>01/07/2026</td><td>1</td></tr>
+          <tr><td class="task">تخطيط المشروع</td><td>02/07/2026</td><td>03/07/2026</td><td>2</td></tr>
+          <tr><td class="task">جمع المعلومات</td><td>04/07/2026</td><td>06/07/2026</td><td>3</td></tr>
+          <tr><td class="task">دراسة الجدوى الاقتصادية</td><td>07/07/2026</td><td>08/07/2026</td><td>2</td></tr>
+          <tr><td class="task">تحديد متطلبات النظام</td><td>09/07/2026</td><td>12/07/2026</td><td>4</td></tr>
+          <tr><td class="task">وصف متطلبات النظام</td><td>13/07/2026</td><td>16/07/2026</td><td>4</td></tr>
+          <tr><td class="task">تصميم وتطوير النظام</td><td>17/07/2026</td><td>28/07/2026</td><td>12</td></tr>
+          <tr><td class="task">برمجة النظام</td><td>29/07/2026</td><td>07/08/2026</td><td>10</td></tr>
+          <tr><td class="task">اختبار النظام</td><td>08/08/2026</td><td>10/08/2026</td><td>3</td></tr>
+          <tr><td class="task">التوثيق</td><td>01/07/2026</td><td>15/08/2026</td><td>46</td></tr>
+        </tbody>
+      </table>
+      <p class="note">ملاحظة: مهمة التوثيق تسير بالتوازي مع بقية المهام من بداية المشروع حتى نهايته.</p>
+    </div>
+  </div>
+</body>
+</html>
