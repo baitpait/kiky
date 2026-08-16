@@ -51,8 +51,8 @@ class Registration:
     is_confirmed: bool = False
     status: str = "draft"
 
-    def add_course(self, course: Course) -> str:
-        if self.is_confirmed:
+    def add_course(self, course: Course, *, allow_after_confirm: bool = False) -> str:
+        if self.is_confirmed and not allow_after_confirm:
             return "لا يمكن التعديل بعد التأكيد"
         if any(c.course_code == course.course_code for c in self.courses):
             return "المقرر مسجّل مسبقاً"
@@ -115,7 +115,8 @@ class RegistrationSystem:
         if reg is None:
             return "لا يوجد تسجيل للطالب"
         course.is_exceptional = True
-        return reg.add_course(course)
+        # المشرف يستطيع تسجيل مقرر استثنائي حتى بعد تأكيد الدارس
+        return reg.add_course(course, allow_after_confirm=True)
 
     def view_student_courses(self, student_id: str) -> List[str]:
         reg = self.registrations.get(student_id)

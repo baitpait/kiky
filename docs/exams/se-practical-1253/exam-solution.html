@@ -454,8 +454,8 @@ class Registration:
     is_confirmed: bool = False
     status: str = "draft"
 
-    def add_course(self, course: Course) -> str:
-        if self.is_confirmed:
+    def add_course(self, course: Course, *, allow_after_confirm: bool = False) -> str:
+        if self.is_confirmed and not allow_after_confirm:
             return "لا يمكن التعديل بعد التأكيد"
         if any(c.course_code == course.course_code for c in self.courses):
             return "المقرر مسجّل مسبقاً"
