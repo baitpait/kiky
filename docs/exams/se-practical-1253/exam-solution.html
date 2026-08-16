@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>حل الامتحان العملي — هندسة برمجيات 1253</title>
+  <style>
+    @page { size: A4; margin: 1.5cm; }
+    * { box-sizing: border-box; }
+    body {
+      font-family: "Traditional Arabic", Tahoma, Arial, sans-serif;
+      font-size: 14pt;
+      line-height: 1.7;
+      color: #111;
+      max-width: 210mm;
+      margin: 0 auto;
+      padding: 20px;
+      background: #fff;
+    }
+    h1 { color: #0b3d5c; text-align: center; font-size: 20pt; }
+    h2 {
+      color: #0b3d5c;
+      font-size: 16pt;
+      border-bottom: 2px solid #4A90D9;
+      padding-bottom: 6px;
+      margin-top: 1.6em;
+      page-break-after: avoid;
+    }
+    h3 { color: #1a5f7a; font-size: 14pt; }
+    .meta {
+      background: #E8F4FC;
+      border: 1px solid #9ec6e0;
+      padding: 12px 16px;
+      border-radius: 8px;
+      margin-bottom: 1.2em;
+    }
+    .meta strong { color: #0b3d5c; }
+    .warn {
+      background: #fff8e6;
+      border: 1px solid #e0c36a;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 12.5pt;
+      margin: 12px 0 20px;
+    }
+    .fig {
+      margin: 14px 0;
+      page-break-inside: avoid;
+      border: 1px solid #c5d8e8;
+      border-radius: 8px;
+      padding: 8px;
+      background: #f7fbff;
+    }
+    .fig svg { width: 100%; height: auto; display: block; }
+    .caption {
+      text-align: center;
+      color: #555;
+      font-size: 12pt;
+      margin: 6px 0 18px;
+    }
+    ul { padding-right: 1.4em; }
+    pre, code {
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 10.5pt;
+      direction: ltr;
+      text-align: left;
+    }
+    pre {
+      background: #0f172a;
+      color: #e2e8f0;
+      padding: 14px 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      line-height: 1.45;
+      white-space: pre;
+    }
+    .page-break { page-break-before: always; }
+    table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 12.5pt; }
+    th, td { border: 1px solid #777; padding: 7px 9px; text-align: right; }
+    th { background: #E8F4FC; }
+    .footer {
+      text-align: center;
+      color: #666;
+      margin-top: 2em;
+      font-size: 12pt;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>حل الامتحان العملي النهائي<br>هندسة برمجيات — الفصل الصيفي «1253»</h1>
+  <p style="text-align:center;color:#555;margin-top:-8px">جامعة القدس المفتوحة — نظام التسجيل الجامعي الإلكتروني</p>
+
+  <div class="meta">
+    <div><strong>اسم الدارس:</strong> ______________________________ (الاسم الرباعي)</div>
+    <div><strong>رقم الدارس:</strong> ______________________________</div>
+    <div><strong>التاريخ:</strong> 16 / 8 / 2024 — عملي</div>
+    <div><strong>Package UML:</strong> <code dir="ltr">Your_Full_Four_Part_Name</code></div>
+  </div>
+
+  <div class="warn">
+    <strong>مهم قبل التسليم:</strong>
+    استبدل في كل المخططات النص
+    <code dir="ltr">Your_Full_Four_Part_Name</code>
+    باسمك الرباعي الكامل (بدون مسافات، استخدم شرطة سفلية)، مثال:
+    <code dir="ltr">Ahmad_Mohammad_Ali_Hassan</code>
+  </div>
+
+  <!-- ========== Q1 Package ========== -->
+  <h2>البند 1 — Package يحمل الاسم الرباعي (20 علامة)</h2>
+  <p>جميع المخططات التالية موضوعة داخل حزمة (Package) باسم الدارس الرباعي، وفق متطلبات السؤال.</p>
+  <div class="fig">
+<svg viewBox="0 0 820 220" xmlns="http://www.w3.org/2000/svg">
+  <rect width="820" height="220" fill="#f7fbff"/>
+  <!-- package tab -->
+  <path d="M80 55 h160 v28 h480 v120 h-640 z" fill="#E8F4FC" stroke="#0b3d5c" stroke-width="2.5"/>
+  <rect x="80" y="55" width="160" height="28" fill="#4A90D9" stroke="#0b3d5c" stroke-width="2.5"/>
+  <text x="160" y="74" text-anchor="middle" fill="#fff" font-size="13" font-family="Arial">«package»</text>
+  <text x="400" y="120" text-anchor="middle" fill="#0b3d5c" font-size="18" font-family="Arial" font-weight="bold">Your_Full_Four_Part_Name</text>
+  <text x="400" y="150" text-anchor="middle" fill="#555" font-size="13" font-family="Arial">UseCaseDiagram · ClassDiagram · ActivityDiagram · Code</text>
+  <text x="400" y="178" text-anchor="middle" fill="#888" font-size="12" font-family="Arial">University Electronic Registration System</text>
+</svg>
+  </div>
+  <p class="caption">الشكل 1 — الحزمة (Package) التي تضم كل مخططات الحل</p>
+
+  <!-- ========== Q2 Use Case ========== -->
+  <h2 class="page-break">البند 2 — مخطط حالات الاستخدام Use Case Diagram (20 علامة)</h2>
+  <p>المتفاعلون: <strong>الدارس</strong> و<strong>مشرف النظام</strong>. الحالات مستمدة من السيناريو دون حذف أي وظيفة مذكورة.</p>
+  <div class="fig">
+<svg viewBox="0 0 900 560" xmlns="http://www.w3.org/2000/svg">
+  <rect width="900" height="560" fill="#f7fbff"/>
+  <!-- system boundary -->
+  <rect x="200" y="40" width="500" height="490" rx="6" fill="#fff" stroke="#0b3d5c" stroke-width="2"/>
+  <text x="450" y="65" text-anchor="middle" fill="#0b3d5c" font-size="14" font-family="Arial" font-weight="bold">نظام التسجيل الجامعي الإلكتروني</text>
+  <text x="450" y="82" text-anchor="middle" fill="#888" font-size="11" font-family="Arial">Package: Your_Full_Four_Part_Name</text>
+
+  <!-- Student actor (left) -->
+  <circle cx="80" cy="260" r="18" fill="none" stroke="#4A90D9" stroke-width="2.5"/>
+  <line x1="80" y1="278" x2="80" y2="330" stroke="#4A90D9" stroke-width="2.5"/>
+  <line x1="55" y1="300" x2="105" y2="300" stroke="#4A90D9" stroke-width="2.5"/>
+  <line x1="80" y1="330" x2="58" y2="370" stroke="#4A90D9" stroke-width="2.5"/>
+  <line x1="80" y1="330" x2="102" y2="370" stroke="#4A90D9" stroke-width="2.5"/>
+  <text x="80" y="400" text-anchor="middle" fill="#0b3d5c" font-size="14" font-family="Arial" font-weight="bold">الدارس</text>
+
+  <!-- Admin actor (right) -->
+  <circle cx="820" cy="260" r="18" fill="none" stroke="#e76f51" stroke-width="2.5"/>
+  <line x1="820" y1="278" x2="820" y2="330" stroke="#e76f51" stroke-width="2.5"/>
+  <line x1="795" y1="300" x2="845" y2="300" stroke="#e76f51" stroke-width="2.5"/>
+  <line x1="820" y1="330" x2="798" y2="370" stroke="#e76f51" stroke-width="2.5"/>
+  <line x1="820" y1="330" x2="842" y2="370" stroke="#e76f51" stroke-width="2.5"/>
+  <text x="820" y="400" text-anchor="middle" fill="#0b3d5c" font-size="14" font-family="Arial" font-weight="bold">مشرف النظام</text>
+
+  <!-- Use cases - student -->
+  <ellipse cx="360" cy="120" rx="110" ry="28" fill="#E8F4FC" stroke="#4A90D9" stroke-width="2"/>
+  <text x="360" y="125" text-anchor="middle" fill="#111" font-size="12" font-family="Arial">عرض المقررات المتاحة</text>
+
+  <ellipse cx="360" cy="185" rx="95" ry="26" fill="#E8F4FC" stroke="#4A90D9" stroke-width="2"/>
+  <text x="360" y="190" text-anchor="middle" fill="#111" font-size="12" font-family="Arial">إضافة مقرر</text>
+
+  <ellipse cx="360" cy="250" rx="95" ry="26" fill="#E8F4FC" stroke="#4A90D9" stroke-width="2"/>
+  <text x="360" y="255" text-anchor="middle" fill="#111" font-size="12" font-family="Arial">حذف مقرر</text>
+
+  <ellipse cx="360" cy="315" rx="115" ry="28" fill="#E8F4FC" stroke="#4A90D9" stroke-width="2"/>
+  <text x="360" y="320" text-anchor="middle" fill="#111" font-size="12" font-family="Arial">حفظ المقررات المسجلة</text>
+
+  <ellipse cx="360" cy="385" rx="115" ry="28" fill="#E8F4FC" stroke="#4A90D9" stroke-width="2"/>
+  <text x="360" y="390" text-anchor="middle" fill="#111" font-size="12" font-family="Arial">تأكيد قائمة المقررات</text>
+
+  <ellipse cx="360" cy="460" rx="100" ry="26" fill="#ffe8d6" stroke="#e76f51" stroke-width="2"/>
+  <text x="360" y="465" text-anchor="middle" fill="#111" font-size="12" font-family="Arial">تسجيل الدخول</text>
+
+  <!-- Use cases - admin -->
+  <ellipse cx="580" cy="185" rx="115" ry="30" fill="#fff0eb" stroke="#e76f51" stroke-width="2"/>
+  <text x="580" y="182" text-anchor="middle" fill="#111" font-size="11" font-family="Arial">تسجيل مقرر استثنائي</text>
+  <text x="580" y="198" text-anchor="middle" fill="#111" font-size="11" font-family="Arial">لطالب</text>
+
+  <ellipse cx="580" cy="280" rx="120" ry="30" fill="#fff0eb" stroke="#e76f51" stroke-width="2"/>
+  <text x="580" y="277" text-anchor="middle" fill="#111" font-size="11" font-family="Arial">عرض مقررات طالب</text>
+  <text x="580" y="293" text-anchor="middle" fill="#111" font-size="11" font-family="Arial">المسجلة حالياً</text>
+
+  <ellipse cx="580" cy="460" rx="100" ry="26" fill="#ffe8d6" stroke="#e76f51" stroke-width="2"/>
+  <text x="580" y="465" text-anchor="middle" fill="#111" font-size="12" font-family="Arial">تسجيل الدخول</text>
+
+  <!-- Associations student -->
+  <line x1="105" y1="280" x2="250" y2="120" stroke="#555" stroke-width="1.5"/>
+  <line x1="105" y1="290" x2="265" y2="185" stroke="#555" stroke-width="1.5"/>
+  <line x1="105" y1="300" x2="265" y2="250" stroke="#555" stroke-width="1.5"/>
+  <line x1="105" y1="310" x2="245" y2="315" stroke="#555" stroke-width="1.5"/>
+  <line x1="105" y1="320" x2="245" y2="385" stroke="#555" stroke-width="1.5"/>
+  <line x1="105" y1="340" x2="260" y2="460" stroke="#555" stroke-width="1.5"/>
+
+  <!-- Associations admin -->
+  <line x1="795" y1="280" x2="695" y2="185" stroke="#555" stroke-width="1.5"/>
+  <line x1="795" y1="300" x2="700" y2="280" stroke="#555" stroke-width="1.5"/>
+  <line x1="795" y1="340" x2="680" y2="460" stroke="#555" stroke-width="1.5"/>
+
+  <!-- include: confirm includes save (optional modeling note) -->
+  <line x1="360" y1="413" x2="360" y2="434" stroke="#2a9d8f" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="375" y="430" fill="#2a9d8f" font-size="10" font-family="Arial">«include»</text>
+</svg>
+  </div>
+  <p class="caption">الشكل 2 — مخطط حالات الاستخدام (Use Case Diagram)</p>
+
+  <table>
+    <tr><th>المتفاعل</th><th>حالات الاستخدام</th></tr>
+    <tr><td>الدارس</td><td>تسجيل الدخول، عرض المقررات المتاحة، إضافة مقرر، حذف مقرر، حفظ المقررات المسجلة، تأكيد قائمة المقررات</td></tr>
+    <tr><td>مشرف النظام</td><td>تسجيل الدخول، تسجيل مقرر استثنائي لطالب، عرض مقررات طالب المسجلة حالياً</td></tr>
+  </table>
+
+  <!-- ========== Q3 Class Diagram ========== -->
+  <h2 class="page-break">البند 3 — مخطط الأصناف Class Diagram (20 علامة)</h2>
+  <p>الأصناف تغطي بيانات الدارس ومشرف النظام والمقررات وعملية التسجيل، مع علاقات وخصائص وعمليات.</p>
+  <div class="fig">
+<svg viewBox="0 0 920 620" xmlns="http://www.w3.org/2000/svg">
+  <rect width="920" height="620" fill="#f7fbff"/>
+  <text x="460" y="28" text-anchor="middle" fill="#888" font-size="12" font-family="Arial">Package: Your_Full_Four_Part_Name</text>
+
+  <!-- Student -->
+  <rect x="40" y="50" width="200" height="200" fill="#fff" stroke="#0b3d5c" stroke-width="2"/>
+  <rect x="40" y="50" width="200" height="28" fill="#4A90D9"/>
+  <text x="140" y="70" text-anchor="middle" fill="#fff" font-size="14" font-family="Arial" font-weight="bold">Student</text>
+  <line x1="40" y1="78" x2="240" y2="78" stroke="#0b3d5c" stroke-width="1.5"/>
+  <text x="50" y="100" fill="#111" font-size="12" font-family="Consolas, monospace">- studentId: String</text>
+  <text x="50" y="118" fill="#111" font-size="12" font-family="Consolas, monospace">- name: String</text>
+  <text x="50" y="136" fill="#111" font-size="12" font-family="Consolas, monospace">- password: String</text>
+  <text x="50" y="154" fill="#111" font-size="12" font-family="Consolas, monospace">- mobile: String</text>
+  <text x="50" y="172" fill="#111" font-size="12" font-family="Consolas, monospace">- modifiedCourses: List</text>
+  <line x1="40" y1="185" x2="240" y2="185" stroke="#0b3d5c" stroke-width="1.5"/>
+  <text x="50" y="205" fill="#111" font-size="12" font-family="Consolas, monospace">+ login()</text>
+  <text x="50" y="223" fill="#111" font-size="12" font-family="Consolas, monospace">+ viewAvailableCourses()</text>
+  <text x="50" y="241" fill="#111" font-size="11" font-family="Consolas, monospace">+ confirmCourseList()</text>
+
+  <!-- Administrator -->
+  <rect x="680" y="50" width="200" height="180" fill="#fff" stroke="#0b3d5c" stroke-width="2"/>
+  <rect x="680" y="50" width="200" height="28" fill="#e76f51"/>
+  <text x="780" y="70" text-anchor="middle" fill="#fff" font-size="14" font-family="Arial" font-weight="bold">Administrator</text>
+  <line x1="680" y1="78" x2="880" y2="78" stroke="#0b3d5c" stroke-width="1.5"/>
+  <text x="690" y="100" fill="#111" font-size="12" font-family="Consolas, monospace">- adminId: String</text>
+  <text x="690" y="118" fill="#111" font-size="12" font-family="Consolas, monospace">- name: String</text>
+  <text x="690" y="136" fill="#111" font-size="12" font-family="Consolas, monospace">- loginId: String</text>
+  <text x="690" y="154" fill="#111" font-size="12" font-family="Consolas, monospace">- password: String</text>
+  <line x1="680" y1="165" x2="880" y2="165" stroke="#0b3d5c" stroke-width="1.5"/>
+  <text x="690" y="185" fill="#111" font-size="12" font-family="Consolas, monospace">+ login()</text>
+  <text x="690" y="203" fill="#111" font-size="11" font-family="Consolas, monospace">+ registerExceptionalCourse()</text>
+  <text x="690" y="221" fill="#111" font-size="11" font-family="Consolas, monospace">+ viewStudentCourses()</text>
+
+  <!-- Course -->
+  <rect x="360" y="50" width="200" height="170" fill="#fff" stroke="#0b3d5c" stroke-width="2"/>
+  <rect x="360" y="50" width="200" height="28" fill="#2a9d8f"/>
+  <text x="460" y="70" text-anchor="middle" fill="#fff" font-size="14" font-family="Arial" font-weight="bold">Course</text>
+  <line x1="360" y1="78" x2="560" y2="78" stroke="#0b3d5c" stroke-width="1.5"/>
+  <text x="370" y="100" fill="#111" font-size="12" font-family="Consolas, monospace">- courseCode: String</text>
+  <text x="370" y="118" fill="#111" font-size="12" font-family="Consolas, monospace">- courseName: String</text>
+  <text x="370" y="136" fill="#111" font-size="12" font-family="Consolas, monospace">- creditHours: int</text>
+  <text x="370" y="154" fill="#111" font-size="12" font-family="Consolas, monospace">- isExceptional: bool</text>
+  <line x1="360" y1="165" x2="560" y2="165" stroke="#0b3d5c" stroke-width="1.5"/>
+  <text x="370" y="185" fill="#111" font-size="12" font-family="Consolas, monospace">+ getInfo()</text>
+  <text x="370" y="203" fill="#111" font-size="12" font-family="Consolas, monospace">+ isAvailable()</text>
+
+  <!-- Registration -->
+  <rect x="240" y="320" width="220" height="200" fill="#fff" stroke="#0b3d5c" stroke-width="2"/>
+  <rect x="240" y="320" width="220" height="28" fill="#e9c46a"/>
+  <text x="350" y="340" text-anchor="middle" fill="#222" font-size="14" font-family="Arial" font-weight="bold">Registration</text>
+  <line x1="240" y1="348" x2="460" y2="348" stroke="#0b3d5c" stroke-width="1.5"/>
+  <text x="250" y="370" fill="#111" font-size="12" font-family="Consolas, monospace">- registrationId: String</text>
+  <text x="250" y="388" fill="#111" font-size="12" font-family="Consolas, monospace">- status: String</text>
+  <text x="250" y="406" fill="#111" font-size="12" font-family="Consolas, monospace">- isConfirmed: bool</text>
+  <text x="250" y="424" fill="#111" font-size="12" font-family="Consolas, monospace">- registerDate: Date</text>
+  <line x1="240" y1="435" x2="460" y2="435" stroke="#0b3d5c" stroke-width="1.5"/>
+  <text x="250" y="455" fill="#111" font-size="12" font-family="Consolas, monospace">+ addCourse(c: Course)</text>
+  <text x="250" y="473" fill="#111" font-size="12" font-family="Consolas, monospace">+ removeCourse(c: Course)</text>
+  <text x="250" y="491" fill="#111" font-size="12" font-family="Consolas, monospace">+ save()</text>
+  <text x="250" y="509" fill="#111" font-size="12" font-family="Consolas, monospace">+ confirm()</text>
+
+  <!-- RegistrationSystem -->
+  <rect x="560" y="320" width="240" height="180" fill="#fff" stroke="#0b3d5c" stroke-width="2"/>
+  <rect x="560" y="320" width="240" height="28" fill="#7b68a6"/>
+  <text x="680" y="340" text-anchor="middle" fill="#fff" font-size="13" font-family="Arial" font-weight="bold">RegistrationSystem</text>
+  <line x1="560" y1="348" x2="800" y2="348" stroke="#0b3d5c" stroke-width="1.5"/>
+  <text x="570" y="370" fill="#111" font-size="12" font-family="Consolas, monospace">- portalName: String</text>
+  <line x1="560" y1="385" x2="800" y2="385" stroke="#0b3d5c" stroke-width="1.5"/>
+  <text x="570" y="408" fill="#111" font-size="11" font-family="Consolas, monospace">+ authenticate(id, pass)</text>
+  <text x="570" y="426" fill="#111" font-size="11" font-family="Consolas, monospace">+ listAvailableCourses()</text>
+  <text x="570" y="444" fill="#111" font-size="11" font-family="Consolas, monospace">+ getStudentRegistration()</text>
+  <text x="570" y="462" fill="#111" font-size="11" font-family="Consolas, monospace">+ registerExceptional()</text>
+  <text x="570" y="480" fill="#111" font-size="11" font-family="Consolas, monospace">+ saveRegistration()</text>
+
+  <!-- Associations -->
+  <line x1="240" y1="150" x2="360" y2="150" stroke="#333" stroke-width="1.5"/>
+  <text x="300" y="142" text-anchor="middle" fill="#333" font-size="11" font-family="Arial">*</text>
+  <text x="350" y="142" text-anchor="end" fill="#333" font-size="11" font-family="Arial">1</text>
+
+  <line x1="140" y1="250" x2="300" y2="320" stroke="#333" stroke-width="1.5"/>
+  <text x="160" y="290" fill="#333" font-size="11" font-family="Arial">1</text>
+  <text x="250" y="310" fill="#333" font-size="11" font-family="Arial">1..*</text>
+
+  <line x1="460" y1="400" x2="560" y2="150" stroke="#333" stroke-width="1.5"/>
+  <text x="520" y="250" fill="#333" font-size="11" font-family="Arial">*</text>
+  <text x="500" y="200" fill="#333" font-size="11" font-family="Arial">1</text>
+
+  <line x1="460" y1="400" x2="560" y2="400" stroke="#333" stroke-width="1.5"/>
+  <text x="510" y="392" fill="#333" font-size="11" font-family="Arial">يدير</text>
+
+  <line x1="780" y1="230" x2="700" y2="320" stroke="#333" stroke-width="1.5"/>
+  <text x="760" y="280" fill="#333" font-size="11" font-family="Arial">1</text>
+  <text x="720" y="310" fill="#333" font-size="11" font-family="Arial">يستخدم</text>
+</svg>
+  </div>
+  <p class="caption">الشكل 3 — مخطط الأصناف (Class Diagram)</p>
+
+  <!-- ========== Q4 Activity ========== -->
+  <h2 class="page-break">البند 4 — مخطط النشاط Activity Diagram — الدخول إلى النظام (20 علامة)</h2>
+  <p>تدفق حالة <strong>الدخول إلى النظام</strong> عبر بوابة Academic University Portal للدارس أو مشرف النظام.</p>
+  <div class="fig">
+<svg viewBox="0 0 520 780" xmlns="http://www.w3.org/2000/svg">
+  <rect width="520" height="780" fill="#f7fbff"/>
+  <text x="260" y="28" text-anchor="middle" fill="#0b3d5c" font-size="14" font-family="Arial" font-weight="bold">Activity: Login to System</text>
+  <text x="260" y="48" text-anchor="middle" fill="#888" font-size="11" font-family="Arial">Academic University Portal · Package: Your_Full_Four_Part_Name</text>
+
+  <!-- start -->
+  <circle cx="260" cy="75" r="12" fill="#111"/>
+  <line x1="260" y1="87" x2="260" y2="110" stroke="#333" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- open portal -->
+  <rect x="150" y="110" width="220" height="40" rx="18" fill="#E8F4FC" stroke="#4A90D9" stroke-width="2"/>
+  <text x="260" y="135" text-anchor="middle" fill="#111" font-size="13" font-family="Arial">فتح بوابة التسجيل</text>
+  <line x1="260" y1="150" x2="260" y2="175" stroke="#333" stroke-width="2"/>
+
+  <!-- enter credentials -->
+  <rect x="140" y="175" width="240" height="40" rx="18" fill="#E8F4FC" stroke="#4A90D9" stroke-width="2"/>
+  <text x="260" y="200" text-anchor="middle" fill="#111" font-size="13" font-family="Arial">إدخال اسم المستخدم وكلمة المرور</text>
+  <line x1="260" y1="215" x2="260" y2="240" stroke="#333" stroke-width="2"/>
+
+  <!-- submit -->
+  <rect x="160" y="240" width="200" height="40" rx="18" fill="#E8F4FC" stroke="#4A90D9" stroke-width="2"/>
+  <text x="260" y="265" text-anchor="middle" fill="#111" font-size="13" font-family="Arial">الضغط على «دخول»</text>
+  <line x1="260" y1="280" x2="260" y2="310" stroke="#333" stroke-width="2"/>
+
+  <!-- decision -->
+  <polygon points="260,310 310,355 260,400 210,355" fill="#fff8e6" stroke="#e9c46a" stroke-width="2"/>
+  <text x="260" y="360" text-anchor="middle" fill="#111" font-size="12" font-family="Arial">بيانات</text>
+  <text x="260" y="376" text-anchor="middle" fill="#111" font-size="12" font-family="Arial">صحيحة؟</text>
+
+  <!-- yes path right-ish center down -->
+  <line x1="260" y1="400" x2="260" y2="430" stroke="#333" stroke-width="2"/>
+  <text x="275" y="420" fill="#2a9d8f" font-size="12" font-family="Arial">نعم</text>
+
+  <!-- create session -->
+  <rect x="145" y="430" width="230" height="40" rx="18" fill="#d8f3dc" stroke="#2a9d8f" stroke-width="2"/>
+  <text x="260" y="455" text-anchor="middle" fill="#111" font-size="13" font-family="Arial">إنشاء جلسة المستخدم</text>
+  <line x1="260" y1="470" x2="260" y2="500" stroke="#333" stroke-width="2"/>
+
+  <!-- role decision -->
+  <polygon points="260,500 315,550 260,600 205,550" fill="#fff8e6" stroke="#e9c46a" stroke-width="2"/>
+  <text x="260" y="545" text-anchor="middle" fill="#111" font-size="12" font-family="Arial">نوع</text>
+  <text x="260" y="561" text-anchor="middle" fill="#111" font-size="12" font-family="Arial">المستخدم؟</text>
+
+  <!-- student path -->
+  <line x1="205" y1="550" x2="90" y2="550" stroke="#333" stroke-width="2"/>
+  <line x1="90" y1="550" x2="90" y2="630" stroke="#333" stroke-width="2"/>
+  <text x="140" y="540" fill="#4A90D9" font-size="11" font-family="Arial">دارس</text>
+  <rect x="20" y="630" width="140" height="40" rx="18" fill="#E8F4FC" stroke="#4A90D9" stroke-width="2"/>
+  <text x="90" y="655" text-anchor="middle" fill="#111" font-size="12" font-family="Arial">واجهة الدارس</text>
+
+  <!-- admin path -->
+  <line x1="315" y1="550" x2="430" y2="550" stroke="#333" stroke-width="2"/>
+  <line x1="430" y1="550" x2="430" y2="630" stroke="#333" stroke-width="2"/>
+  <text x="370" y="540" fill="#e76f51" font-size="11" font-family="Arial">مشرف</text>
+  <rect x="360" y="630" width="140" height="40" rx="18" fill="#fff0eb" stroke="#e76f51" stroke-width="2"/>
+  <text x="430" y="655" text-anchor="middle" fill="#111" font-size="12" font-family="Arial">واجهة المشرف</text>
+
+  <!-- merge to end -->
+  <line x1="90" y1="670" x2="90" y2="710" stroke="#333" stroke-width="2"/>
+  <line x1="430" y1="670" x2="430" y2="710" stroke="#333" stroke-width="2"/>
+  <line x1="90" y1="710" x2="430" y2="710" stroke="#333" stroke-width="2"/>
+  <line x1="260" y1="710" x2="260" y2="735" stroke="#333" stroke-width="2"/>
+  <circle cx="260" cy="750" r="12" fill="#fff" stroke="#111" stroke-width="3"/>
+  <circle cx="260" cy="750" r="6" fill="#111"/>
+
+  <!-- no path - left loop -->
+  <line x1="210" y1="355" x2="70" y2="355" stroke="#333" stroke-width="2"/>
+  <text x="130" y="345" fill="#c44536" font-size="12" font-family="Arial">لا</text>
+  <rect x="10" y="300" width="120" height="50" rx="14" fill="#ffe8d6" stroke="#e76f51" stroke-width="2"/>
+  <text x="70" y="322" text-anchor="middle" fill="#111" font-size="11" font-family="Arial">عرض رسالة</text>
+  <text x="70" y="338" text-anchor="middle" fill="#111" font-size="11" font-family="Arial">خطأ</text>
+  <line x1="70" y1="300" x2="70" y2="195" stroke="#333" stroke-width="2"/>
+  <line x1="70" y1="195" x2="140" y2="195" stroke="#333" stroke-width="2"/>
+</svg>
+  </div>
+  <p class="caption">الشكل 4 — مخطط النشاط لحالة الدخول إلى النظام</p>
+
+  <h3>خطوات التدفق باختصار</h3>
+  <ol>
+    <li>فتح بوابة Academic University Portal</li>
+    <li>إدخال اسم المستخدم وكلمة المرور ثم ضغط «دخول»</li>
+    <li>إن كانت البيانات خاطئة ← رسالة خطأ وإعادة الإدخال</li>
+    <li>إن كانت صحيحة ← إنشاء جلسة ثم توجيه حسب الدور (دارس / مشرف)</li>
+  </ol>
+
+  <!-- ========== Q5 Code ========== -->
+  <h2 class="page-break">البند 5 — كود برمجي لمفهوم من السيناريو (20 علامة)</h2>
+  <p>
+    المفهوم المختار: <strong>تسجيل الدخول + إضافة/حذف مقرر + حفظ وتأكيد قائمة المقررات</strong>
+    بلغة Python (يمكن تنفيذه بأي لغة أخرى بنفس المنطق).
+  </p>
+
+  <pre dir="ltr"># Package conceptually: Your_Full_Four_Part_Name
+# University Electronic Registration System — sample implementation
+
+from dataclasses import dataclass, field
+from typing import List, Optional
+
+
+@dataclass
+class Course:
+    course_code: str
+    course_name: str
+    credit_hours: int
+    is_exceptional: bool = False
+
+    def get_info(self) -> str:
+        tag = " [استثنائي]" if self.is_exceptional else ""
+        return f"{self.course_code} - {self.course_name} ({self.credit_hours}س){tag}"
+
+
+@dataclass
+class Student:
+    student_id: str
+    name: str
+    password: str
+    mobile: str
+    modified_courses: List[Course] = field(default_factory=list)
+
+    def login(self, password: str) -> bool:
+        return self.password == password
+
+
+@dataclass
+class Administrator:
+    admin_id: str
+    name: str
+    login_id: str
+    password: str
+
+    def login(self, login_id: str, password: str) -> bool:
+        return self.login_id == login_id and self.password == password
+
+
+@dataclass
+class Registration:
+    registration_id: str
+    student: Student
+    courses: List[Course] = field(default_factory=list)
+    is_confirmed: bool = False
+    status: str = "draft"
+
+    def add_course(self, course: Course) -> str:
+        if self.is_confirmed:
+            return "لا يمكن التعديل بعد التأكيد"
+        if any(c.course_code == course.course_code for c in self.courses):
+            return "المقرر مسجّل مسبقاً"
+        self.courses.append(course)
+        self.student.modified_courses = list(self.courses)
+        return f"تمت إضافة: {course.course_code}"
+
+    def remove_course(self, course_code: str) -> str:
+        if self.is_confirmed:
+            return "لا يمكن التعديل بعد التأكيد"
+        before = len(self.courses)
+        self.courses = [c for c in self.courses if c.course_code != course_code]
+        self.student.modified_courses = list(self.courses)
+        return "تم الحذف" if len(self.courses) &lt; before else "المقرر غير موجود"
+
+    def save(self) -> str:
+        self.status = "saved"
+        return f"تم حفظ {len(self.courses)} مقرر/مقررات"
+
+    def confirm(self) -> str:
+        if not self.courses:
+            return "لا توجد مقررات لتأكيدها"
+        self.save()
+        self.is_confirmed = True
+        self.status = "confirmed"
+        return "تم تأكيد قائمة المقررات بنجاح"
+
+
+class RegistrationSystem:
+    """Academic University Portal"""
+
+    def __init__(self):
+        self.portal_name = "Academic University Portal"
+        self.available_courses: List[Course] = []
+        self.students: dict[str, Student] = {}
+        self.admins: dict[str, Administrator] = {}
+        self.registrations: dict[str, Registration] = {}
+
+    def authenticate_student(self, student_id: str, password: str) -> Optional[Student]:
+        student = self.students.get(student_id)
+        if student and student.login(password):
+            return student
+        return None
+
+    def authenticate_admin(self, login_id: str, password: str) -> Optional[Administrator]:
+        for admin in self.admins.values():
+            if admin.login(login_id, password):
+                return admin
+        return None
+
+    def list_available_courses(self) -> List[Course]:
+        return list(self.available_courses)
+
+    def register_exceptional_course(
+        self, admin: Administrator, student_id: str, course: Course
+    ) -> str:
+        if admin is None:
+            return "صلاحية مشرف مطلوبة"
+        reg = self.registrations.get(student_id)
+        if reg is None:
+            return "لا يوجد تسجيل للطالب"
+        course.is_exceptional = True
+        return reg.add_course(course)
+
+    def view_student_courses(self, student_id: str) -> List[str]:
+        reg = self.registrations.get(student_id)
+        if not reg:
+            return []
+        return [c.get_info() for c in reg.courses]
+
+
+# ---------- مثال تشغيل مبسّط ----------
+if __name__ == "__main__":
+    system = RegistrationSystem()
+
+    c1 = Course("0101", "مقدمة في الحاسوب", 3)
+    c2 = Course("0102", "رياضيات عامة", 3)
+    system.available_courses.extend([c1, c2])
+
+    student = Student("123456789", "دارس تجريبي", "pass123", "0599000000")
+    system.students[student.student_id] = student
+    system.registrations[student.student_id] = Registration("R1", student)
+
+    admin = Administrator("A1", "مشرف النظام", "admin", "admin@123")
+    system.admins[admin.admin_id] = admin
+
+    # دخول الدارس
+    user = system.authenticate_student("123456789", "pass123")
+    print("Login:", "نجاح" if user else "فشل")
+
+    # عرض / إضافة / حفظ / تأكيد
+    reg = system.registrations[student.student_id]
+    print("Available:", [c.get_info() for c in system.list_available_courses()])
+    print(reg.add_course(c1))
+    print(reg.add_course(c2))
+    print(reg.save())
+    print(reg.confirm())
+
+    # مشرف: عرض مقررات طالب + مقرر استثنائي
+    print("Admin view:", system.view_student_courses(student.student_id))
+    exceptional = Course("0999", "مقرر استثنائي", 3)
+    print(system.register_exceptional_course(admin, student.student_id, exceptional))
+  </pre>
+
+  <p class="caption">الشكل 5 — كود Python يغطي مفاهيم السيناريو (دخول، إضافة/حذف، حفظ، تأكيد، مقرر استثنائي)</p>
+
+  <div class="footer">
+    انتهت الأسئلة — بالتوفيق والنجاح<br>
+    <span style="font-size:11pt">ملف الحل: docs/exams/se-practical-1253/exam-solution.html</span>
+  </div>
+
+</body>
+</html>
