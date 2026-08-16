@@ -2,19 +2,27 @@
 
 جامعة القدس المفتوحة — نظام التسجيل الجامعي الإلكتروني.
 
-## الملفات
+## صور المخططات (PNG)
+
+| الصورة | البند |
+|--------|--------|
+| `images/01-package.png` | 1 — Package |
+| `images/02-use-case.png` | 2 — Use Case |
+| `images/03-class.png` | 3 — Class |
+| `images/04-activity-login.png` | 4 — Activity (الدخول) |
+
+## بقية الملفات
 
 | الملف | المحتوى |
 |--------|---------|
-| `exam-solution.html` | الحل الكامل للطباعة (Package + Use Case + Class + Activity + كود) |
-| `registration_system.py` | كود البند 5 قابل للتشغيل |
+| `exam-solution.html` | الحل الكامل للطباعة |
+| `registration_system.py` | كود البند 5 |
 
 ## قبل التسليم
 
-1. افتح `exam-solution.html` في المتصفح.
-2. استبدل `Your_Full_Four_Part_Name` باسمك الرباعي في كل المواضع.
-3. املأ اسم الدارس ورقم الدارس في أعلى الصفحة.
-4. اطبع PDF من المتصفح أو انسخ المخططات إلى StarUML/Word إن طُلب.
+1. استبدل `Your_Full_Four_Part_Name` باسمك الرباعي.
+2. املأ اسم/رقم الدارس.
+3. أدرج صور `images/*.png` في Word أو اطبع من HTML.
 
 ## تشغيل الكود
 

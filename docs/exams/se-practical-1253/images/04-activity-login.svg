@@ -1,0 +1,74 @@
+<svg viewBox="0 0 520 780" xmlns="http://www.w3.org/2000/svg">
+  <rect width="520" height="780" fill="#f7fbff"/>
+  <text x="260" y="28" text-anchor="middle" fill="#0b3d5c" font-size="14" font-family="Noto Sans Arabic, DejaVu Sans, Arial" font-weight="bold">Activity: Login to System</text>
+  <text x="260" y="48" text-anchor="middle" fill="#888" font-size="11" font-family="Noto Sans Arabic, DejaVu Sans, Arial">Academic University Portal · Package: Your_Full_Four_Part_Name</text>
+
+  <!-- start -->
+  <circle cx="260" cy="75" r="12" fill="#111"/>
+  <line x1="260" y1="87" x2="260" y2="110" stroke="#333" stroke-width="2"/>
+
+  <!-- open portal -->
+  <rect x="150" y="110" width="220" height="40" rx="18" fill="#E8F4FC" stroke="#4A90D9" stroke-width="2"/>
+  <text x="260" y="135" text-anchor="middle" fill="#111" font-size="13" font-family="Noto Sans Arabic, DejaVu Sans, Arial">فتح بوابة التسجيل</text>
+  <line x1="260" y1="150" x2="260" y2="175" stroke="#333" stroke-width="2"/>
+
+  <!-- enter credentials -->
+  <rect x="140" y="175" width="240" height="40" rx="18" fill="#E8F4FC" stroke="#4A90D9" stroke-width="2"/>
+  <text x="260" y="200" text-anchor="middle" fill="#111" font-size="13" font-family="Noto Sans Arabic, DejaVu Sans, Arial">إدخال اسم المستخدم وكلمة المرور</text>
+  <line x1="260" y1="215" x2="260" y2="240" stroke="#333" stroke-width="2"/>
+
+  <!-- submit -->
+  <rect x="160" y="240" width="200" height="40" rx="18" fill="#E8F4FC" stroke="#4A90D9" stroke-width="2"/>
+  <text x="260" y="265" text-anchor="middle" fill="#111" font-size="13" font-family="Noto Sans Arabic, DejaVu Sans, Arial">الضغط على «دخول»</text>
+  <line x1="260" y1="280" x2="260" y2="310" stroke="#333" stroke-width="2"/>
+
+  <!-- decision -->
+  <polygon points="260,310 310,355 260,400 210,355" fill="#fff8e6" stroke="#e9c46a" stroke-width="2"/>
+  <text x="260" y="360" text-anchor="middle" fill="#111" font-size="12" font-family="Noto Sans Arabic, DejaVu Sans, Arial">بيانات</text>
+  <text x="260" y="376" text-anchor="middle" fill="#111" font-size="12" font-family="Noto Sans Arabic, DejaVu Sans, Arial">صحيحة؟</text>
+
+  <!-- yes path right-ish center down -->
+  <line x1="260" y1="400" x2="260" y2="430" stroke="#333" stroke-width="2"/>
+  <text x="275" y="420" fill="#2a9d8f" font-size="12" font-family="Noto Sans Arabic, DejaVu Sans, Arial">نعم</text>
+
+  <!-- create session -->
+  <rect x="145" y="430" width="230" height="40" rx="18" fill="#d8f3dc" stroke="#2a9d8f" stroke-width="2"/>
+  <text x="260" y="455" text-anchor="middle" fill="#111" font-size="13" font-family="Noto Sans Arabic, DejaVu Sans, Arial">إنشاء جلسة المستخدم</text>
+  <line x1="260" y1="470" x2="260" y2="500" stroke="#333" stroke-width="2"/>
+
+  <!-- role decision -->
+  <polygon points="260,500 315,550 260,600 205,550" fill="#fff8e6" stroke="#e9c46a" stroke-width="2"/>
+  <text x="260" y="545" text-anchor="middle" fill="#111" font-size="12" font-family="Noto Sans Arabic, DejaVu Sans, Arial">نوع</text>
+  <text x="260" y="561" text-anchor="middle" fill="#111" font-size="12" font-family="Noto Sans Arabic, DejaVu Sans, Arial">المستخدم؟</text>
+
+  <!-- student path -->
+  <line x1="205" y1="550" x2="90" y2="550" stroke="#333" stroke-width="2"/>
+  <line x1="90" y1="550" x2="90" y2="630" stroke="#333" stroke-width="2"/>
+  <text x="140" y="540" fill="#4A90D9" font-size="11" font-family="Noto Sans Arabic, DejaVu Sans, Arial">دارس</text>
+  <rect x="20" y="630" width="140" height="40" rx="18" fill="#E8F4FC" stroke="#4A90D9" stroke-width="2"/>
+  <text x="90" y="655" text-anchor="middle" fill="#111" font-size="12" font-family="Noto Sans Arabic, DejaVu Sans, Arial">واجهة الدارس</text>
+
+  <!-- admin path -->
+  <line x1="315" y1="550" x2="430" y2="550" stroke="#333" stroke-width="2"/>
+  <line x1="430" y1="550" x2="430" y2="630" stroke="#333" stroke-width="2"/>
+  <text x="370" y="540" fill="#e76f51" font-size="11" font-family="Noto Sans Arabic, DejaVu Sans, Arial">مشرف</text>
+  <rect x="360" y="630" width="140" height="40" rx="18" fill="#fff0eb" stroke="#e76f51" stroke-width="2"/>
+  <text x="430" y="655" text-anchor="middle" fill="#111" font-size="12" font-family="Noto Sans Arabic, DejaVu Sans, Arial">واجهة المشرف</text>
+
+  <!-- merge to end -->
+  <line x1="90" y1="670" x2="90" y2="710" stroke="#333" stroke-width="2"/>
+  <line x1="430" y1="670" x2="430" y2="710" stroke="#333" stroke-width="2"/>
+  <line x1="90" y1="710" x2="430" y2="710" stroke="#333" stroke-width="2"/>
+  <line x1="260" y1="710" x2="260" y2="735" stroke="#333" stroke-width="2"/>
+  <circle cx="260" cy="750" r="12" fill="#fff" stroke="#111" stroke-width="3"/>
+  <circle cx="260" cy="750" r="6" fill="#111"/>
+
+  <!-- no path - left loop -->
+  <line x1="210" y1="355" x2="70" y2="355" stroke="#333" stroke-width="2"/>
+  <text x="130" y="345" fill="#c44536" font-size="12" font-family="Noto Sans Arabic, DejaVu Sans, Arial">لا</text>
+  <rect x="10" y="300" width="120" height="50" rx="14" fill="#ffe8d6" stroke="#e76f51" stroke-width="2"/>
+  <text x="70" y="322" text-anchor="middle" fill="#111" font-size="11" font-family="Noto Sans Arabic, DejaVu Sans, Arial">عرض رسالة</text>
+  <text x="70" y="338" text-anchor="middle" fill="#111" font-size="11" font-family="Noto Sans Arabic, DejaVu Sans, Arial">خطأ</text>
+  <line x1="70" y1="300" x2="70" y2="195" stroke="#333" stroke-width="2"/>
+  <line x1="70" y1="195" x2="140" y2="195" stroke="#333" stroke-width="2"/>
+</svg>

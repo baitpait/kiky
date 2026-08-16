@@ -1,0 +1,94 @@
+<svg viewBox="0 0 920 620" xmlns="http://www.w3.org/2000/svg">
+  <rect width="920" height="620" fill="#f7fbff"/>
+  <text x="460" y="28" text-anchor="middle" fill="#888" font-size="12" font-family="Noto Sans Arabic, DejaVu Sans, Arial">Package: Your_Full_Four_Part_Name</text>
+
+  <!-- Student -->
+  <rect x="40" y="50" width="200" height="200" fill="#fff" stroke="#0b3d5c" stroke-width="2"/>
+  <rect x="40" y="50" width="200" height="28" fill="#4A90D9"/>
+  <text x="140" y="70" text-anchor="middle" fill="#fff" font-size="14" font-family="Noto Sans Arabic, DejaVu Sans, Arial" font-weight="bold">Student</text>
+  <line x1="40" y1="78" x2="240" y2="78" stroke="#0b3d5c" stroke-width="1.5"/>
+  <text x="50" y="100" fill="#111" font-size="12" font-family="DejaVu Sans Mono, monospace">- studentId: String</text>
+  <text x="50" y="118" fill="#111" font-size="12" font-family="DejaVu Sans Mono, monospace">- name: String</text>
+  <text x="50" y="136" fill="#111" font-size="12" font-family="DejaVu Sans Mono, monospace">- password: String</text>
+  <text x="50" y="154" fill="#111" font-size="12" font-family="DejaVu Sans Mono, monospace">- mobile: String</text>
+  <text x="50" y="172" fill="#111" font-size="12" font-family="DejaVu Sans Mono, monospace">- modifiedCourses: List</text>
+  <line x1="40" y1="185" x2="240" y2="185" stroke="#0b3d5c" stroke-width="1.5"/>
+  <text x="50" y="205" fill="#111" font-size="12" font-family="DejaVu Sans Mono, monospace">+ login()</text>
+  <text x="50" y="223" fill="#111" font-size="12" font-family="DejaVu Sans Mono, monospace">+ viewAvailableCourses()</text>
+  <text x="50" y="241" fill="#111" font-size="11" font-family="DejaVu Sans Mono, monospace">+ confirmCourseList()</text>
+
+  <!-- Administrator -->
+  <rect x="680" y="50" width="200" height="180" fill="#fff" stroke="#0b3d5c" stroke-width="2"/>
+  <rect x="680" y="50" width="200" height="28" fill="#e76f51"/>
+  <text x="780" y="70" text-anchor="middle" fill="#fff" font-size="14" font-family="Noto Sans Arabic, DejaVu Sans, Arial" font-weight="bold">Administrator</text>
+  <line x1="680" y1="78" x2="880" y2="78" stroke="#0b3d5c" stroke-width="1.5"/>
+  <text x="690" y="100" fill="#111" font-size="12" font-family="DejaVu Sans Mono, monospace">- adminId: String</text>
+  <text x="690" y="118" fill="#111" font-size="12" font-family="DejaVu Sans Mono, monospace">- name: String</text>
+  <text x="690" y="136" fill="#111" font-size="12" font-family="DejaVu Sans Mono, monospace">- loginId: String</text>
+  <text x="690" y="154" fill="#111" font-size="12" font-family="DejaVu Sans Mono, monospace">- password: String</text>
+  <line x1="680" y1="165" x2="880" y2="165" stroke="#0b3d5c" stroke-width="1.5"/>
+  <text x="690" y="185" fill="#111" font-size="12" font-family="DejaVu Sans Mono, monospace">+ login()</text>
+  <text x="690" y="203" fill="#111" font-size="11" font-family="DejaVu Sans Mono, monospace">+ registerExceptionalCourse()</text>
+  <text x="690" y="221" fill="#111" font-size="11" font-family="DejaVu Sans Mono, monospace">+ viewStudentCourses()</text>
+
+  <!-- Course -->
+  <rect x="360" y="50" width="200" height="170" fill="#fff" stroke="#0b3d5c" stroke-width="2"/>
+  <rect x="360" y="50" width="200" height="28" fill="#2a9d8f"/>
+  <text x="460" y="70" text-anchor="middle" fill="#fff" font-size="14" font-family="Noto Sans Arabic, DejaVu Sans, Arial" font-weight="bold">Course</text>
+  <line x1="360" y1="78" x2="560" y2="78" stroke="#0b3d5c" stroke-width="1.5"/>
+  <text x="370" y="100" fill="#111" font-size="12" font-family="DejaVu Sans Mono, monospace">- courseCode: String</text>
+  <text x="370" y="118" fill="#111" font-size="12" font-family="DejaVu Sans Mono, monospace">- courseName: String</text>
+  <text x="370" y="136" fill="#111" font-size="12" font-family="DejaVu Sans Mono, monospace">- creditHours: int</text>
+  <text x="370" y="154" fill="#111" font-size="12" font-family="DejaVu Sans Mono, monospace">- isExceptional: bool</text>
+  <line x1="360" y1="165" x2="560" y2="165" stroke="#0b3d5c" stroke-width="1.5"/>
+  <text x="370" y="185" fill="#111" font-size="12" font-family="DejaVu Sans Mono, monospace">+ getInfo()</text>
+  <text x="370" y="203" fill="#111" font-size="12" font-family="DejaVu Sans Mono, monospace">+ isAvailable()</text>
+
+  <!-- Registration -->
+  <rect x="240" y="320" width="220" height="200" fill="#fff" stroke="#0b3d5c" stroke-width="2"/>
+  <rect x="240" y="320" width="220" height="28" fill="#e9c46a"/>
+  <text x="350" y="340" text-anchor="middle" fill="#222" font-size="14" font-family="Noto Sans Arabic, DejaVu Sans, Arial" font-weight="bold">Registration</text>
+  <line x1="240" y1="348" x2="460" y2="348" stroke="#0b3d5c" stroke-width="1.5"/>
+  <text x="250" y="370" fill="#111" font-size="12" font-family="DejaVu Sans Mono, monospace">- registrationId: String</text>
+  <text x="250" y="388" fill="#111" font-size="12" font-family="DejaVu Sans Mono, monospace">- status: String</text>
+  <text x="250" y="406" fill="#111" font-size="12" font-family="DejaVu Sans Mono, monospace">- isConfirmed: bool</text>
+  <text x="250" y="424" fill="#111" font-size="12" font-family="DejaVu Sans Mono, monospace">- registerDate: Date</text>
+  <line x1="240" y1="435" x2="460" y2="435" stroke="#0b3d5c" stroke-width="1.5"/>
+  <text x="250" y="455" fill="#111" font-size="12" font-family="DejaVu Sans Mono, monospace">+ addCourse(c: Course)</text>
+  <text x="250" y="473" fill="#111" font-size="12" font-family="DejaVu Sans Mono, monospace">+ removeCourse(c: Course)</text>
+  <text x="250" y="491" fill="#111" font-size="12" font-family="DejaVu Sans Mono, monospace">+ save()</text>
+  <text x="250" y="509" fill="#111" font-size="12" font-family="DejaVu Sans Mono, monospace">+ confirm()</text>
+
+  <!-- RegistrationSystem -->
+  <rect x="560" y="320" width="240" height="180" fill="#fff" stroke="#0b3d5c" stroke-width="2"/>
+  <rect x="560" y="320" width="240" height="28" fill="#7b68a6"/>
+  <text x="680" y="340" text-anchor="middle" fill="#fff" font-size="13" font-family="Noto Sans Arabic, DejaVu Sans, Arial" font-weight="bold">RegistrationSystem</text>
+  <line x1="560" y1="348" x2="800" y2="348" stroke="#0b3d5c" stroke-width="1.5"/>
+  <text x="570" y="370" fill="#111" font-size="12" font-family="DejaVu Sans Mono, monospace">- portalName: String</text>
+  <line x1="560" y1="385" x2="800" y2="385" stroke="#0b3d5c" stroke-width="1.5"/>
+  <text x="570" y="408" fill="#111" font-size="11" font-family="DejaVu Sans Mono, monospace">+ authenticate(id, pass)</text>
+  <text x="570" y="426" fill="#111" font-size="11" font-family="DejaVu Sans Mono, monospace">+ listAvailableCourses()</text>
+  <text x="570" y="444" fill="#111" font-size="11" font-family="DejaVu Sans Mono, monospace">+ getStudentRegistration()</text>
+  <text x="570" y="462" fill="#111" font-size="11" font-family="DejaVu Sans Mono, monospace">+ registerExceptional()</text>
+  <text x="570" y="480" fill="#111" font-size="11" font-family="DejaVu Sans Mono, monospace">+ saveRegistration()</text>
+
+  <!-- Associations -->
+  <line x1="240" y1="150" x2="360" y2="150" stroke="#333" stroke-width="1.5"/>
+  <text x="300" y="142" text-anchor="middle" fill="#333" font-size="11" font-family="Noto Sans Arabic, DejaVu Sans, Arial">*</text>
+  <text x="350" y="142" text-anchor="end" fill="#333" font-size="11" font-family="Noto Sans Arabic, DejaVu Sans, Arial">1</text>
+
+  <line x1="140" y1="250" x2="300" y2="320" stroke="#333" stroke-width="1.5"/>
+  <text x="160" y="290" fill="#333" font-size="11" font-family="Noto Sans Arabic, DejaVu Sans, Arial">1</text>
+  <text x="250" y="310" fill="#333" font-size="11" font-family="Noto Sans Arabic, DejaVu Sans, Arial">1..*</text>
+
+  <line x1="460" y1="400" x2="560" y2="150" stroke="#333" stroke-width="1.5"/>
+  <text x="520" y="250" fill="#333" font-size="11" font-family="Noto Sans Arabic, DejaVu Sans, Arial">*</text>
+  <text x="500" y="200" fill="#333" font-size="11" font-family="Noto Sans Arabic, DejaVu Sans, Arial">1</text>
+
+  <line x1="460" y1="400" x2="560" y2="400" stroke="#333" stroke-width="1.5"/>
+  <text x="510" y="392" fill="#333" font-size="11" font-family="Noto Sans Arabic, DejaVu Sans, Arial">يدير</text>
+
+  <line x1="780" y1="230" x2="700" y2="320" stroke="#333" stroke-width="1.5"/>
+  <text x="760" y="280" fill="#333" font-size="11" font-family="Noto Sans Arabic, DejaVu Sans, Arial">1</text>
+  <text x="720" y="310" fill="#333" font-size="11" font-family="Noto Sans Arabic, DejaVu Sans, Arial">يستخدم</text>
+</svg>
